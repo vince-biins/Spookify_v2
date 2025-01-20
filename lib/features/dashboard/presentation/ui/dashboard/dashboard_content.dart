@@ -11,14 +11,31 @@ class _DashboardContent extends StatelessWidget {
         const SizedBox(
           height: 16.0,
         ),
-        _buildHorizontalSection(context: context),
-        _buildHorizontalSection(context: context),
-        _buildHorizontalSection(context: context),
+        _buildHorizontalSection(
+          context: context,
+          sectionTitle: 'Recommendations',
+        ),
+        _buildHorizontalSection(
+          context: context,
+          sectionTitle: 'Playlists',
+          showButton: true,
+          onPressed: () {},
+        ),
+        _buildHorizontalSection(
+          context: context,
+          sectionTitle: 'Artists',
+          showButton: true,
+        ),
       ],
     );
   }
 
-  Widget _buildHorizontalSection({required BuildContext context}) {
+  Widget _buildHorizontalSection({
+    required BuildContext context,
+    required String sectionTitle,
+    bool showButton = false,
+    void Function()? onPressed,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
@@ -26,12 +43,27 @@ class _DashboardContent extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              'Recommendations',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontWeight: FontWeight.bold, letterSpacing: 1.5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  sectionTitle,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.5,
+                      ),
+                ),
+                if (showButton && onPressed != null)
+                  TextButton(
+                    onPressed: onPressed,
+                    child: const Text(
+                      'Show all',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
           const SizedBox(
@@ -77,6 +109,7 @@ class _DashboardContent extends StatelessWidget {
               imageSrc:
                   'https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg',
               title: 'Daily Mix 1',
+              onTap: () => context.push(TrackDestination.track.pathUrl),
             );
           }),
         ),
