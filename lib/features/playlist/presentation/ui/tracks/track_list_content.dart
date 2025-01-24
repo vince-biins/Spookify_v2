@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spookify_v2/core/navigation/destinations.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
+import 'package:spookify_v2/core/utils/track_type.dart';
+
+import 'package:spookify_v2/features/playlist/domain/model/track.dart';
 import 'package:spookify_v2/features/playlist/presentation/widgets/custom_app_bar.dart';
 import 'package:spookify_v2/features/playlist/presentation/widgets/song_item_tile.dart';
 import 'package:spookify_v2/features/playlist/presentation/widgets/sticky_play_button.dart';
 import 'package:spookify_v2/features/playlist/presentation/widgets/track_info_section.dart';
 
 class TrackListContent extends StatefulWidget {
-  const TrackListContent({super.key});
+  final List<Track> track;
+  final TrackDataProvider extra;
+  const TrackListContent({
+    super.key,
+    required this.track,
+    required this.extra,
+  });
 
   @override
   State<TrackListContent> createState() => _TrackListContentState();
@@ -17,10 +29,15 @@ class _TrackListContentState extends State<TrackListContent> {
   late double playPauseButtonSize;
   late double infoBoxHeight;
 
+  late List<Track> track;
+  late bool _shouldShowHeader;
+
   @override
   void initState() {
     super.initState();
+    track = widget.track;
     _scrollController = ScrollController();
+    _shouldShowHeader = track.first.type == TrackType.artist;
   }
 
   @override
@@ -50,20 +67,61 @@ class _TrackListContentState extends State<TrackListContent> {
             CustomAppBar(
               maxHeight: maxAppBarHeight,
               minHeight: minAppBarHeight,
+              extra: widget.extra,
             ),
-            TrackInfoSection(infoBoxHeight: infoBoxHeight),
+            TrackInfoSection(
+              infoBoxHeight: infoBoxHeight,
+              extra: widget.extra,
+            ),
+            if (_shouldShowHeader)
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: Text(
+                    'Top Tracks',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => DecoratedBox(
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,
                   ),
-                  child: SongItemTile(
-                    title: 'Item #$index',
-                    artist: 'Dionela',
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SongItemTile(
+                        track: track[index],
+                        onClickTrack: () {
+                          final extra = TrackDataProvider(
+                            id: track[index].trackId,
+                            imageUrl:
+                                track[index].imageUrl ?? widget.extra.imageUrl,
+                            artist:
+                                track[index].artistName ?? widget.extra.artist,
+                            title: track[index].trackName,
+                            type: track[index].type,
+                          );
+                          GoRouter.of(context).push(
+                            TrackDestination.player.pathUrl,
+                            extra: extra,
+                          );
+                        }),
                   ),
                 ),
-                childCount: 50,
+                childCount: track.length,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: minAppBarHeight * 2,
               ),
             ),
           ],

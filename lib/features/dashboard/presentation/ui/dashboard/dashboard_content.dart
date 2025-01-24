@@ -1,30 +1,68 @@
 part of 'dashboard_page.dart';
 
 class _DashboardContent extends StatelessWidget {
-  const _DashboardContent();
+  final List<Category> categories;
+  final List<Artist> artists;
+  final List<Album> albums;
+  const _DashboardContent({
+    required this.categories,
+    required this.artists,
+    required this.albums,
+  });
 
   @override
   Widget build(BuildContext context) {
+    DashboardRepository repository = DashboardRepositoryImpl(service: getIt());
+    repository.getCategories();
     return Column(
       children: [
-        _buildCategorySection(context: context),
+        _buildCategorySection(context: context, categories: categories),
         const SizedBox(
           height: 16.0,
         ),
+        // _buildHorizontalSection(
+        //   context: context,
+        //   sectionTitle: 'Recommendations',
+        // ),
+        // _buildHorizontalSection(
+        //   context: context,
+        //   sectionTitle: 'Playlists',
+        //   showButton: true,
+        //   onPressed: () {},
+        // ),
+
         _buildHorizontalSection(
           context: context,
-          sectionTitle: 'Recommendations',
-        ),
-        _buildHorizontalSection(
-          context: context,
-          sectionTitle: 'Playlists',
+          sectionTitle: 'Albums',
+          item: albums
+              .map(
+                (albums) => DashboardItem(
+                    id: albums.id,
+                    name: albums.name,
+                    imageUrl: albums.imageUrl,
+                    artist:
+                        albums.artist.map((artist) => artist.name).join(','),
+                    type: albums.type),
+              )
+              .toList(),
           showButton: true,
           onPressed: () {},
         ),
         _buildHorizontalSection(
           context: context,
           sectionTitle: 'Artists',
+          item: artists
+              .map(
+                (artist) => DashboardItem(
+                    id: artist.id,
+                    name: artist.name,
+                    imageUrl: artist.imageUrl,
+                    artist: artist.name,
+                    type: artist.type),
+              )
+              .toList(),
           showButton: true,
+          onPressed: () {},
         ),
       ],
     );
@@ -33,6 +71,7 @@ class _DashboardContent extends StatelessWidget {
   Widget _buildHorizontalSection({
     required BuildContext context,
     required String sectionTitle,
+    required List<DashboardItem> item,
     bool showButton = false,
     void Function()? onPressed,
   }) {
@@ -73,11 +112,27 @@ class _DashboardContent extends StatelessWidget {
             height: 230,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 8,
+              itemCount: item.length,
               itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.all(4.0),
-                  child: SectionTile(),
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: SectionTile(
+                    imageUrl: item[index].imageUrl,
+                    title: item[index].name,
+                    onItemClicked: () {
+                      final extra = TrackDataProvider(
+                        id: item[index].id,
+                        imageUrl: item[index].imageUrl,
+                        artist: item[index].artist,
+                        title: item[index].name,
+                        type: item[index].type,
+                      );
+                      GoRouter.of(context).push(
+                        TrackDestination.track.pathUrl,
+                        extra: extra,
+                      );
+                    },
+                  ),
                 );
               },
             ),
@@ -87,7 +142,10 @@ class _DashboardContent extends StatelessWidget {
     );
   }
 
-  Widget _buildCategorySection({required BuildContext context}) {
+  Widget _buildCategorySection({
+    required BuildContext context,
+    required List<Category> categories,
+  }) {
     double screenWidth = MediaQuery.of(context).size.width;
     double tileWidth = (screenWidth - 32) / 2;
     double tileHeight = 60;
@@ -103,13 +161,12 @@ class _DashboardContent extends StatelessWidget {
           mainAxisSpacing: 8,
           padding: const EdgeInsets.all(8.0),
           childAspectRatio: tileWidth / tileHeight,
-          children: List.generate(8, (index) {
+          children: List.generate(categories.length, (index) {
             return CategoryTile(
               width: tileWidth,
-              imageSrc:
-                  'https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg',
-              title: 'Daily Mix 1',
-              onTap: () => context.push(TrackDestination.track.pathUrl),
+              imageSrc: categories[index].imageUrl,
+              title: categories[index].name,
+              onTap: () {},
             );
           }),
         ),

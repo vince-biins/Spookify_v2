@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
 import 'package:spookify_v2/core/theme/app_colors.dart';
 
 class TrackInfoSection extends StatelessWidget {
+  final TrackDataProvider extra;
+  final double infoBoxHeight;
   const TrackInfoSection({
     super.key,
     required this.infoBoxHeight,
+    required this.extra,
   });
-
-  final double infoBoxHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class TrackInfoSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'With Maki, Arthus Nery, Cup of Joe and more',
+                  'With ${extra.artist}',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const SizedBox(
@@ -45,10 +47,10 @@ class TrackInfoSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       backgroundColor: Colors.red,
                       backgroundImage: NetworkImage(
-                        'https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg',
+                        extra.imageUrl,
                       ),
                     ),
                     const SizedBox(

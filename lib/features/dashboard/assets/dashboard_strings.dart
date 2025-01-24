@@ -7,4 +7,6 @@ class DashboardStrings {
   static const String navSearchTitle = 'Playlist';
   static const String navLibraryTitle = 'Your Library';
   static const String navMoreTitle = 'More';
+
+  static const String searchHintText = 'What do you want to listen to?';
 }

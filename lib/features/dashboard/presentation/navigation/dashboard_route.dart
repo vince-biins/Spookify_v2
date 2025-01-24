@@ -7,8 +7,6 @@ import 'package:spookify_v2/features/dashboard/presentation/ui/more/more_page.da
 import 'package:spookify_v2/features/dashboard/presentation/ui/search/search_page.dart';
 import 'package:spookify_v2/features/playlist/presentation/navigation/track_route.dart';
 
-import 'package:spookify_v2/features/playlist/presentation/ui/tracks/track_list_page.dart';
-
 final dashboardRoute = StatefulShellRoute.indexedStack(
   builder: (context, state, navigationShell) => LaunchPage(
     navigationShell: navigationShell,
@@ -17,9 +15,10 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
     StatefulShellBranch(
       routes: [
         GoRoute(
-            path: DashboardDestination.home,
-            builder: (context, state) => const DashboardPage(),
-            routes: trackRoute),
+          path: DashboardDestination.home,
+          builder: (context, state) => DashboardPage(),
+          routes: trackRoute,
+        ),
       ],
     ),
     StatefulShellBranch(

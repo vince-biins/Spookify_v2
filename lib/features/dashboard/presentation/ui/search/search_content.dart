@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spookify_v2/features/dashboard/assets/dashboard_strings.dart';
 
 class SearchContent extends StatelessWidget {
   const SearchContent({super.key});
@@ -25,7 +26,7 @@ class SearchContent extends StatelessWidget {
                   ),
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search),
-                    hintText: 'What do you want to listen to?',
+                    hintText: DashboardStrings.searchHintText,
                   ),
                   onSubmitted: (value) {},
                 ),

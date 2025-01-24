@@ -5,7 +5,7 @@ class SpookifyTheme {
   // Dark Theme
   static final darkTheme = ThemeData(
       useMaterial3: true,
-      fontFamily: 'Rubik',
+      fontFamily: 'CircularSpotify',
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.background,
       colorScheme: const ColorScheme(
@@ -65,7 +65,7 @@ class SpookifyTheme {
   // Light Theme
   static final lightTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Rubik',
+    fontFamily: 'CircularSpotify',
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.secondary,
     colorScheme: const ColorScheme(

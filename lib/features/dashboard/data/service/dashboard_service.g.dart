@@ -22,19 +22,19 @@ class _DashboardService implements DashboardService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<String>> getCategories() async {
+  Future<CategoryResponse> getCategories() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<String>>(Options(
+    final _options = _setStreamType<CategoryResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/mobile/count',
+          'v1/browse/categories?limit=8',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -43,10 +43,10 @@ class _DashboardService implements DashboardService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<String> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late CategoryResponse _value;
     try {
-      _value = _result.data!.cast<String>();
+      _value = CategoryResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -55,19 +55,19 @@ class _DashboardService implements DashboardService {
   }
 
   @override
-  Future<List<String>> getArtists() async {
+  Future<ArtistResponse> getArtists(String ids) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'ids': ids};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<String>>(Options(
+    final _options = _setStreamType<ArtistResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/mobile/count',
+          'v1/artists',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -76,10 +76,10 @@ class _DashboardService implements DashboardService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<String> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ArtistResponse _value;
     try {
-      _value = _result.data!.cast<String>();
+      _value = ArtistResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -88,19 +88,19 @@ class _DashboardService implements DashboardService {
   }
 
   @override
-  Future<List<String>> getAlbums() async {
+  Future<AlbumResponse> getAlbums(String ids) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'ids': ids};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<String>>(Options(
+    final _options = _setStreamType<AlbumResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/mobile/count',
+          'v1/albums',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -109,10 +109,10 @@ class _DashboardService implements DashboardService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<String> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AlbumResponse _value;
     try {
-      _value = _result.data!.cast<String>();
+      _value = AlbumResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

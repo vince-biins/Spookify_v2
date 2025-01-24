@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/features/dashboard/data/assets/dashboard_strings.dart';
+import 'package:spookify_v2/features/dashboard/assets/dashboard_strings.dart';
 
 enum BottomBarContent {
   home(label: DashboardStrings.navHomeTitle, icon: Icons.home),

@@ -2,16 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
 import 'package:spookify_v2/core/theme/app_colors.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/dashboard/dashboard_page.dart';
 
 class CustomAppBar extends StatelessWidget {
   final double maxHeight;
   final double minHeight;
+  final TrackDataProvider extra;
   const CustomAppBar({
     super.key,
     required this.maxHeight,
     required this.minHeight,
+    required this.extra,
   });
 
   @override
@@ -48,8 +50,7 @@ class CustomAppBar extends StatelessWidget {
             children: [
               _buildSliverAppBar(
                 context,
-                imageUrl:
-                    'https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg',
+                imageUrl: extra.imageUrl,
                 albumPositionFromTop: imagePositionFromTop,
                 padding: padding,
                 animateOpacityToZero: animateOpacityToZero,
@@ -59,7 +60,7 @@ class CustomAppBar extends StatelessWidget {
               ),
               _buildFixedAppBar(
                 context: context,
-                title: 'Daily Mix',
+                title: extra.title,
                 titleOpacity: titleOpacity,
                 showFixedAppBar: showFixedAppBar,
               ),
@@ -134,7 +135,7 @@ class CustomAppBar extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.green,
-                  Colors.black54,
+                  Colors.black,
                 ],
               )
             : null,

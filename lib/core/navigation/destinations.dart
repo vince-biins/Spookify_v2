@@ -17,4 +17,9 @@ class TrackDestination {
     path: 'track',
     pathUrl: '${DashboardDestination.home}/track',
   );
+
+  static Destinations player = Destinations(
+    path: 'track/player',
+    pathUrl: '${track.pathUrl}/player',
+  );
 }

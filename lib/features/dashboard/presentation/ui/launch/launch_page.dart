@@ -14,19 +14,16 @@ class LaunchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentRoute =
-        GoRouter.of(context).routeInformationProvider.value.uri.toString();
     final showBottomNavRoutes = [
       DashboardDestination.home,
       DashboardDestination.library,
       DashboardDestination.search,
       DashboardDestination.more,
     ];
-    final showBottomNav =
-        showBottomNavRoutes.any((route) => currentRoute == route);
-
-    print(currentRoute);
-    print(showBottomNav);
+    final showBottomNav = showBottomNavRoutes.any(
+      (route) =>
+          navigationShell.shellRouteContext.routerState.fullPath == route,
+    );
 
     return Scaffold(
       extendBody: true,
