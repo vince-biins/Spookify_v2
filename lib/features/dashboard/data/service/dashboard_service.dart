@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-import 'package:spookify_v2/features/dashboard/data/models/album_response.dart';
-import 'package:spookify_v2/features/dashboard/data/models/artist_response.dart';
-import 'package:spookify_v2/features/dashboard/data/models/category_response.dart';
+import 'package:spookify_v2/features/dashboard/data/models/models.dart';
 
 part 'dashboard_service.g.dart';
 

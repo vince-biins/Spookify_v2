@@ -1,19 +1,25 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:spookify_v2/features/playlist/data/repository/playlist_repository_impl.dart';
-import 'package:spookify_v2/features/playlist/data/service/playlist_service.dart';
-import 'package:spookify_v2/features/playlist/domain/repository/playlist_repository.dart';
-import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
-import 'package:spookify_v2/features/playlist/presentation/bloc/track/track_bloc.dart';
+import 'package:spookify_v2/database/spookify_database.dart';
+import 'package:spookify_v2/features/playlist/data/local/model/model.dart';
+import 'package:spookify_v2/features/playlist/data/remote/remote.dart';
+import 'package:spookify_v2/features/playlist/domain/repository/repository.dart';
+import 'package:spookify_v2/features/playlist/presentation/bloc/provider/provider.dart';
+import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart';
 
-void initializePlaylistLocator(GetIt getIt) {
+void initializePlaylistLocator(GetIt getIt, SpookifyDatabase db) {
   getIt.registerLazySingleton<PlaylistService>(
     () => PlaylistService(getIt<Dio>()),
   );
   getIt.registerLazySingleton<PlaylistRepository>(
     () => PlaylistRepositoryImpl(
       service: getIt<PlaylistService>(),
+      favoriteDao: getIt<FavoriteDao>(),
     ),
+  );
+
+  getIt.registerLazySingleton<FavoriteDao>(
+    () => db.favoriteDao,
   );
 
   getIt.registerFactoryParam<TrackBloc, TrackBlocProvider, void>(

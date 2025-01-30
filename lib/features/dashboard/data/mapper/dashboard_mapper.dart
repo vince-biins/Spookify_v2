@@ -1,10 +1,6 @@
 import 'package:spookify_v2/core/utils/track_type.dart';
-import 'package:spookify_v2/features/dashboard/data/models/album_response.dart';
-import 'package:spookify_v2/features/dashboard/data/models/artist_response.dart';
-import 'package:spookify_v2/features/dashboard/data/models/category_response.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/album.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/artist.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/category.dart';
+import 'package:spookify_v2/features/dashboard/data/models/models.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 
 extension CategoryMapper on CategoryResponse {
   List<Category> transform() => categories.items

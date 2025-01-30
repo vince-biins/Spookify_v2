@@ -20,10 +20,12 @@ class LaunchPage extends StatelessWidget {
       DashboardDestination.search,
       DashboardDestination.more,
     ];
-    final showBottomNav = showBottomNavRoutes.any(
-      (route) =>
-          navigationShell.shellRouteContext.routerState.fullPath == route,
-    );
+    final showBottomNav = showBottomNavRoutes.any((route) {
+      final currentPath =
+          navigationShell.shellRouteContext.routerState.fullPath;
+
+      return currentPath == route;
+    });
 
     return Scaffold(
       extendBody: true,

@@ -4,6 +4,7 @@ import 'package:spookify_v2/router.dart';
 import 'package:spookify_v2/service_locator.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   initializeDependencies();
   runApp(const MainApp());
 }

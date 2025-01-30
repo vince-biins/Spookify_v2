@@ -12,41 +12,27 @@ class _DashboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DashboardRepository repository = DashboardRepositoryImpl(service: getIt());
-    repository.getCategories();
     return Column(
       children: [
         _buildCategorySection(context: context, categories: categories),
         const SizedBox(
           height: 16.0,
         ),
-        // _buildHorizontalSection(
-        //   context: context,
-        //   sectionTitle: 'Recommendations',
-        // ),
-        // _buildHorizontalSection(
-        //   context: context,
-        //   sectionTitle: 'Playlists',
-        //   showButton: true,
-        //   onPressed: () {},
-        // ),
-
         _buildHorizontalSection(
           context: context,
           sectionTitle: 'Albums',
           item: albums
               .map(
                 (albums) => DashboardItem(
-                    id: albums.id,
-                    name: albums.name,
-                    imageUrl: albums.imageUrl,
-                    artist:
-                        albums.artist.map((artist) => artist.name).join(','),
-                    type: albums.type),
+                  id: albums.id,
+                  name: albums.name,
+                  imageUrl: albums.imageUrl,
+                  artist: albums.artist.map((artist) => artist.name).join(','),
+                  type: albums.type,
+                ),
               )
               .toList(),
           showButton: true,
-          onPressed: () {},
         ),
         _buildHorizontalSection(
           context: context,
@@ -62,7 +48,6 @@ class _DashboardContent extends StatelessWidget {
               )
               .toList(),
           showButton: true,
-          onPressed: () {},
         ),
       ],
     );
@@ -73,7 +58,6 @@ class _DashboardContent extends StatelessWidget {
     required String sectionTitle,
     required List<DashboardItem> item,
     bool showButton = false,
-    void Function()? onPressed,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -92,9 +76,15 @@ class _DashboardContent extends StatelessWidget {
                         letterSpacing: 1.5,
                       ),
                 ),
-                if (showButton && onPressed != null)
+                if (showButton)
                   TextButton(
-                    onPressed: onPressed,
+                    onPressed: () {
+                      final extra = item;
+                      GoRouter.of(context).push(
+                        DashboardDestination.categoryList.pathUrl,
+                        extra: extra,
+                      );
+                    },
                     child: const Text(
                       'Show all',
                       style: TextStyle(

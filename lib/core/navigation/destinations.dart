@@ -10,6 +10,10 @@ class DashboardDestination {
   static const String search = '/search';
   static const String library = '/library';
   static const String more = '/more';
+  static const Destinations categoryList = Destinations(
+    path: 'category_list',
+    pathUrl: '${DashboardDestination.home}/category_list',
+  );
 }
 
 class TrackDestination {

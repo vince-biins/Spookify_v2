@@ -4,18 +4,22 @@ class SectionTile extends StatelessWidget {
   final String title;
   final String imageUrl;
   final Function() onItemClicked;
+  final double imageSize;
   const SectionTile({
     super.key,
     required this.title,
     required this.imageUrl,
     required this.onItemClicked,
+    this.imageSize = 150.0,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onItemClicked,
-      child: Container(
+      customBorder:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+      child: Ink(
         width: 150,
         height: 230,
         decoration: BoxDecoration(
@@ -25,13 +29,17 @@ class SectionTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                imageUrl,
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
+            Ink(
+              height: imageSize,
+              width: imageSize,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageUrl,
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(

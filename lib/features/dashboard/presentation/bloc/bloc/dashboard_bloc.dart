@@ -1,13 +1,9 @@
 import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/album.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/artist.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/category.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spookify_v2/features/dashboard/domain/usecase/fetch_album_usecase.dart';
-import 'package:spookify_v2/features/dashboard/domain/usecase/fetch_artist_usecase.dart';
-import 'package:spookify_v2/features/dashboard/domain/usecase/fetch_category_usecase.dart';
+import 'package:spookify_v2/features/dashboard/domain/usecase/usecase.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';

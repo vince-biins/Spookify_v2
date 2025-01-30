@@ -15,9 +15,11 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      customBorder:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       onTap: onTap,
-      child: Container(
+      child: Ink(
         width: width,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -25,13 +27,20 @@ class CategoryTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Image.network(
-                height: 60,
-                width: 60,
-                imageSrc,
-                fit: BoxFit.cover,
+            Ink(
+              height: 60,
+              width: 60,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  bottomLeft: Radius.circular(4.0),
+                ),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageSrc,
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(

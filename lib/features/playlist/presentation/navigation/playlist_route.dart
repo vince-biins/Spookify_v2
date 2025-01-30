@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/destinations.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
-import 'package:spookify_v2/features/playlist/presentation/ui/player/player_page.dart';
-import 'package:spookify_v2/features/playlist/presentation/ui/tracks/track_list_page.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/playlist.dart';
+import 'package:spookify_v2/features/playlist/presentation/ui/ui.dart';
 
-final List<RouteBase> trackRoute = [
+final List<RouteBase> playlistRoute = [
   GoRoute(
     path: TrackDestination.track.path,
     builder: (context, state) {

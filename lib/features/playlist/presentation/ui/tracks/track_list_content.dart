@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/core/navigation/destinations.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
-import 'package:spookify_v2/core/utils/track_type.dart';
+import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/core/utils/utils.dart';
+import 'package:spookify_v2/features/playlist/domain/model/model.dart';
+import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart';
 
-import 'package:spookify_v2/features/playlist/domain/model/track.dart';
-import 'package:spookify_v2/features/playlist/presentation/widgets/custom_app_bar.dart';
-import 'package:spookify_v2/features/playlist/presentation/widgets/song_item_tile.dart';
-import 'package:spookify_v2/features/playlist/presentation/widgets/sticky_play_button.dart';
-import 'package:spookify_v2/features/playlist/presentation/widgets/track_info_section.dart';
+import 'package:spookify_v2/features/playlist/presentation/widgets/widgets.dart';
 
 class TrackListContent extends StatefulWidget {
   final List<Track> track;
@@ -99,6 +97,14 @@ class _TrackListContentState extends State<TrackListContent> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: SongItemTile(
                         track: track[index],
+                        onFavoritClicked: () {
+                          context.read<TrackBloc>().add(
+                                TrackEvent.updateFavoriteTrack(
+                                  track: track[index],
+                                  isFavorite: !track[index].isFavorite,
+                                ),
+                              );
+                        },
                         onClickTrack: () {
                           final extra = TrackDataProvider(
                             id: track[index].trackId,

@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/core/assets/core_strings.dart';
-import 'package:spookify_v2/core/navigation/destinations.dart';
-import 'package:spookify_v2/features/dashboard/data/repository/dashboard_repository_impl.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/album.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/artist.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/category.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/dashboard_item.dart';
-import 'package:spookify_v2/features/dashboard/domain/repository/dashboard_repository.dart';
+import 'package:spookify_v2/core/assets/assets.dart';
+import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/bloc/dashboard_bloc.dart';
-import 'package:spookify_v2/features/dashboard/presentation/navigation/dashboard_route.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
-
-import 'package:spookify_v2/features/dashboard/presentation/widgets/category_tile.dart';
-import 'package:spookify_v2/features/dashboard/presentation/widgets/section_tile.dart';
+import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
 import 'package:spookify_v2/service_locator.dart';
 
 part 'dashboard_content.dart';

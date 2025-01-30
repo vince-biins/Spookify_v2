@@ -7,11 +7,13 @@ import 'package:spookify_v2/features/playlist/domain/model/track.dart';
 class SongItemTile extends StatefulWidget {
   final Track track;
   void Function()? onClickTrack;
+  VoidCallback onFavoritClicked;
 
   SongItemTile({
     super.key,
     required this.track,
     required this.onClickTrack,
+    required this.onFavoritClicked,
   });
 
   @override
@@ -19,22 +21,12 @@ class SongItemTile extends StatefulWidget {
 }
 
 class _SongItemTileState extends State<SongItemTile> {
-  late bool _isFavorite;
-  late Track _track;
-  late final bool _isImageAvailable;
+  late bool isFavorite;
 
   @override
   void initState() {
+    isFavorite = widget.track.isFavorite;
     super.initState();
-    _isFavorite = false;
-    _track = widget.track;
-    _isImageAvailable = widget.track.imageUrl != null;
-  }
-
-  void _onClickedFavorite() {
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
   }
 
   @override
@@ -48,11 +40,11 @@ class _SongItemTileState extends State<SongItemTile> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _isImageAvailable
+            widget.track.imageUrl != null
                 ? SizedBox.square(
                     dimension: 50,
                     child: Image.network(
-                      _track.imageUrl!,
+                      widget.track.imageUrl!,
                       fit: BoxFit.cover,
                     ),
                   )
@@ -60,7 +52,7 @@ class _SongItemTileState extends State<SongItemTile> {
                     dimension: 50,
                     child: Center(
                       child: Text(
-                        _track.trackNumber.toString(),
+                        widget.track.trackNumber.toString(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge
@@ -76,14 +68,14 @@ class _SongItemTileState extends State<SongItemTile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _track.trackName,
+                    widget.track.trackName,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                     ),
                   ),
                   Text(
-                    _track.artistName ?? '',
+                    widget.track.artistName ?? '',
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
@@ -93,8 +85,13 @@ class _SongItemTileState extends State<SongItemTile> {
               ),
             ),
             IconButton(
-              onPressed: _onClickedFavorite,
-              icon: _isFavorite
+              onPressed: () {
+                widget.onFavoritClicked();
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
+              icon: isFavorite
                   ? const Icon(
                       Icons.favorite,
                       color: Colors.red,

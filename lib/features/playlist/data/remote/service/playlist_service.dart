@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-import 'package:spookify_v2/features/playlist/data/model/artist_top_track_response.dart';
-import 'package:spookify_v2/features/playlist/data/model/track_response.dart';
+import 'package:spookify_v2/features/playlist/data/remote/model/model.dart';
 
 part 'playlist_service.g.dart';
 

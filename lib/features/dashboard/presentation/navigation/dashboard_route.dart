@@ -1,11 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/core/navigation/destinations.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/dashboard/dashboard_page.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/launch/launch_page.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/library/library_page.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/more/more_page.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/search/search_page.dart';
-import 'package:spookify_v2/features/playlist/presentation/navigation/track_route.dart';
+import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/dashboard_item.dart';
+import 'package:spookify_v2/features/dashboard/presentation/ui/ui.dart';
+import 'package:spookify_v2/features/playlist/presentation/navigation/navigation.dart';
 
 final dashboardRoute = StatefulShellRoute.indexedStack(
   builder: (context, state, navigationShell) => LaunchPage(
@@ -17,7 +14,18 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
         GoRoute(
           path: DashboardDestination.home,
           builder: (context, state) => DashboardPage(),
-          routes: trackRoute,
+          routes: [
+            ...playlistRoute,
+            GoRoute(
+              path: DashboardDestination.categoryList.path,
+              builder: (context, state) {
+                final data = state.extra as List<DashboardItem>;
+                return CategoryListPage(
+                  args: data,
+                );
+              },
+            ),
+          ],
         ),
       ],
     ),

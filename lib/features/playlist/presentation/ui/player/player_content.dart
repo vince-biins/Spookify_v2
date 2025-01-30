@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/playlist.dart';
 
 class PlayerContent extends StatefulWidget {
   final TrackDataProvider _track;

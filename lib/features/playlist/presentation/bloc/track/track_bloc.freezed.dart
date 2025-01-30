@@ -19,32 +19,38 @@ mixin _$TrackEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadTrack,
+    required TResult Function(Track track, bool isFavorite) updateFavoriteTrack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTrack,
+    TResult? Function(Track track, bool isFavorite)? updateFavoriteTrack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTrack,
+    TResult Function(Track track, bool isFavorite)? updateFavoriteTrack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadTrack value) loadTrack,
+    required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadTrack value)? loadTrack,
+    TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadTrack value)? loadTrack,
+    TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +119,7 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadTrack,
+    required TResult Function(Track track, bool isFavorite) updateFavoriteTrack,
   }) {
     return loadTrack();
   }
@@ -121,6 +128,7 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTrack,
+    TResult? Function(Track track, bool isFavorite)? updateFavoriteTrack,
   }) {
     return loadTrack?.call();
   }
@@ -129,6 +137,7 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTrack,
+    TResult Function(Track track, bool isFavorite)? updateFavoriteTrack,
     required TResult orElse(),
   }) {
     if (loadTrack != null) {
@@ -141,6 +150,7 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadTrack value) loadTrack,
+    required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
   }) {
     return loadTrack(this);
   }
@@ -149,6 +159,7 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadTrack value)? loadTrack,
+    TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
   }) {
     return loadTrack?.call(this);
   }
@@ -157,6 +168,7 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadTrack value)? loadTrack,
+    TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     required TResult orElse(),
   }) {
     if (loadTrack != null) {
@@ -168,6 +180,160 @@ class _$LoadTrackImpl implements LoadTrack {
 
 abstract class LoadTrack implements TrackEvent {
   const factory LoadTrack() = _$LoadTrackImpl;
+}
+
+/// @nodoc
+abstract class _$$UpdateFavoriteTrackImplCopyWith<$Res> {
+  factory _$$UpdateFavoriteTrackImplCopyWith(_$UpdateFavoriteTrackImpl value,
+          $Res Function(_$UpdateFavoriteTrackImpl) then) =
+      __$$UpdateFavoriteTrackImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Track track, bool isFavorite});
+}
+
+/// @nodoc
+class __$$UpdateFavoriteTrackImplCopyWithImpl<$Res>
+    extends _$TrackEventCopyWithImpl<$Res, _$UpdateFavoriteTrackImpl>
+    implements _$$UpdateFavoriteTrackImplCopyWith<$Res> {
+  __$$UpdateFavoriteTrackImplCopyWithImpl(_$UpdateFavoriteTrackImpl _value,
+      $Res Function(_$UpdateFavoriteTrackImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? track = null,
+    Object? isFavorite = null,
+  }) {
+    return _then(_$UpdateFavoriteTrackImpl(
+      track: null == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as Track,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
+  const _$UpdateFavoriteTrackImpl(
+      {required this.track, required this.isFavorite});
+
+  @override
+  final Track track;
+  @override
+  final bool isFavorite;
+
+  @override
+  String toString() {
+    return 'TrackEvent.updateFavoriteTrack(track: $track, isFavorite: $isFavorite)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateFavoriteTrackImpl &&
+            (identical(other.track, track) || other.track == track) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, track, isFavorite);
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateFavoriteTrackImplCopyWith<_$UpdateFavoriteTrackImpl> get copyWith =>
+      __$$UpdateFavoriteTrackImplCopyWithImpl<_$UpdateFavoriteTrackImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadTrack,
+    required TResult Function(Track track, bool isFavorite) updateFavoriteTrack,
+  }) {
+    return updateFavoriteTrack(track, isFavorite);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadTrack,
+    TResult? Function(Track track, bool isFavorite)? updateFavoriteTrack,
+  }) {
+    return updateFavoriteTrack?.call(track, isFavorite);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadTrack,
+    TResult Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    required TResult orElse(),
+  }) {
+    if (updateFavoriteTrack != null) {
+      return updateFavoriteTrack(track, isFavorite);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadTrack value) loadTrack,
+    required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
+  }) {
+    return updateFavoriteTrack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadTrack value)? loadTrack,
+    TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
+  }) {
+    return updateFavoriteTrack?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadTrack value)? loadTrack,
+    TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
+    required TResult orElse(),
+  }) {
+    if (updateFavoriteTrack != null) {
+      return updateFavoriteTrack(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdateFavoriteTrack implements TrackEvent {
+  const factory UpdateFavoriteTrack(
+      {required final Track track,
+      required final bool isFavorite}) = _$UpdateFavoriteTrackImpl;
+
+  Track get track;
+  bool get isFavorite;
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateFavoriteTrackImplCopyWith<_$UpdateFavoriteTrackImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

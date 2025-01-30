@@ -1,12 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:spookify_v2/core/network/failure.dart';
-import 'package:spookify_v2/core/network/mixin/api_error_handler.dart';
-import 'package:spookify_v2/features/dashboard/data/mapper/dashboard_mapper.dart';
-import 'package:spookify_v2/features/dashboard/data/service/dashboard_service.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/album.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/artist.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/category.dart';
-import 'package:spookify_v2/features/dashboard/domain/repository/dashboard_repository.dart';
+import 'package:spookify_v2/core/network/network.dart';
+import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
+import 'package:spookify_v2/features/dashboard/data/service/service.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
+import 'package:spookify_v2/features/dashboard/domain/repository/repository.dart';
 
 class DashboardRepositoryImpl
     with ApiErrorHandler

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/playlist.dart';
 
 import 'package:spookify_v2/features/playlist/presentation/ui/player/player_content.dart';
 
