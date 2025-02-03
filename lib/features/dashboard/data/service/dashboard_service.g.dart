@@ -22,9 +22,10 @@ class _DashboardService implements DashboardService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<CategoryResponse> getCategories() async {
+  Future<CategoryResponse> getCategories({int? limit}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'limit': limit};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<CategoryResponse>(Options(
@@ -34,7 +35,7 @@ class _DashboardService implements DashboardService {
     )
         .compose(
           _dio.options,
-          'v1/browse/categories?limit=8',
+          'v1/browse/categories',
           queryParameters: queryParameters,
           data: _data,
         )

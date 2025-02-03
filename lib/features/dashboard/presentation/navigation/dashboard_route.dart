@@ -47,14 +47,14 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
         ),
       ],
     ),
-    StatefulShellBranch(
-      routes: [
-        GoRoute(
-          path: DashboardDestination.more,
-          builder: (context, state) => const MorePage(),
-          routes: const [],
-        ),
-      ],
-    ),
+    // StatefulShellBranch(
+    //   routes: [
+    //     GoRoute(
+    //       path: DashboardDestination.more,
+    //       builder: (context, state) => const MorePage(),
+    //       routes: const [],
+    //     ),
+    //   ],
+    // ),
   ],
 );

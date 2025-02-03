@@ -4,7 +4,8 @@ import 'package:spookify_v2/features/dashboard/data/repository/repository.dart';
 import 'package:spookify_v2/features/dashboard/data/service/service.dart';
 import 'package:spookify_v2/features/dashboard/domain/repository/repository.dart';
 import 'package:spookify_v2/features/dashboard/domain/usecase/usecase.dart';
-import 'package:spookify_v2/features/dashboard/presentation/bloc/bloc/bloc.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/search/search_bloc.dart';
 
 void initializeDashboardLocator(GetIt getIt) {
   getIt.registerLazySingleton<DashboardService>(
@@ -33,6 +34,12 @@ void initializeDashboardLocator(GetIt getIt) {
       fetchCategoryUsecase: getIt<FetchCategoryUsecase>(),
       fetchArtistUsecase: getIt<FetchArtistUsecase>(),
       fetchAlbumUsecase: getIt<FetchAlbumUsecase>(),
+    ),
+  );
+
+  getIt.registerFactory(
+    () => SearchBloc(
+      fetchCategoryUsecase: getIt<FetchCategoryUsecase>(),
     ),
   );
 }

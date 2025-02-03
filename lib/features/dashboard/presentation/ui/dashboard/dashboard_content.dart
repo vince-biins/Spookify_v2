@@ -40,11 +40,12 @@ class _DashboardContent extends StatelessWidget {
           item: artists
               .map(
                 (artist) => DashboardItem(
-                    id: artist.id,
-                    name: artist.name,
-                    imageUrl: artist.imageUrl,
-                    artist: artist.name,
-                    type: artist.type),
+                  id: artist.id,
+                  name: artist.name,
+                  imageUrl: artist.imageUrl,
+                  artist: artist.name,
+                  type: artist.type,
+                ),
               )
               .toList(),
           showButton: true,

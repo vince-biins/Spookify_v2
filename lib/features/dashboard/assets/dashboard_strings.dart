@@ -4,7 +4,7 @@ class DashboardStrings {
 
   // Bottom Navigation
   static const String navHomeTitle = 'Home';
-  static const String navSearchTitle = 'Playlist';
+  static const String navSearchTitle = 'Search';
   static const String navLibraryTitle = 'Your Library';
   static const String navMoreTitle = 'More';
 

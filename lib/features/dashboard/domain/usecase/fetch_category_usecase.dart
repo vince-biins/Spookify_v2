@@ -10,6 +10,6 @@ class FetchCategoryUsecase {
     required this.repository,
   });
 
-  Future<Either<Failure, List<Category>>> call() async =>
-      await repository.getCategories();
+  Future<Either<Failure, List<Category>>> call({int? limit}) async =>
+      await repository.getCategories(limit: limit);
 }

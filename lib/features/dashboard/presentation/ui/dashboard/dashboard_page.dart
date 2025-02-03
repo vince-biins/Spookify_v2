@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/assets/assets.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
-import 'package:spookify_v2/features/dashboard/presentation/bloc/bloc/dashboard_bloc.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
 import 'package:spookify_v2/service_locator.dart';
 

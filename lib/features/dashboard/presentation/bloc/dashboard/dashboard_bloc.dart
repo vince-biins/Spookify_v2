@@ -10,6 +10,7 @@ part 'dashboard_state.dart';
 part 'dashboard_bloc.freezed.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
+  final int _limit = 8;
   final FetchCategoryUsecase _fetchCategoryUsecase;
   final FetchArtistUsecase _fetchArtistUsecase;
   final FetchAlbumUsecase _fetchAlbumUsecase;
@@ -33,7 +34,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     List<String> errorMessage = [];
 
     List<Category> categories = [];
-    final categoriesResult = await _fetchCategoryUsecase();
+    final categoriesResult = await _fetchCategoryUsecase(limit: _limit);
 
     categoriesResult.fold(
       (error) => errorMessage.add(error.message),

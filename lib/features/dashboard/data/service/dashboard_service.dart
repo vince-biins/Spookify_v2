@@ -9,8 +9,10 @@ part 'dashboard_service.g.dart';
 abstract class DashboardService {
   factory DashboardService(Dio dio, {String baseUrl}) = _DashboardService;
 
-  @GET('v1/browse/categories?limit=8')
-  Future<CategoryResponse> getCategories();
+  @GET('v1/browse/categories')
+  Future<CategoryResponse> getCategories({
+    @Query('limit') int? limit,
+  });
 
   @GET('v1/artists')
   Future<ArtistResponse> getArtists(

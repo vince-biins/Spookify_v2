@@ -18,7 +18,7 @@ class LaunchPage extends StatelessWidget {
       DashboardDestination.home,
       DashboardDestination.library,
       DashboardDestination.search,
-      DashboardDestination.more,
+      //  DashboardDestination.more,
     ];
     final showBottomNav = showBottomNavRoutes.any((route) {
       final currentPath =

@@ -35,9 +35,11 @@ class DashboardRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<Category>>> getCategories() async {
+  Future<Either<Failure, List<Category>>> getCategories({
+    required int? limit,
+  }) async {
     try {
-      final response = await _service.getCategories();
+      final response = await _service.getCategories(limit: limit);
 
       return Right(response.transform());
     } catch (e) {
