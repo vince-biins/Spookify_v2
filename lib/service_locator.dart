@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 
 import 'package:get_it/get_it.dart';
-import 'package:spookify_v2/core/secret/secret.dart';
+import 'package:spookify_v2/core/secret/environment.dart';
+
 import 'package:spookify_v2/database/spookify_database.dart';
 import 'package:spookify_v2/features/dashboard/di/di.dart';
 
@@ -20,9 +21,9 @@ void _initializeDio() async {
   getIt.registerLazySingleton<Dio>(() {
     return Dio(
       BaseOptions(
-        baseUrl: 'https://api.spotify.com/',
+        baseUrl: Environment.baseUrl,
         headers: {
-          'Authorization': 'Bearer ${Confidential.token}',
+          'Authorization': 'Bearer ${Environment.token}',
         },
       ),
     );

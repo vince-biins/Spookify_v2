@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:spookify_v2/core/core.dart';
-import 'package:spookify_v2/core/utils/app_bar_button_item.dart';
+
 import 'package:spookify_v2/features/dashboard/presentation/ui/library/library_content.dart';
 
+import '../../../assets/assets.dart';
+
 class LibraryPage extends StatelessWidget {
-  LibraryPage({super.key});
+  const LibraryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +15,6 @@ class LibraryPage extends StatelessWidget {
       body: const LibraryContent(),
     );
   }
-
-  final List<AppBarButtonItem> appBarItem = [
-    AppBarButtonItem(title: 'Playlists', action: () {}),
-    AppBarButtonItem(title: 'Albums', action: () {}),
-    AppBarButtonItem(title: 'Artists', action: () {}),
-  ];
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return PreferredSize(
@@ -33,7 +29,7 @@ class LibraryPage extends StatelessWidget {
             child: Text('V'),
           ),
           title: const Text(
-            'Your Library',
+            DashboardStrings.yourLibrary,
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
           actions: <Widget>[
@@ -61,7 +57,7 @@ class LibraryPage extends StatelessWidget {
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Playlists',
+                    DashboardStrings.playlist,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
@@ -79,7 +75,7 @@ class LibraryPage extends StatelessWidget {
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Albums',
+                    DashboardStrings.album,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
@@ -97,7 +93,7 @@ class LibraryPage extends StatelessWidget {
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Artists',
+                    DashboardStrings.artist,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,

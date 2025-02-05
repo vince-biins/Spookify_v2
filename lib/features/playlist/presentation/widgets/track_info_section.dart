@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
 import 'package:spookify_v2/core/theme/app_colors.dart';
+import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 
 class TrackInfoSection extends StatelessWidget {
   final TrackDataProvider extra;
@@ -59,7 +60,7 @@ class TrackInfoSection extends StatelessWidget {
                       ),
                     ],
                     Text(
-                      'Made for you',
+                      PlaylistStrings.madeForYou,
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     const SizedBox(
@@ -72,7 +73,7 @@ class TrackInfoSection extends StatelessWidget {
                           width: 6,
                         ),
                         Text(
-                          'About Recommendations',
+                          PlaylistStrings.aboutRecommendation,
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium
@@ -134,7 +135,7 @@ class TrackInfoSection extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox.shrink()
+                    const SizedBox.shrink(),
                   ],
                 ),
               ],

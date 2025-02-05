@@ -8,6 +8,8 @@ import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashb
 import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
 import 'package:spookify_v2/service_locator.dart';
 
+import '../../../assets/assets.dart';
+
 part 'dashboard_content.dart';
 
 class DashboardPage extends StatelessWidget {

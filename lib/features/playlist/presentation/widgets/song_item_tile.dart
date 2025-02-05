@@ -6,10 +6,10 @@ import 'package:spookify_v2/features/playlist/domain/model/track.dart';
 
 class SongItemTile extends StatefulWidget {
   final Track track;
-  void Function()? onClickTrack;
-  VoidCallback onFavoritClicked;
+  final VoidCallback? onClickTrack;
+  final VoidCallback onFavoritClicked;
 
-  SongItemTile({
+  const SongItemTile({
     super.key,
     required this.track,
     required this.onClickTrack,

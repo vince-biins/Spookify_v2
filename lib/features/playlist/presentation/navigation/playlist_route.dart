@@ -18,9 +18,11 @@ final List<RouteBase> playlistRoute = [
     path: TrackDestination.player.path,
     pageBuilder: (context, state) {
       final trackData = state.extra as TrackDataProvider;
-      return _createSlideUpPage(PlayerPage(
-        track: trackData,
-      ));
+      return _createSlideUpPage(
+        PlayerPage(
+          track: trackData,
+        ),
+      );
     },
   ),
 ];

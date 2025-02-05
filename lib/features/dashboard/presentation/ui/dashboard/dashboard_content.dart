@@ -20,7 +20,7 @@ class _DashboardContent extends StatelessWidget {
         ),
         _buildHorizontalSection(
           context: context,
-          sectionTitle: 'Albums',
+          sectionTitle: DashboardStrings.album,
           item: albums
               .map(
                 (albums) => DashboardItem(
@@ -36,7 +36,7 @@ class _DashboardContent extends StatelessWidget {
         ),
         _buildHorizontalSection(
           context: context,
-          sectionTitle: 'Artists',
+          sectionTitle: DashboardStrings.artist,
           item: artists
               .map(
                 (artist) => DashboardItem(
@@ -87,7 +87,7 @@ class _DashboardContent extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      'Show all',
+                      DashboardStrings.showAll,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

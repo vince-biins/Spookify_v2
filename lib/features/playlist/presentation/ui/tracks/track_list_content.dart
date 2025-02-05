@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/core/utils/utils.dart';
+import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart';
 
@@ -89,7 +88,7 @@ class _TrackListContentState extends State<TrackListContent> {
                   ),
                   color: Theme.of(context).scaffoldBackgroundColor,
                   child: Text(
-                    'Top Tracks',
+                    PlaylistStrings.playingFromPlaylist,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -203,7 +202,7 @@ class _TrackListContentState extends State<TrackListContent> {
                             ),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.search),
-                              hintText: 'Search',
+                              hintText: PlaylistStrings.search,
                             ),
                             onSubmitted: (value) {},
                           ),
@@ -215,7 +214,7 @@ class _TrackListContentState extends State<TrackListContent> {
                           duration: const Duration(milliseconds: 300),
                           opacity: !expandedAppbar ? 1.0 : 0.0,
                           child: const Text(
-                            'Search',
+                            PlaylistStrings.search,
                           ),
                         ),
                       ),

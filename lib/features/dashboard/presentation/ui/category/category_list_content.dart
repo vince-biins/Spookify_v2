@@ -5,6 +5,8 @@ import 'package:spookify_v2/features/dashboard/domain/model/dashboard_item.dart'
 
 import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
 
+import '../../../assets/assets.dart';
+
 class CategoryListContent extends StatelessWidget {
   final List<DashboardItem> args;
   const CategoryListContent({super.key, required this.args});
@@ -25,7 +27,7 @@ class CategoryListContent extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                'Browse all',
+                DashboardStrings.browseAll,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.5,

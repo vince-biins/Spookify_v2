@@ -64,7 +64,7 @@ class _SearchContentState extends State<SearchContent> {
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: Text(
-              'Browse all',
+              DashboardStrings.browseAll,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5,

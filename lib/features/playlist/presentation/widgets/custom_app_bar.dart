@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
-import 'package:spookify_v2/core/theme/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget {
   final double maxHeight;

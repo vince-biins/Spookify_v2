@@ -23,7 +23,6 @@ class StickyPlayButton extends StatefulWidget {
 class _StickyPlayButtonState extends State<StickyPlayButton> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     widget.scrollController.addListener(() {
