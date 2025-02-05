@@ -10,5 +10,5 @@ abstract class PlaylistRepository {
   Future<Either<Failure, List<Track>>> getArtistTopTracks(String id);
   Future<Either<Failure, bool>> insertFavorite(FavoriteEntity favorite);
   Future<Either<Failure, bool>> deleteFavorite(String trackId);
-  Future<Either<Failure, List<FavoriteEntity>>> fetchFavorites();
+  Future<Either<Failure, List<Track>>> fetchFavorites();
 }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:spookify_v2/core/theme/app_colors.dart';
 
+enum ElevatedButtonType {
+  normal,
+  appbar,
+}
+
 class SpookifyTheme {
   // Dark Theme
   static final darkTheme = ThemeData(
@@ -31,7 +36,8 @@ class SpookifyTheme {
         unselectedItemColor: AppColors.onSurface,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: elevatedButtonStyle(AppColors.primary, AppColors.onPrimary),
+        style: elevatedButtonStyle(
+            backgroundColor: AppColors.primary, textColor: AppColors.onPrimary),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: outlinedButtonStyle(AppColors.secondary, AppColors.secondary),
@@ -91,7 +97,8 @@ class SpookifyTheme {
       unselectedItemColor: Colors.black87,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: elevatedButtonStyle(AppColors.primary, AppColors.onPrimary),
+      style: elevatedButtonStyle(
+          backgroundColor: AppColors.primary, textColor: AppColors.onPrimary),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: outlinedButtonStyle(AppColors.primary, AppColors.primary),
@@ -121,19 +128,32 @@ class SpookifyTheme {
     ),
   );
 
-  static ButtonStyle elevatedButtonStyle(
-    Color backgroundColor,
-    Color textColor,
-  ) {
-    return ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor,
-      foregroundColor: textColor,
-      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    );
+  static ButtonStyle elevatedButtonStyle({
+    required Color backgroundColor,
+    required Color textColor,
+    double? borderRadius,
+    ElevatedButtonType type = ElevatedButtonType.normal,
+  }) {
+    return switch (type) {
+      ElevatedButtonType.normal => ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor,
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 8.9),
+          ),
+        ),
+      ElevatedButtonType.appbar => ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 30.0),
+          ),
+          padding: const EdgeInsets.all(12.0),
+        ),
+    };
   }
 
   static ButtonStyle outlinedButtonStyle(Color borderColor, Color textColor) {

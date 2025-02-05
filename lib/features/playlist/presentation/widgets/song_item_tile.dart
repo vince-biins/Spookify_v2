@@ -48,18 +48,20 @@ class _SongItemTileState extends State<SongItemTile> {
                       fit: BoxFit.cover,
                     ),
                   )
-                : SizedBox.square(
-                    dimension: 50,
-                    child: Center(
-                      child: Text(
-                        widget.track.trackNumber.toString(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: Colors.grey),
-                      ),
-                    ),
-                  ),
+                : widget.track.trackNumber != null
+                    ? SizedBox.square(
+                        dimension: 50,
+                        child: Center(
+                          child: Text(
+                            widget.track.trackNumber.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
             const SizedBox(
               width: 8.0,
             ),

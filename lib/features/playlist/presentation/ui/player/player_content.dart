@@ -59,19 +59,21 @@ class _PlayerContentState extends State<PlayerContent> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox.square(
-          dimension: 60,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              widget._track.imageUrl,
-              fit: BoxFit.cover,
+        if (widget._track.imageUrl != null) ...[
+          SizedBox.square(
+            dimension: 60,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                widget._track.imageUrl!,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          width: 8.0,
-        ),
+          const SizedBox(
+            width: 8.0,
+          ),
+        ],
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,13 +85,15 @@ class _PlayerContentState extends State<PlayerContent> {
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              Text(
-                widget._track.artist,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.grey),
-              ),
+              if (widget._track.artist != null) ...[
+                Text(
+                  widget._track.artist!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.grey),
+                ),
+              ],
             ],
           ),
         ),

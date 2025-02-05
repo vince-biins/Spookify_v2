@@ -25,7 +25,7 @@ class PlayerPage extends StatelessWidget {
                   ?.copyWith(color: Colors.white54),
             ),
             Text(
-              _track.artist,
+              _track.artist ?? '',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
@@ -60,7 +60,7 @@ class PlayerPage extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.network(
-              _track.imageUrl,
+              _track.imageUrl ?? '',
               fit: BoxFit.cover,
             ),
           ),

@@ -49,3 +49,18 @@ extension ArtistTopTrackMapper on ArtistTopTrackResponse {
       )
       .toList();
 }
+
+extension FavoriteMapper on List<FavoriteEntity> {
+  List<Track> transform() => map(
+        (fav) => Track(
+          trackId: fav.trackId.toString(),
+          albumId: null,
+          artistName: null,
+          trackNumber: null,
+          type: TrackType.favorite,
+          imageUrl: null,
+          trackName: fav.title,
+          isFavorite: fav.isFavorite,
+        ),
+      ).toList();
+}

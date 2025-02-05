@@ -1,9 +1,9 @@
 import 'package:spookify_v2/core/utils/track_type.dart';
 
 class TrackDataProvider {
-  final String id;
-  final String imageUrl;
-  final String artist;
+  final String? id;
+  final String? imageUrl;
+  final String? artist;
   final String title;
   final TrackType type;
 

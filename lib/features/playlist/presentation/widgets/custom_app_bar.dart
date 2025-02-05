@@ -50,7 +50,7 @@ class CustomAppBar extends StatelessWidget {
             children: [
               _buildSliverAppBar(
                 context,
-                imageUrl: extra.imageUrl,
+                imageUrl: extra.imageUrl!,
                 albumPositionFromTop: imagePositionFromTop,
                 padding: padding,
                 animateOpacityToZero: animateOpacityToZero,
@@ -98,7 +98,6 @@ class CustomAppBar extends StatelessWidget {
               height: imageSize,
               width: imageSize,
               decoration: BoxDecoration(
-                color: AppColors.error,
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black,

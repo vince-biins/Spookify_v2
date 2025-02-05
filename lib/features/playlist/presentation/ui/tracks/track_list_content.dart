@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,10 +13,12 @@ import 'package:spookify_v2/features/playlist/presentation/widgets/widgets.dart'
 class TrackListContent extends StatefulWidget {
   final List<Track> track;
   final TrackDataProvider extra;
+  final bool showDefaultAppbar;
   const TrackListContent({
     super.key,
     required this.track,
     required this.extra,
+    required this.showDefaultAppbar,
   });
 
   @override
@@ -62,11 +66,16 @@ class _TrackListContentState extends State<TrackListContent> {
         CustomScrollView(
           controller: _scrollController,
           slivers: [
-            CustomAppBar(
-              maxHeight: maxAppBarHeight,
-              minHeight: minAppBarHeight,
-              extra: widget.extra,
-            ),
+            widget.showDefaultAppbar
+                ? CustomAppBar(
+                    maxHeight: maxAppBarHeight,
+                    minHeight: minAppBarHeight,
+                    extra: widget.extra,
+                  )
+                : _buildLibraryAppbar(
+                    minAppBarHeight: minAppBarHeight,
+                    maxAppBarHeight: maxAppBarHeight,
+                  ),
             TrackInfoSection(
               infoBoxHeight: infoBoxHeight,
               extra: widget.extra,
@@ -96,30 +105,31 @@ class _TrackListContentState extends State<TrackListContent> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: SongItemTile(
-                        track: track[index],
-                        onFavoritClicked: () {
-                          context.read<TrackBloc>().add(
-                                TrackEvent.updateFavoriteTrack(
-                                  track: track[index],
-                                  isFavorite: !track[index].isFavorite,
-                                ),
-                              );
-                        },
-                        onClickTrack: () {
-                          final extra = TrackDataProvider(
-                            id: track[index].trackId,
-                            imageUrl:
-                                track[index].imageUrl ?? widget.extra.imageUrl,
-                            artist:
-                                track[index].artistName ?? widget.extra.artist,
-                            title: track[index].trackName,
-                            type: track[index].type,
-                          );
-                          GoRouter.of(context).push(
-                            TrackDestination.player.pathUrl,
-                            extra: extra,
-                          );
-                        }),
+                      track: track[index],
+                      onFavoritClicked: () {
+                        context.read<TrackBloc>().add(
+                              TrackEvent.updateFavoriteTrack(
+                                track: track[index],
+                                isFavorite: !track[index].isFavorite,
+                              ),
+                            );
+                      },
+                      onClickTrack: () {
+                        final extra = TrackDataProvider(
+                          id: track[index].trackId,
+                          imageUrl:
+                              track[index].imageUrl ?? widget.extra.imageUrl,
+                          artist:
+                              track[index].artistName ?? widget.extra.artist,
+                          title: track[index].trackName,
+                          type: track[index].type,
+                        );
+                        GoRouter.of(context).push(
+                          TrackDestination.player.pathUrl,
+                          extra: extra,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 childCount: track.length,
@@ -134,12 +144,86 @@ class _TrackListContentState extends State<TrackListContent> {
         ),
         StickyPlayButton(
           scrollController: _scrollController,
-          maxAppBarHeight: maxAppBarHeight,
+          maxAppBarHeight: widget.showDefaultAppbar
+              ? maxAppBarHeight
+              : maxAppBarHeight * 0.5 + 20,
           minAppBarHeight: minAppBarHeight,
           playPauseButtonSize: playPauseButtonSize,
           infoBoxHeight: infoBoxHeight,
         ),
       ],
+    );
+  }
+
+  Widget _buildLibraryAppbar({
+    required double maxAppBarHeight,
+    required double minAppBarHeight,
+  }) {
+    return SliverAppBar(
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      expandedHeight: maxAppBarHeight * 0.5,
+      pinned: true,
+      snap: false,
+      flexibleSpace: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          bool expandedAppbar = constraints.biggest.height >= 90;
+          return Container(
+            decoration: BoxDecoration(
+              gradient: !expandedAppbar
+                  ? const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.black, Colors.green],
+                    )
+                  : null,
+            ),
+            child: FlexibleSpaceBarSettings(
+              hasLeading: false,
+              isScrolledUnder: true,
+              toolbarOpacity: 1,
+              minExtent: 0,
+              maxExtent: 100,
+              currentExtent: 0,
+              child: FlexibleSpaceBar(
+                title: expandedAppbar
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
+                        child: SizedBox(
+                          height: 50,
+                          child: TextField(
+                            cursorColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            style: TextStyle(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.search),
+                              hintText: 'Search',
+                            ),
+                            onSubmitted: (value) {},
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 40.0, left: 50.0),
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 300),
+                          opacity: !expandedAppbar ? 1.0 : 0.0,
+                          child: const Text(
+                            'Search',
+                          ),
+                        ),
+                      ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

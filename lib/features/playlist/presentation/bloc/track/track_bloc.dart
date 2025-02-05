@@ -31,8 +31,9 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
     emit(const TrackState.loading());
 
     final result = await switch (_args.type) {
-      TrackType.album => _repository.getAlbumTrack(_args.id),
-      TrackType.artist => _repository.getArtistTopTracks(_args.id),
+      TrackType.album => _repository.getAlbumTrack(_args.id!),
+      TrackType.artist => _repository.getArtistTopTracks(_args.id!),
+      TrackType.favorite => _repository.fetchFavorites(),
     };
 
     result.fold(

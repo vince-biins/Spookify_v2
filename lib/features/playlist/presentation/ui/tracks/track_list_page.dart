@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spookify_v2/core/core.dart';
 import 'package:spookify_v2/core/theme/app_colors.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
@@ -10,7 +11,11 @@ import 'package:spookify_v2/service_locator.dart';
 
 class TrackListPage extends StatefulWidget {
   final TrackDataProvider extra;
-  const TrackListPage({super.key, required this.extra});
+
+  const TrackListPage({
+    super.key,
+    required this.extra,
+  });
 
   @override
   State<TrackListPage> createState() => _TrackListPageState();
@@ -59,6 +64,7 @@ class _TrackListPageState extends State<TrackListPage> {
                 loaded: (albumTrack) => TrackListContent(
                   track: albumTrack,
                   extra: widget.extra,
+                  showDefaultAppbar: widget.extra.type != TrackType.favorite,
                 ),
                 error: (message) => Center(child: Text(message)),
               );

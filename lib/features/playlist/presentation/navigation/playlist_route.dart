@@ -8,7 +8,7 @@ final List<RouteBase> playlistRoute = [
   GoRoute(
     path: TrackDestination.track.path,
     builder: (context, state) {
-      final trackData = state.extra as TrackDataProvider;
+      final TrackDataProvider trackData = state.extra as TrackDataProvider;
       return TrackListPage(
         extra: trackData,
       );

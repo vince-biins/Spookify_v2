@@ -59,11 +59,11 @@ class PlaylistRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<FavoriteEntity>>> fetchFavorites() async {
+  Future<Either<Failure, List<Track>>> fetchFavorites() async {
     try {
       final res = await _favoriteDao.findAllTracks();
 
-      return Right(res ?? []);
+      return Right(res?.transform() ?? []);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }

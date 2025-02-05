@@ -1,5 +1,5 @@
 class Confidential {
   static const String baseUrl = 'https://api.spotify.com/';
   static const String token =
-      'BQDmztNYlpoVR5xDfIWfuxUJPCEAeM1RumSAYCFd-cXMsdDgp045Rj7s_e8F6-Ar3qPaRrleVNo238I8U2mD4ElLrDalICZ_ul2rIpl4CnCivEIa0uxxHSivpZDdr_gUFMAsa6je71U';
+      'BQASL5Fknb_Ynw6oGXojCoxYY2dALoCzyY3_ZzbitUckM5P5OiPUYXl3Sv-fFvH6WLvoUNsFjHS2qKsjBUTBRgdNjUnku53BruIQt1WQjlTcr7XN1aJSyEAaHXAklxj8irlmXWyK4Eo';
 }

@@ -47,15 +47,17 @@ class TrackInfoSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.red,
-                      backgroundImage: NetworkImage(
-                        extra.imageUrl,
+                    if (extra.imageUrl != null) ...[
+                      CircleAvatar(
+                        backgroundColor: Colors.red,
+                        backgroundImage: NetworkImage(
+                          extra.imageUrl!,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    ],
                     Text(
                       'Made for you',
                       style: Theme.of(context).textTheme.labelMedium,

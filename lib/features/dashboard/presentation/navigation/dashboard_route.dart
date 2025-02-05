@@ -42,7 +42,7 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
       routes: [
         GoRoute(
           path: DashboardDestination.library,
-          builder: (context, state) => const LibraryPage(),
+          builder: (context, state) => LibraryPage(),
           routes: const [],
         ),
       ],

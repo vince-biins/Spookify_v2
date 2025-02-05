@@ -5,7 +5,7 @@ class Track extends Equatable {
   final String trackId;
   final String? albumId;
   final String? artistName;
-  final int trackNumber;
+  final int? trackNumber;
   final TrackType type;
   final String? imageUrl;
   final String trackName;
