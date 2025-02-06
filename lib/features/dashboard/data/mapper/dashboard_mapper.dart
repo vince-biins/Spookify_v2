@@ -53,3 +53,27 @@ extension AlbumMapper on AlbumResponse {
       )
       .toList();
 }
+
+extension DashboardIemMapper<T> on List<T> {
+  List<DashboardItem> toDashboardItem() {
+    return map<DashboardItem?>((item) {
+      return switch (item) {
+        Artist() => DashboardItem(
+            id: item.id,
+            name: item.name,
+            imageUrl: item.imageUrl,
+            artist: item.name,
+            type: item.type,
+          ),
+        Album() => DashboardItem(
+            id: item.id,
+            name: item.name,
+            imageUrl: item.imageUrl,
+            artist: item.artist.map((artist) => artist.name).join(','),
+            type: item.type,
+          ),
+        _ => null,
+      };
+    }).where((item) => item != null).cast<DashboardItem>().toList();
+  }
+}

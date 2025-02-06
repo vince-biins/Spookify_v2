@@ -1,6 +1,6 @@
 class DashboardStrings {
   //App bar
-  static const String appBarDashboardTitle = 'Dashboard';
+  static const String appBarDashboardTitle = String.fromEnvironment('NAME');
 
   // Bottom Navigation
   static const String navHomeTitle = 'Home';

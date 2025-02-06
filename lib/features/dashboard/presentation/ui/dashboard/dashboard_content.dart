@@ -21,33 +21,33 @@ class _DashboardContent extends StatelessWidget {
         _buildHorizontalSection(
           context: context,
           sectionTitle: DashboardStrings.album,
-          item: albums
-              .map(
-                (albums) => DashboardItem(
-                  id: albums.id,
-                  name: albums.name,
-                  imageUrl: albums.imageUrl,
-                  artist: albums.artist.map((artist) => artist.name).join(','),
-                  type: albums.type,
-                ),
-              )
-              .toList(),
+          item: albums.toDashboardItem(),
+          // .map(
+          //   (albums) => DashboardItem(
+          //     id: albums.id,
+          //     name: albums.name,
+          //     imageUrl: albums.imageUrl,
+          //     artist: albums.artist.map((artist) => artist.name).join(','),
+          //     type: albums.type,
+          //   ),
+          // )
+          // .toList(),
           showButton: true,
         ),
         _buildHorizontalSection(
           context: context,
           sectionTitle: DashboardStrings.artist,
-          item: artists
-              .map(
-                (artist) => DashboardItem(
-                  id: artist.id,
-                  name: artist.name,
-                  imageUrl: artist.imageUrl,
-                  artist: artist.name,
-                  type: artist.type,
-                ),
-              )
-              .toList(),
+          item: artists.toDashboardItem(),
+          // .map(
+          //   (artist) => DashboardItem(
+          //     id: artist.id,
+          //     name: artist.name,
+          //     imageUrl: artist.imageUrl,
+          //     artist: artist.name,
+          //     type: artist.type,
+          //   ),
+          // )
+          // .toList(),
           showButton: true,
         ),
       ],

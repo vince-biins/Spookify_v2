@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/assets/assets.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
+import 'package:spookify_v2/features/dashboard/data/repository/dashboard_repository_impl.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
@@ -21,7 +23,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(CoreStrings.appName),
+        title: const Text(DashboardStrings.appBarDashboardTitle),
       ),
       body: BlocProvider(
         create: (context) =>
