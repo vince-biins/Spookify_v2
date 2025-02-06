@@ -3,8 +3,9 @@ import 'package:spookify_v2/core/theme/spookify_theme.dart';
 import 'package:spookify_v2/router.dart';
 import 'package:spookify_v2/service_locator.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   initializeDependencies();
   runApp(const MainApp());
 }
