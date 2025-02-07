@@ -24,10 +24,11 @@ class PlaylistRepositoryImpl
   Future<Either<Failure, List<Track>>> getAlbumTrack(String id) async {
     try {
       final dbResult = await _favoriteDao.findAllTracks();
-
+      print('dbResult: $dbResult');
       final response = await _service.getCategoryTracks(id);
       return Right(response.transform(dbResult ?? []));
     } catch (e) {
+      print(e);
       return Left(handleApiError(e));
     }
   }

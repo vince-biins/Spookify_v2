@@ -8,7 +8,7 @@ import 'package:spookify_v2/features/playlist/data/local/model/favorite_dao.dart
 
 part 'spookify_database.g.dart';
 
-@Database(version: 1, entities: [FavoriteEntity])
+@Database(version: 2, entities: [FavoriteEntity])
 abstract class SpookifyDatabase extends FloorDatabase {
   FavoriteDao get favoriteDao;
 }

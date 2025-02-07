@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:spookify_v2/core/core.dart';
-import 'package:spookify_v2/core/theme/app_colors.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track_bloc.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/tracks/track_list_content.dart';
@@ -40,7 +38,8 @@ class _TrackListPageState extends State<TrackListPage> {
   Future<void> _updatePaletteGenerator() async {
     if (widget.extra.imageUrl != null) {
       paletteGenerator = await PaletteGenerator.fromImageProvider(
-          Image.network(widget.extra.imageUrl!).image);
+        Image.network(widget.extra.imageUrl!).image,
+      );
     }
 
     setState(() {});
@@ -75,6 +74,7 @@ class _TrackListPageState extends State<TrackListPage> {
                 initial: () => Center(child: Container()),
                 loading: () => const Center(child: CircularProgressIndicator()),
                 loaded: (albumTrack) => TrackListContent(
+                  bgColor: gradientColor,
                   track: albumTrack,
                   extra: widget.extra,
                   showDefaultAppbar: widget.extra.type != TrackType.favorite,

@@ -10,6 +10,7 @@ import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart
 import 'package:spookify_v2/features/playlist/presentation/widgets/widgets.dart';
 
 class TrackListContent extends StatefulWidget {
+  final Color bgColor;
   final List<Track> track;
   final TrackDataProvider extra;
   final bool showDefaultAppbar;
@@ -18,6 +19,7 @@ class TrackListContent extends StatefulWidget {
     required this.track,
     required this.extra,
     required this.showDefaultAppbar,
+    required this.bgColor,
   });
 
   @override
@@ -70,6 +72,7 @@ class _TrackListContentState extends State<TrackListContent> {
                     maxHeight: maxAppBarHeight,
                     minHeight: minAppBarHeight,
                     extra: widget.extra,
+                    bgColor: widget.bgColor,
                   )
                 : _buildLibraryAppbar(
                     minAppBarHeight: minAppBarHeight,
@@ -123,6 +126,8 @@ class _TrackListContentState extends State<TrackListContent> {
                           title: track[index].trackName,
                           type: track[index].type,
                         );
+                        print(extra.imageUrl);
+
                         GoRouter.of(context).push(
                           TrackDestination.player.pathUrl,
                           extra: extra,

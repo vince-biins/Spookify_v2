@@ -8,11 +8,13 @@ class CustomAppBar extends StatelessWidget {
   final double maxHeight;
   final double minHeight;
   final TrackDataProvider extra;
+  final Color bgColor;
   const CustomAppBar({
     super.key,
     required this.maxHeight,
     required this.minHeight,
     required this.extra,
+    required this.bgColor,
   });
 
   @override
@@ -97,6 +99,7 @@ class CustomAppBar extends StatelessWidget {
               height: imageSize,
               width: imageSize,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black,
@@ -128,11 +131,11 @@ class CustomAppBar extends StatelessWidget {
       duration: const Duration(milliseconds: 150),
       decoration: BoxDecoration(
         gradient: showFixedAppBar
-            ? const LinearGradient(
+            ? LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.green,
+                  bgColor,
                   Colors.black,
                 ],
               )

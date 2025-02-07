@@ -9,7 +9,7 @@ import 'package:spookify_v2/features/dashboard/presentation/bloc/search/search_b
 
 void initializeDashboardLocator(GetIt getIt) {
   getIt.registerLazySingleton<DashboardService>(
-    () => DashboardService(getIt<Dio>()),
+    () => DashboardService(getIt<Dio>(instanceName: 'apiDio')),
   );
   getIt.registerLazySingleton<DashboardRepository>(
     () => DashboardRepositoryImpl(

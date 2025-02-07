@@ -80,7 +80,7 @@ class _$SpookifyDatabase extends SpookifyDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -96,7 +96,7 @@ class _$SpookifyDatabase extends SpookifyDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `FavoriteEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `FavoriteEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `imageUrl` TEXT NOT NULL, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -120,6 +120,7 @@ class _$FavoriteDao extends FavoriteDao {
             'FavoriteEntity',
             (FavoriteEntity item) => <String, Object?>{
                   'id': item.id,
+                  'imageUrl': item.imageUrl,
                   'trackId': item.trackId,
                   'title': item.title,
                   'isFavorite': item.isFavorite ? 1 : 0
@@ -140,6 +141,7 @@ class _$FavoriteDao extends FavoriteDao {
             id: row['id'] as int?,
             trackId: row['trackId'] as String,
             title: row['title'] as String,
+            imageUrl: row['imageUrl'] as String,
             isFavorite: (row['isFavorite'] as int) != 0));
   }
 
@@ -150,6 +152,7 @@ class _$FavoriteDao extends FavoriteDao {
             id: row['id'] as int?,
             trackId: row['trackId'] as String,
             title: row['title'] as String,
+            imageUrl: row['imageUrl'] as String,
             isFavorite: (row['isFavorite'] as int) != 0),
         arguments: [id]);
   }

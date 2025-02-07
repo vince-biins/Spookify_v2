@@ -35,7 +35,8 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
       TrackType.artist => _repository.getArtistTopTracks(_args.id!),
       TrackType.favorite => _repository.fetchFavorites(),
     };
-
+    print(result);
+    print(_args.type);
     result.fold(
       (error) => emit(
         TrackState.error(message: error.message),
@@ -56,6 +57,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
             trackId: event.track.trackId,
             title: event.track.trackName,
             isFavorite: true,
+            imageUrl: event.track.imageUrl ?? '',
           ),
         ),
       false => await _repository.deleteFavorite(event.track.trackId)

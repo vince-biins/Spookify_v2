@@ -9,7 +9,7 @@ import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart
 
 void initializePlaylistLocator(GetIt getIt, SpookifyDatabase db) {
   getIt.registerLazySingleton<PlaylistService>(
-    () => PlaylistService(getIt<Dio>()),
+    () => PlaylistService(getIt<Dio>(instanceName: 'apiDio')),
   );
   getIt.registerLazySingleton<PlaylistRepository>(
     () => PlaylistRepositoryImpl(

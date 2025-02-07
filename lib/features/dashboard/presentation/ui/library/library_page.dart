@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spookify_v2/core/core.dart';
 
 import 'package:spookify_v2/features/dashboard/presentation/ui/library/library_content.dart';
+import 'package:spookify_v2/features/dashboard/presentation/widgets/header_elevated_button.dart';
 
 import '../../../assets/assets.dart';
 
@@ -25,7 +26,7 @@ class LibraryPage extends StatelessWidget {
           toolbarHeight: 40,
           leadingWidth: 27,
           leading: const CircleAvatar(
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Colors.blueAccent,
             child: Text('V'),
           ),
           title: const Text(
@@ -47,61 +48,18 @@ class LibraryPage extends StatelessWidget {
           flexibleSpace: Padding(
             padding: const EdgeInsets.only(top: 65.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                ElevatedButton(
-                  style: SpookifyTheme.elevatedButtonStyle(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    textColor: Colors.white,
-                    type: ElevatedButtonType.appbar,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  HeaderElevatedButton(
+                    startedIndex: -1,
+                    text: const [
+                      DashboardStrings.playlist,
+                      DashboardStrings.album,
+                      DashboardStrings.artist,
+                    ],
+                    onPressed: (text) {},
                   ),
-                  onPressed: () {},
-                  child: Text(
-                    DashboardStrings.playlist,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  style: SpookifyTheme.elevatedButtonStyle(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    textColor: Colors.white,
-                    type: ElevatedButtonType.appbar,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    DashboardStrings.album,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  style: SpookifyTheme.elevatedButtonStyle(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    textColor: Colors.white,
-                    type: ElevatedButtonType.appbar,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    DashboardStrings.artist,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ), // You can use any widget here
-                ),
-              ],
-            ),
+                ]),
           ),
         ),
       ),

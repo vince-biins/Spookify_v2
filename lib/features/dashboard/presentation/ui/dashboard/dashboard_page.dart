@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/core/assets/assets.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
-import 'package:spookify_v2/features/dashboard/data/repository/dashboard_repository_impl.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard_bloc.dart';
+import 'package:spookify_v2/features/dashboard/presentation/widgets/header_elevated_button.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
 import 'package:spookify_v2/service_locator.dart';
 
@@ -19,11 +18,43 @@ class DashboardPage extends StatelessWidget {
 
   final dashboardBloc = getIt<DashboardBloc>();
 
+  void _onDashboardHeaderButtonPressed(String buttonName) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(DashboardStrings.appBarDashboardTitle),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight + 30),
+        child: AppBar(
+          flexibleSpace: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircleAvatar(
+                    radius: 16,
+                    backgroundColor: Colors.blueAccent,
+                    child: Text('V'),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  HeaderElevatedButton(
+                    startedIndex: 0,
+                    text: const [
+                      DashboardStrings.all,
+                      DashboardStrings.music,
+                      DashboardStrings.podcast,
+                    ],
+                    onPressed: _onDashboardHeaderButtonPressed,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
       body: BlocProvider(
         create: (context) =>
