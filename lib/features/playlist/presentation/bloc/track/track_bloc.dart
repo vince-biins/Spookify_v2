@@ -35,8 +35,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
       TrackType.artist => _repository.getArtistTopTracks(_args.id!),
       TrackType.favorite => _repository.fetchFavorites(),
     };
-    print(result);
-    print(_args.type);
+
     result.fold(
       (error) => emit(
         TrackState.error(message: error.message),
@@ -65,18 +64,6 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
 
     res.fold((error) {}, (success) {
       emit(TrackState.loaded(tracks: (state as _LoadedTrack).tracks));
-      // state.maybeWhen(
-      //   orElse: () {},
-      //   loaded: (tracks) => emit(
-      //     (state as _LoadedTrack ).copyWith(
-      //       tracks: tracks.map((track) {
-      //         return track.trackId == event.track.trackId
-      //             ? track.copyWith(isFavorite: event.isFavorite)
-      //             : track;
-      //       }).toList(),
-      //     ),
-      //   ),
-      // );
     });
   }
 }

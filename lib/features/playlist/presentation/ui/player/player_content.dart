@@ -10,14 +10,27 @@ class PlayerContent extends StatefulWidget {
   State<PlayerContent> createState() => _PlayerContentState();
 }
 
-class _PlayerContentState extends State<PlayerContent> {
+class _PlayerContentState extends State<PlayerContent>
+    with SingleTickerProviderStateMixin {
   late bool _isFavorite;
   late bool _isPlaying;
 
+  late Animation<double> animation;
+  late AnimationController controller;
   @override
   void initState() {
     _isFavorite = false;
     _isPlaying = false;
+
+    controller = AnimationController(
+      duration: const Duration(seconds: 100),
+      vsync: this,
+    );
+    animation = Tween<double>(begin: 0, end: 100).animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
+
     super.initState();
   }
 
@@ -31,6 +44,19 @@ class _PlayerContentState extends State<PlayerContent> {
     setState(() {
       _isPlaying = !_isPlaying;
     });
+
+    if (_isPlaying) {
+      controller.forward();
+    } else {
+      controller.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -116,6 +142,8 @@ class _PlayerContentState extends State<PlayerContent> {
   }
 
   Widget _buildPlayerActions(BuildContext context) {
+    final duration = Duration(seconds: (animation.value * 60).toInt());
+    final formattedTime = duration.toString().split('.').first.substring(0, 4);
     return Column(
       children: [
         Column(
@@ -138,8 +166,8 @@ class _PlayerContentState extends State<PlayerContent> {
                 child: Slider(
                   min: 0,
                   max: 100,
-                  divisions: 5,
-                  value: 50,
+                  divisions: 60,
+                  value: animation.value,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -150,11 +178,15 @@ class _PlayerContentState extends State<PlayerContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '1:43',
+                  formattedTime,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 Text(
-                  '3:00',
+                  Duration(minutes: 3)
+                      .toString()
+                      .split('.')
+                      .first
+                      .substring(0, 4),
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -198,7 +230,7 @@ class _PlayerContentState extends State<PlayerContent> {
               child: IconButton(
                 onPressed: _onClickedPlayButton,
                 icon: Icon(
-                  _isPlaying ? Icons.play_arrow : Icons.pause,
+                  _isPlaying ? Icons.pause : Icons.play_arrow,
                   size: 30,
                   color: Colors.black,
                 ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
-import 'package:spookify_v2/core/utils/utils.dart';
 import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart';
@@ -40,7 +39,7 @@ class _TrackListContentState extends State<TrackListContent> {
     super.initState();
     track = widget.track;
     _scrollController = ScrollController();
-    _shouldShowHeader = track.first.type == TrackType.artist;
+    _shouldShowHeader = !widget.showDefaultAppbar;
   }
 
   @override

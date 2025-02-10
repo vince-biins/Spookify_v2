@@ -32,33 +32,31 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async {
     emit(const DashboardState.loading());
     List<String> errorMessage = [];
-
     List<Category> categories = [];
-    final categoriesResult = await _fetchCategoryUsecase(limit: _limit);
-    print(categories);
-
-    categoriesResult.fold(
-      (error) => errorMessage.add(error.message),
-      (data) => categories = data,
-    );
-
     List<Artist> artists = [];
-    final artistsResult = await _fetchArtistUsecase();
-
-    artistsResult.fold(
-      (error) => errorMessage.add(error.message),
-      (data) => artists = data,
-    );
-    print(artists);
     List<Album> albums = [];
-    final albumsResult = await _fetchAlbumUsecase();
 
-    albumsResult.fold(
-      (error) => errorMessage.add(error.message),
-      (data) => albums = data,
-    );
-    print(albums);
-
+    await Future.wait<void>([
+      _fetchCategoryUsecase(limit: _limit).then((data) {
+        print(data);
+        data.fold(
+          (err) => errorMessage.add(err.message),
+          (data) => categories = data,
+        );
+      }),
+      _fetchArtistUsecase().then((data) {
+        data.fold(
+          (err) => errorMessage.add(err.message),
+          (data) => artists = data,
+        );
+      }),
+      _fetchAlbumUsecase().then((data) {
+        data.fold(
+          (err) => errorMessage.add(err.message),
+          (data) => albums = data,
+        );
+      }),
+    ]);
     emit(
       DashboardState.loaded(
         categories: categories,
