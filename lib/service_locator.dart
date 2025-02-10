@@ -28,9 +28,6 @@ void _initializeDio() async {
     return Dio(
       BaseOptions(
         baseUrl: Environment.baseUrl,
-        // headers: {
-        //   'Authorization': 'Bearer ${Environment.token}',
-        // },
       ),
     )..interceptors.add(TokenInterceptor(getIt<AuthRepository>()));
   });

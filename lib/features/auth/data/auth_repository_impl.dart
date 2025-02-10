@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:spookify_v2/core/secret/environment.dart';
 import 'package:spookify_v2/features/auth/data/service/token_service.dart';
 import 'package:spookify_v2/features/auth/domain/auth_repository.dart';
 
+const String _accessTokenKey = 'access_token';
+const String _tokenExpiryKey = 'token_expiry';
+
 class AuthRepositoryImpl extends AuthRepository {
   final TokenService service;
   final Dio dio;
-  late String token;
-  AuthRepositoryImpl(this.dio, this.service);
+  final FlutterSecureStorage storage;
+  AuthRepositoryImpl(this.dio, this.service, this.storage);
 
   @override
-  Future<String> getToken() async {
+  Future<bool> retrieveToken() async {
     try {
       final response = await service.getToken(
         'client_credentials',
@@ -19,23 +23,31 @@ class AuthRepositoryImpl extends AuthRepository {
       );
 
       final accessToken = response.accessToken;
-      token = accessToken;
-      print('TOKEN: $accessToken');
-      //  await _storage.write(key: 'access_token', value: accessToken);
-      return accessToken;
+
+      await saveToken(accessToken);
+      return accessToken != '';
     } catch (e) {
-      print(e);
-      // Handle error (e.g., log the error, rethrow the error, etc.)
-      throw Exception('Failed to retrieve token: $e');
+      return false;
     }
   }
 
   @override
   Future<String?> getStoredToken() async {
     try {
-      return token; //     return await _storage.read(key: 'access_token');
+      final accessToken = await storage.read(key: _accessTokenKey);
+      final expiryTimeStr = await storage.read(key: _tokenExpiryKey);
+      if (accessToken != null && expiryTimeStr != null) {
+        final expiryTime = DateTime.parse(expiryTimeStr);
+        final currentTime = DateTime.now();
+
+        if (currentTime.isBefore(expiryTime)) {
+          return accessToken;
+        } else {
+          return null;
+        }
+      }
+      return null;
     } catch (e) {
-      // Handle error (e.g., log the error, return null, etc.)
       return null;
     }
   }
@@ -43,12 +55,23 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Response> retryRequest(RequestOptions requestOptions) async {
     try {
-      final newAccessToken = await getToken();
+      await retrieveToken();
+
+      final newAccessToken = await getStoredToken();
       requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
-      return await dio.fetch(requestOptions);
+      final response = await dio.fetch(requestOptions);
+
+      return response;
     } catch (e) {
-      // Handle error (e.g., log the error, rethrow the error, etc.)
       throw Exception('Failed to retry request: $e');
     }
+  }
+
+  @override
+  Future<void> saveToken(String accessToken) async {
+    final expiryTime =
+        DateTime.now().add(const Duration(hours: 1)).toIso8601String();
+    await storage.write(key: _accessTokenKey, value: accessToken);
+    await storage.write(key: _tokenExpiryKey, value: expiryTime);
   }
 }

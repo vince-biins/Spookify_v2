@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:spookify_v2/features/auth/domain/auth_repository.dart';
 
@@ -14,19 +16,23 @@ class TokenInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final accessToken = await authRepository.getStoredToken();
-    options.headers['Authorization'] = 'Bearer $accessToken';
+    print('ONREQUEST $accessToken');
+
+    if (accessToken != null) {
+      options.headers['Authorization'] = 'Bearer $accessToken';
+    }
+
     return handler.next(options);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 400) {
+    if (err.response?.statusCode == 401) {
       if (!isRefreshing) {
         isRefreshing = true;
         try {
-          final newAccessToken = await authRepository.getToken();
-          print(newAccessToken);
-          _retryFailedRequests(newAccessToken);
+          final token = await refreshToken(err, handler);
+          print('ONERROR $token');
           isRefreshing = false;
         } catch (e) {
           _handleTokenRefreshFailure(err, handler);
@@ -40,10 +46,33 @@ class TokenInterceptor extends Interceptor {
     }
   }
 
+  FutureOr refreshToken(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    final isSuccess = await authRepository.retrieveToken();
+
+    if (!isSuccess) {
+      return false;
+    }
+    if (isSuccess) {
+      final accessToken = await authRepository.getStoredToken();
+      if (accessToken != null) {
+        failedRequests.add({'err': err, 'handler': handler});
+        _retryFailedRequests(accessToken);
+        return true;
+      } else {
+        isRefreshing = false;
+        return false;
+      }
+    }
+  }
+
   void _retryFailedRequests(String newAccessToken) {
     for (var request in failedRequests) {
       final err = request['err'] as DioException;
       final handler = request['handler'] as ErrorInterceptorHandler;
+      err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
       authRepository.retryRequest(err.requestOptions).then((response) {
         handler.resolve(response);
       }).catchError((error) {

@@ -35,6 +35,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     List<Category> categories = [];
     final categoriesResult = await _fetchCategoryUsecase(limit: _limit);
+    print(categories);
 
     categoriesResult.fold(
       (error) => errorMessage.add(error.message),
@@ -48,7 +49,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       (error) => errorMessage.add(error.message),
       (data) => artists = data,
     );
-
+    print(artists);
     List<Album> albums = [];
     final albumsResult = await _fetchAlbumUsecase();
 
@@ -56,6 +57,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       (error) => errorMessage.add(error.message),
       (data) => albums = data,
     );
+    print(albums);
 
     emit(
       DashboardState.loaded(

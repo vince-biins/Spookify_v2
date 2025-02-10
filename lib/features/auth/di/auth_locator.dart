@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:spookify_v2/features/auth/data/auth_repository_impl.dart';
 import 'package:spookify_v2/features/auth/data/service/token_service.dart';
@@ -15,6 +16,9 @@ void initializeAuthLocator(GetIt getIt) {
       ),
     );
   });
+  getIt.registerLazySingleton<FlutterSecureStorage>(
+    () => const FlutterSecureStorage(),
+  );
 
   getIt.registerLazySingleton<TokenService>(
     () => TokenService(getIt<Dio>(instanceName: 'tokenDio')),
@@ -23,6 +27,7 @@ void initializeAuthLocator(GetIt getIt) {
     () => AuthRepositoryImpl(
       getIt<Dio>(instanceName: 'tokenDio'),
       getIt<TokenService>(),
+      getIt<FlutterSecureStorage>(),
     ),
   );
 }
