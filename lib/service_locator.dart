@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:floor/floor.dart';
 
 import 'package:get_it/get_it.dart';
+import 'package:spookify_v2/core/network/internet_connection/bloc/connectivity_bloc.dart';
 
 import 'package:spookify_v2/core/secret/environment.dart';
 
@@ -15,6 +16,7 @@ import 'package:spookify_v2/features/playlist/di/playlist_locator.dart';
 
 final getIt = GetIt.instance;
 void initializeDependencies() async {
+  getIt.registerSingleton<ConnectivityBloc>(ConnectivityBloc());
   initializeAuthLocator(getIt);
   _initializeDio();
   initializeDashboardLocator(getIt);

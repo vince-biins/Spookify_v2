@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:spookify_v2/core/network/internet_connection/bloc/connectivity_bloc.dart';
 import 'package:spookify_v2/features/dashboard/data/repository/repository.dart';
 import 'package:spookify_v2/features/dashboard/data/service/service.dart';
 import 'package:spookify_v2/features/dashboard/domain/repository/repository.dart';
@@ -31,6 +32,7 @@ void initializeDashboardLocator(GetIt getIt) {
 
   getIt.registerFactory(
     () => DashboardBloc(
+      connectivityBloc: getIt<ConnectivityBloc>(),
       fetchCategoryUsecase: getIt<FetchCategoryUsecase>(),
       fetchArtistUsecase: getIt<FetchArtistUsecase>(),
       fetchAlbumUsecase: getIt<FetchAlbumUsecase>(),
