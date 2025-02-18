@@ -15,6 +15,7 @@ extension AlbumTrackMapper on TrackResponse {
           type: TrackType.album,
           imageUrl: null,
           trackName: item.name,
+          durationMs: item.durationMs,
           isFavorite: favorite.isNotEmpty
               ? favorite
                       .where((favorite) => favorite.trackId == item.id)
@@ -25,6 +26,20 @@ extension AlbumTrackMapper on TrackResponse {
         ),
       )
       .toList();
+}
+
+extension TrackMapper on TrackResponseItem {
+  Track transform() => Track(
+        trackId: id,
+        albumId: null,
+        artistName: artists.map((artist) => artist.name).join(', '),
+        trackNumber: trackNumber,
+        type: TrackType.album,
+        imageUrl: album?.images.firstOrNull?.url,
+        trackName: name,
+        isFavorite: false,
+        durationMs: durationMs,
+      );
 }
 
 extension ArtistTopTrackMapper on ArtistTopTrackResponse {
@@ -38,6 +53,7 @@ extension ArtistTopTrackMapper on ArtistTopTrackResponse {
           type: TrackType.artist,
           imageUrl: track.album.images.first.url,
           trackName: track.name,
+          durationMs: 0,
           isFavorite: favorite.isNotEmpty
               ? favorite
                       .where((favorite) => favorite.trackId == track.id)
@@ -61,6 +77,7 @@ extension FavoriteMapper on List<FavoriteEntity> {
           imageUrl: null,
           trackName: fav.title,
           isFavorite: fav.isFavorite,
+          durationMs: 0,
         ),
       ).toList();
 }

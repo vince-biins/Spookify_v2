@@ -24,11 +24,10 @@ class PlaylistRepositoryImpl
   Future<Either<Failure, List<Track>>> getAlbumTrack(String id) async {
     try {
       final dbResult = await _favoriteDao.findAllTracks();
-      print('dbResult: $dbResult');
+
       final response = await _service.getCategoryTracks(id);
       return Right(response.transform(dbResult ?? []));
     } catch (e) {
-      print(e);
       return Left(handleApiError(e));
     }
   }
@@ -71,6 +70,17 @@ class PlaylistRepositoryImpl
   }
 
   @override
+  Future<Either<Failure, bool>> fetchFavoriteById({required String id}) async {
+    try {
+      final res = await _favoriteDao.findTrackById(id);
+
+      return Right(res?.isFavorite ?? false);
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, bool>> insertFavorite(FavoriteEntity favorite) async {
     try {
       await _favoriteDao.insertTrackFavorite(favorite);
@@ -78,6 +88,18 @@ class PlaylistRepositoryImpl
       return const Right(true);
     } catch (e) {
       return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Track>> getTrack({required String id}) async {
+    try {
+      final response = await _service.getTrack(id);
+      print('PLAYER REPO $response');
+      return Right(response.transform());
+    } catch (e) {
+      print(e);
+      return Left(handleApiError(e));
     }
   }
 }

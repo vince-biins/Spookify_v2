@@ -14,6 +14,8 @@ class TrackInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String title =
+        extra.artist == null ? extra.title : 'With ${extra.artist}';
     return SliverToBoxAdapter(
       child: DecoratedBox(
         decoration: const BoxDecoration(
@@ -36,11 +38,10 @@ class TrackInfoSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'With ${extra.artist}',
-                  style: Theme.of(context).textTheme.labelMedium,
+                  title,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(
                   height: 10,
@@ -85,12 +86,6 @@ class TrackInfoSection extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 10,
-                ),
-                const Text(
-                  'Album . 2025',
-                  style: TextStyle(
-                    color: Colors.white70,
-                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

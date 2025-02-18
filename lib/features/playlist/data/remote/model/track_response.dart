@@ -24,6 +24,9 @@ class TrackResponseItem {
   final int trackNumber;
   final String type;
   final List<({String id, String name})> artists;
+  @JsonKey(name: 'duration_ms')
+  final int durationMs;
+  final ({List<TrackImageResponse> images})? album;
 
   TrackResponseItem({
     required this.id,
@@ -31,12 +34,28 @@ class TrackResponseItem {
     required this.trackNumber,
     required this.type,
     required this.artists,
+    required this.durationMs,
+    required this.album,
   });
 
   factory TrackResponseItem.fromJson(Map<String, dynamic> json) =>
       _$TrackResponseItemFromJson(json);
   Map<String, dynamic> toJson() => _$TrackResponseItemToJson(this);
 
+  @override
+  String toString() => toJson().toString();
+}
+
+@JsonSerializable()
+class TrackImageResponse {
+  final String url;
+
+  TrackImageResponse({required this.url});
+
+  factory TrackImageResponse.fromJson(Map<String, dynamic> json) =>
+      _$TrackImageResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TrackImageResponseToJson(this);
   @override
   String toString() => toJson().toString();
 }

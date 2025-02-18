@@ -70,10 +70,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     ]);
 
     if (errorMessage.isNotEmpty) {
+      emit(DashboardState.error(message: errorMessage.join()));
       _failedRequests.add(() => add(const LoadDashboard()));
     }
 
-    if (!emit.isDone) {
+    if (!emit.isDone && errorMessage.isEmpty) {
       emit(
         DashboardState.loaded(
           categories: categories,

@@ -17,10 +17,10 @@ final List<RouteBase> playlistRoute = [
   GoRoute(
     path: TrackDestination.player.path,
     pageBuilder: (context, state) {
-      final trackData = state.extra as TrackDataProvider;
+      final id = state.extra as String;
       return _createSlideUpPage(
         PlayerPage(
-          track: trackData,
+          id: id,
         ),
       );
     },

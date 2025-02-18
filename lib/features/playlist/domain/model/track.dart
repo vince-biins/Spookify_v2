@@ -10,6 +10,7 @@ class Track extends Equatable {
   final String? imageUrl;
   final String trackName;
   final bool isFavorite;
+  final int durationMs;
 
   const Track({
     required this.trackId,
@@ -20,6 +21,7 @@ class Track extends Equatable {
     required this.imageUrl,
     required this.trackName,
     required this.isFavorite,
+    required this.durationMs,
   });
 
   @override
@@ -32,5 +34,6 @@ class Track extends Equatable {
         type,
         imageUrl,
         isFavorite,
+        durationMs,
       ];
 }

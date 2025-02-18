@@ -14,42 +14,26 @@ class _DashboardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildCategorySection(context: context, categories: categories),
-        const SizedBox(
-          height: 16.0,
-        ),
-        _buildHorizontalSection(
-          context: context,
-          sectionTitle: DashboardStrings.album,
-          item: albums.toDashboardItem(),
-          // .map(
-          //   (albums) => DashboardItem(
-          //     id: albums.id,
-          //     name: albums.name,
-          //     imageUrl: albums.imageUrl,
-          //     artist: albums.artist.map((artist) => artist.name).join(','),
-          //     type: albums.type,
-          //   ),
-          // )
-          // .toList(),
-          showButton: true,
-        ),
-        _buildHorizontalSection(
-          context: context,
-          sectionTitle: DashboardStrings.artist,
-          item: artists.toDashboardItem(),
-          // .map(
-          //   (artist) => DashboardItem(
-          //     id: artist.id,
-          //     name: artist.name,
-          //     imageUrl: artist.imageUrl,
-          //     artist: artist.name,
-          //     type: artist.type,
-          //   ),
-          // )
-          // .toList(),
-          showButton: true,
-        ),
+        if (categories.isNotEmpty) ...[
+          _buildCategorySection(context: context, categories: categories),
+          const SizedBox(
+            height: 16.0,
+          ),
+        ],
+        if (albums.isNotEmpty)
+          _buildHorizontalSection(
+            context: context,
+            sectionTitle: DashboardStrings.album,
+            item: albums.toDashboardItem(),
+            showButton: true,
+          ),
+        if (artists.isNotEmpty)
+          _buildHorizontalSection(
+            context: context,
+            sectionTitle: DashboardStrings.artist,
+            item: artists.toDashboardItem(),
+            showButton: true,
+          ),
       ],
     );
   }

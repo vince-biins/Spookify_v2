@@ -146,8 +146,9 @@ class _$FavoriteDao extends FavoriteDao {
   }
 
   @override
-  Future<FavoriteEntity?> findTrackById(int id) async {
-    return _queryAdapter.query('SELECT * FROM FavoriteEntity WHERE id = ?1',
+  Future<FavoriteEntity?> findTrackById(String id) async {
+    return _queryAdapter.query(
+        'SELECT * FROM FavoriteEntity WHERE trackId = ?1',
         mapper: (Map<String, Object?> row) => FavoriteEntity(
             id: row['id'] as int?,
             trackId: row['trackId'] as String,

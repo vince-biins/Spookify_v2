@@ -54,7 +54,7 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/spookify_icon.png
+    - assets/images/
 
   fonts:
     - family: Rubik

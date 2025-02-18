@@ -18,4 +18,9 @@ abstract class PlaylistService {
   Future<ArtistTopTrackResponse> getArtistTopTracks(
     @Path('id') String id,
   );
+
+  @GET('v1/tracks/{id}?market=PH')
+  Future<TrackResponseItem> getTrack(
+    @Path('id') String id,
+  );
 }

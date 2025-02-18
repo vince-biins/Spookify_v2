@@ -33,6 +33,16 @@ TrackResponseItem _$TrackResponseItemFromJson(Map<String, dynamic> json) =>
                 ),
               ))
           .toList(),
+      durationMs: (json['duration_ms'] as num).toInt(),
+      album: _$recordConvertNullable(
+        json['album'],
+        ($jsonValue) => (
+          images: ($jsonValue['images'] as List<dynamic>)
+              .map(
+                  (e) => TrackImageResponse.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
+      ),
     );
 
 Map<String, dynamic> _$TrackResponseItemToJson(TrackResponseItem instance) =>
@@ -47,6 +57,12 @@ Map<String, dynamic> _$TrackResponseItemToJson(TrackResponseItem instance) =>
                 'name': e.name,
               })
           .toList(),
+      'duration_ms': instance.durationMs,
+      'album': instance.album == null
+          ? null
+          : <String, dynamic>{
+              'images': instance.album!.images,
+            },
     };
 
 $Rec _$recordConvert<$Rec>(
@@ -54,3 +70,19 @@ $Rec _$recordConvert<$Rec>(
   $Rec Function(Map) convert,
 ) =>
     convert(value as Map<String, dynamic>);
+
+$Rec? _$recordConvertNullable<$Rec>(
+  Object? value,
+  $Rec Function(Map) convert,
+) =>
+    value == null ? null : convert(value as Map<String, dynamic>);
+
+TrackImageResponse _$TrackImageResponseFromJson(Map<String, dynamic> json) =>
+    TrackImageResponse(
+      url: json['url'] as String,
+    );
+
+Map<String, dynamic> _$TrackImageResponseToJson(TrackImageResponse instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+    };

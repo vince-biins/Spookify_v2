@@ -6,8 +6,8 @@ abstract class FavoriteDao {
   @Query('SELECT * FROM FavoriteEntity')
   Future<List<FavoriteEntity>?> findAllTracks();
 
-  @Query('SELECT * FROM FavoriteEntity WHERE id = :id')
-  Future<FavoriteEntity?> findTrackById(int id);
+  @Query('SELECT * FROM FavoriteEntity WHERE trackId = :id')
+  Future<FavoriteEntity?> findTrackById(String id);
 
   @insert
   Future<void> insertTrackFavorite(FavoriteEntity favorite);

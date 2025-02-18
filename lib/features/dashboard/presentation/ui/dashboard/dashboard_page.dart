@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/core/utils/error_screen.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard_bloc.dart';
@@ -72,7 +73,7 @@ class DashboardPage extends StatelessWidget {
                     albums: albums,
                   ),
                 ),
-                error: (message) => Center(child: Text(message)),
+                error: (message) => Center(child: ErrorScreen()),
               );
             },
           ),

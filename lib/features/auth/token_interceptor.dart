@@ -16,7 +16,6 @@ class TokenInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final accessToken = await authRepository.getStoredToken();
-    print('ONREQUEST $accessToken');
 
     if (accessToken != null) {
       options.headers['Authorization'] = 'Bearer $accessToken';
@@ -32,7 +31,7 @@ class TokenInterceptor extends Interceptor {
         isRefreshing = true;
         try {
           final token = await refreshToken(err, handler);
-          print('ONERROR $token');
+
           isRefreshing = false;
         } catch (e) {
           _handleTokenRefreshFailure(err, handler);

@@ -48,6 +48,10 @@ class _TrackListContentState extends State<TrackListContent> {
     super.dispose();
   }
 
+  void _refreshPage() {
+    context.read<TrackBloc>().add(const TrackEvent.loadTrack());
+  }
+
   late double maxAppBarHeight;
   late double minAppBarHeight;
   @override
@@ -59,7 +63,7 @@ class _TrackListContentState extends State<TrackListContent> {
     playPauseButtonSize = (MediaQuery.of(context).size.width / 320) * 50 > 80
         ? 80
         : (MediaQuery.of(context).size.width / 320) * 50;
-    infoBoxHeight = 180;
+    infoBoxHeight = 150;
 
     return Stack(
       children: [
@@ -115,22 +119,15 @@ class _TrackListContentState extends State<TrackListContent> {
                               ),
                             );
                       },
-                      onClickTrack: () {
-                        final extra = TrackDataProvider(
-                          id: track[index].trackId,
-                          imageUrl:
-                              track[index].imageUrl ?? widget.extra.imageUrl,
-                          artist:
-                              track[index].artistName ?? widget.extra.artist,
-                          title: track[index].trackName,
-                          type: track[index].type,
-                        );
-                        print(extra.imageUrl);
-
-                        GoRouter.of(context).push(
+                      onClickTrack: () async {
+                        final result = await GoRouter.of(context).push(
                           TrackDestination.player.pathUrl,
-                          extra: extra,
+                          extra: track[index].trackId,
                         );
+
+                        if (result == true) {
+                          _refreshPage();
+                        }
                       },
                     ),
                   ),
@@ -138,9 +135,9 @@ class _TrackListContentState extends State<TrackListContent> {
                 childCount: track.length,
               ),
             ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: minAppBarHeight * 2,
+            SliverFillRemaining(
+              child: Container(
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
             ),
           ],
@@ -148,11 +145,12 @@ class _TrackListContentState extends State<TrackListContent> {
         StickyPlayButton(
           scrollController: _scrollController,
           maxAppBarHeight: widget.showDefaultAppbar
-              ? maxAppBarHeight
-              : maxAppBarHeight * 0.5 + 20,
+              ? maxAppBarHeight - 20
+              : maxAppBarHeight * 0.5,
           minAppBarHeight: minAppBarHeight,
           playPauseButtonSize: playPauseButtonSize,
-          infoBoxHeight: infoBoxHeight,
+          infoBoxHeight:
+              widget.showDefaultAppbar ? infoBoxHeight : infoBoxHeight - 10,
         ),
       ],
     );

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/core/navigation/providers/playlist/playlist.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spookify_v2/features/playlist/domain/model/model.dart';
+import 'package:spookify_v2/features/playlist/presentation/bloc/player/cubit/player_cubit.dart';
 
 class PlayerContent extends StatefulWidget {
-  final TrackDataProvider _track;
-  const PlayerContent({super.key, required TrackDataProvider track})
-      : _track = track;
+  final Track _track;
+  const PlayerContent({super.key, required Track track}) : _track = track;
 
   @override
   State<PlayerContent> createState() => _PlayerContentState();
@@ -12,32 +13,36 @@ class PlayerContent extends StatefulWidget {
 
 class _PlayerContentState extends State<PlayerContent>
     with SingleTickerProviderStateMixin {
-  late bool _isFavorite;
   late bool _isPlaying;
+  late Duration duration;
 
   late Animation<double> animation;
   late AnimationController controller;
+
   @override
   void initState() {
-    _isFavorite = false;
     _isPlaying = false;
+    duration = Duration(milliseconds: widget._track.durationMs);
 
     controller = AnimationController(
-      duration: const Duration(seconds: 100),
+      duration: Duration(
+        seconds: duration.inSeconds,
+      ),
       vsync: this,
     );
-    animation = Tween<double>(begin: 0, end: 100).animate(controller)
+    animation = Tween<double>(begin: 0, end: 1).animate(controller)
       ..addListener(() {
         setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          setState(() {
+            _isPlaying = false;
+          });
+        }
       });
 
     super.initState();
-  }
-
-  void _onClickedFavorite() {
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
   }
 
   void _onClickedPlayButton() {
@@ -52,10 +57,21 @@ class _PlayerContentState extends State<PlayerContent>
     }
   }
 
+  void _skipForward() {
+    final newValue = controller.value + (10 / duration.inSeconds);
+    final clampedValue = newValue.clamp(0.0, 1.0);
+    controller.forward(from: clampedValue);
+  }
+
+  void _skipBackward() {
+    final newValue = controller.value - (10 / duration.inSeconds);
+    final clampedValue = newValue.clamp(0.0, 1.0);
+    controller.forward(from: clampedValue);
+  }
+
   @override
   void dispose() {
     controller.dispose();
-
     super.dispose();
   }
 
@@ -105,15 +121,15 @@ class _PlayerContentState extends State<PlayerContent>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget._track.title,
+                widget._track.trackName,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              if (widget._track.artist != null) ...[
+              if (widget._track.artistName != null) ...[
                 Text(
-                  widget._track.artist!,
+                  widget._track.artistName!,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium
@@ -123,27 +139,36 @@ class _PlayerContentState extends State<PlayerContent>
             ],
           ),
         ),
-        IconButton(
-          onPressed: _onClickedFavorite,
-          icon: _isFavorite
-              ? const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                  size: 30,
-                )
-              : const Icon(
-                  Icons.favorite_border,
-                  color: Colors.white,
-                  size: 30,
-                ),
+        BlocBuilder<PlayerCubit, PlayerState>(
+          builder: (context, state) {
+            return IconButton(
+              onPressed: () => context.read<PlayerCubit>().toggleFavorite(
+                    isFavorite: !state.isFavorite,
+                    track: widget._track,
+                  ),
+              icon: state.isFavorite
+                  ? const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 30,
+                    )
+                  : const Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+            );
+          },
         ),
       ],
     );
   }
 
   Widget _buildPlayerActions(BuildContext context) {
-    final duration = Duration(seconds: (animation.value * 60).toInt());
-    final formattedTime = duration.toString().split('.').first.substring(0, 4);
+    final duration =
+        Duration(seconds: (animation.value * this.duration.inSeconds).toInt());
+    final formattedTime =
+        "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
     return Column(
       children: [
         Column(
@@ -165,11 +190,15 @@ class _PlayerContentState extends State<PlayerContent>
                 padding: EdgeInsets.zero,
                 child: Slider(
                   min: 0,
-                  max: 100,
-                  divisions: 60,
+                  max: 1,
                   value: animation.value,
                   onChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      controller.value = value;
+                      if (_isPlaying) {
+                        controller.forward();
+                      }
+                    });
                   },
                 ),
               ),
@@ -182,11 +211,7 @@ class _PlayerContentState extends State<PlayerContent>
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 Text(
-                  Duration(minutes: 3)
-                      .toString()
-                      .split('.')
-                      .first
-                      .substring(0, 4),
+                  "${this.duration.inMinutes}:${(this.duration.inSeconds % 60).toString().padLeft(2, '0')}",
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -204,9 +229,9 @@ class _PlayerContentState extends State<PlayerContent>
                 color: Colors.white,
               ),
             ),
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
+            IconButton(
+              onPressed: _skipBackward,
+              icon: const Icon(
                 Icons.skip_previous_rounded,
                 size: 30,
                 color: Colors.white,
@@ -236,9 +261,9 @@ class _PlayerContentState extends State<PlayerContent>
                 ),
               ),
             ),
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
+            IconButton(
+              onPressed: _skipForward,
+              icon: const Icon(
                 Icons.skip_next_rounded,
                 size: 30,
                 color: Colors.white,
