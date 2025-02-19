@@ -78,8 +78,8 @@ class _TrackListContentState extends State<TrackListContent> {
                     bgColor: widget.bgColor,
                   )
                 : _buildLibraryAppbar(
-                    minAppBarHeight: minAppBarHeight,
-                    maxAppBarHeight: maxAppBarHeight,
+                    minAppBarHeight: 90,
+                    maxAppBarHeight: 200,
                   ),
             TrackInfoSection(
               infoBoxHeight: infoBoxHeight,
@@ -146,7 +146,7 @@ class _TrackListContentState extends State<TrackListContent> {
           scrollController: _scrollController,
           maxAppBarHeight: widget.showDefaultAppbar
               ? maxAppBarHeight - 20
-              : maxAppBarHeight * 0.5,
+              : maxAppBarHeight * 0.4,
           minAppBarHeight: minAppBarHeight,
           playPauseButtonSize: playPauseButtonSize,
           infoBoxHeight:
@@ -164,19 +164,19 @@ class _TrackListContentState extends State<TrackListContent> {
       foregroundColor: Colors.white,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      expandedHeight: maxAppBarHeight * 0.5,
+      expandedHeight: maxAppBarHeight,
       pinned: true,
       snap: false,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          bool expandedAppbar = constraints.biggest.height >= 90;
+          bool expandedAppbar = constraints.biggest.height > minAppBarHeight;
           return Container(
             decoration: BoxDecoration(
               gradient: !expandedAppbar
                   ? const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.black, Colors.green],
+                      colors: [Color.fromARGB(255, 57, 56, 56), Colors.green],
                     )
                   : null,
             ),
@@ -197,14 +197,22 @@ class _TrackListContentState extends State<TrackListContent> {
                         child: SizedBox(
                           height: 50,
                           child: TextField(
-                            cursorColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                            cursorColor: Colors.white,
+                            style: const TextStyle(
+                              color: Colors.white,
                             ),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.search),
+                              prefixIconColor: Colors.white,
                               hintText: PlaylistStrings.search,
+                              hintStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white24,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
                             ),
                             onSubmitted: (value) {},
                           ),

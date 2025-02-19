@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spookify_v2/core/network/internet_connection/bloc/connectivity_bloc.dart';
-import 'package:spookify_v2/core/network/internet_connection/connectivity_status.dart';
+import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spookify_v2/features/dashboard/domain/usecase/usecase.dart';
@@ -11,17 +10,14 @@ part 'dashboard_event.dart';
 part 'dashboard_state.dart';
 part 'dashboard_bloc.freezed.dart';
 
-class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
-  final ConnectivityBloc connectivityBloc;
-  final List<Function> _failedRequests = [];
-
+class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
+    with StateConnectivityMixin {
   final int _limit = 8;
   final FetchCategoryUsecase _fetchCategoryUsecase;
   final FetchArtistUsecase _fetchArtistUsecase;
   final FetchAlbumUsecase _fetchAlbumUsecase;
 
   DashboardBloc({
-    required this.connectivityBloc,
     required FetchCategoryUsecase fetchCategoryUsecase,
     required FetchArtistUsecase fetchArtistUsecase,
     required FetchAlbumUsecase fetchAlbumUsecase,
@@ -31,11 +27,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         super(const DashboardState.initial()) {
     on<LoadDashboard>(_onLoadDashboard);
 
-    connectivityBloc.stream.listen((state) {
-      if (state.status == ConnectivityStatus.connected) {
-        _retryFailedRequests();
-      }
-    });
+    listenForConnectionChange();
+    // connectivityBloc.stream.listen((state) {
+    //   if (state.status == ConnectivityStatus.connected) {
+    //     _retryFailedRequests();
+    //   }
+    // });
   }
 
   FutureOr<void> _onLoadDashboard(
@@ -71,7 +68,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     if (errorMessage.isNotEmpty) {
       emit(DashboardState.error(message: errorMessage.join()));
-      _failedRequests.add(() => add(const LoadDashboard()));
+      addNewFailedRequest(() => add(const LoadDashboard()));
+      // _failedRequests.add(() => add(const LoadDashboard()));
     }
 
     if (!emit.isDone && errorMessage.isEmpty) {
@@ -85,10 +83,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     }
   }
 
-  void _retryFailedRequests() {
-    for (var request in _failedRequests) {
-      request();
-    }
-    _failedRequests.clear();
-  }
+  // void _retryFailedRequests() {
+  //   for (var request in _failedRequests) {
+  //     request();
+  //   }
+  //   _failedRequests.clear();
+  // }
 }

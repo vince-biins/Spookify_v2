@@ -32,7 +32,6 @@ void initializeDashboardLocator(GetIt getIt) {
 
   getIt.registerFactory(
     () => DashboardBloc(
-      connectivityBloc: getIt<ConnectivityBloc>(),
       fetchCategoryUsecase: getIt<FetchCategoryUsecase>(),
       fetchArtistUsecase: getIt<FetchArtistUsecase>(),
       fetchAlbumUsecase: getIt<FetchAlbumUsecase>(),

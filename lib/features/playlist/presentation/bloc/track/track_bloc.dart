@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/features/playlist/data/local/entity/entity.dart';
 
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
@@ -13,7 +14,8 @@ part 'track_event.dart';
 part 'track_state.dart';
 part 'track_bloc.freezed.dart';
 
-class TrackBloc extends Bloc<TrackEvent, TrackState> {
+class TrackBloc extends Bloc<TrackEvent, TrackState>
+    with StateConnectivityMixin {
   final TrackBlocProvider _args;
   final PlaylistRepository _repository;
 
@@ -25,6 +27,8 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
         super(const TrackState.initial()) {
     on<LoadTrack>(_onLoadTrack);
     on<UpdateFavoriteTrack>(_onAddedFavoriteTrack);
+
+    listenForConnectionChange();
   }
 
   FutureOr<void> _onLoadTrack(LoadTrack event, Emitter<TrackState> emit) async {
@@ -37,12 +41,19 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
     };
 
     result.fold(
-      (error) => emit(
-        TrackState.error(message: error.message),
-      ),
-      (data) => emit(
-        TrackState.loaded(tracks: data),
-      ),
+      (error) {
+        emit(
+          TrackState.error(message: error.message),
+        );
+        addNewFailedRequest(() => add(const LoadTrack()));
+      },
+      (data) {
+        if (!emit.isDone) {
+          emit(
+            TrackState.loaded(tracks: data),
+          );
+        }
+      },
     );
   }
 

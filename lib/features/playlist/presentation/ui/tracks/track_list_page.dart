@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:spookify_v2/core/core.dart';
+import 'package:spookify_v2/core/utils/error_screen.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track_bloc.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/tracks/track_list_content.dart';
@@ -79,7 +80,7 @@ class _TrackListPageState extends State<TrackListPage> {
                   extra: widget.extra,
                   showDefaultAppbar: widget.extra.type != TrackType.favorite,
                 ),
-                error: (message) => Center(child: Text(message)),
+                error: (message) => const Center(child: ErrorScreen()),
               );
             },
           ),
