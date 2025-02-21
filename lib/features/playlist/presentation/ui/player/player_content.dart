@@ -13,15 +13,15 @@ class PlayerContent extends StatefulWidget {
 
 class _PlayerContentState extends State<PlayerContent>
     with SingleTickerProviderStateMixin {
-  late bool _isPlaying;
+  late PlayerCubit cubit;
   late Duration duration;
-
+  final int skippedBySeconds = 10;
   late Animation<double> animation;
   late AnimationController controller;
 
   @override
   void initState() {
-    _isPlaying = false;
+    cubit = context.read<PlayerCubit>();
     duration = Duration(milliseconds: widget._track.durationMs);
 
     controller = AnimationController(
@@ -36,9 +36,7 @@ class _PlayerContentState extends State<PlayerContent>
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          setState(() {
-            _isPlaying = false;
-          });
+          cubit.pauseMusic();
         }
       });
 
@@ -46,25 +44,23 @@ class _PlayerContentState extends State<PlayerContent>
   }
 
   void _onClickedPlayButton() {
-    setState(() {
-      _isPlaying = !_isPlaying;
-    });
-
-    if (_isPlaying) {
-      controller.forward();
-    } else {
+    if (cubit.state.isPlaying) {
+      cubit.pauseMusic();
       controller.stop();
+    } else {
+      cubit.playMusic();
+      controller.forward();
     }
   }
 
   void _skipForward() {
-    final newValue = controller.value + (10 / duration.inSeconds);
+    final newValue = controller.value + (skippedBySeconds / duration.inSeconds);
     final clampedValue = newValue.clamp(0.0, 1.0);
     controller.forward(from: clampedValue);
   }
 
   void _skipBackward() {
-    final newValue = controller.value - (10 / duration.inSeconds);
+    final newValue = controller.value - (skippedBySeconds / duration.inSeconds);
     final clampedValue = newValue.clamp(0.0, 1.0);
     controller.forward(from: clampedValue);
   }
@@ -142,11 +138,11 @@ class _PlayerContentState extends State<PlayerContent>
         BlocBuilder<PlayerCubit, PlayerState>(
           builder: (context, state) {
             return IconButton(
-              onPressed: () => context.read<PlayerCubit>().toggleFavorite(
-                    isFavorite: !state.isFavorite,
-                    track: widget._track,
-                  ),
-              icon: state.isFavorite
+              onPressed: () => cubit.toggleFavorite(
+                isFavorite: !state.track.isFavorite,
+                track: widget._track,
+              ),
+              icon: state.track.isFavorite
                   ? const Icon(
                       Icons.favorite,
                       color: Colors.red,
@@ -167,8 +163,7 @@ class _PlayerContentState extends State<PlayerContent>
   Widget _buildPlayerActions(BuildContext context) {
     final duration =
         Duration(seconds: (animation.value * this.duration.inSeconds).toInt());
-    final formattedTime =
-        "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+
     return Column(
       children: [
         Column(
@@ -195,7 +190,7 @@ class _PlayerContentState extends State<PlayerContent>
                   onChanged: (value) {
                     setState(() {
                       controller.value = value;
-                      if (_isPlaying) {
+                      if (cubit.state.isPlaying) {
                         controller.forward();
                       }
                     });
@@ -207,11 +202,17 @@ class _PlayerContentState extends State<PlayerContent>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  formattedTime,
+                  cubit.formatTimeDuration(
+                    minutes: duration.inMinutes,
+                    seconds: duration.inSeconds,
+                  ),
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 Text(
-                  "${this.duration.inMinutes}:${(this.duration.inSeconds % 60).toString().padLeft(2, '0')}",
+                  cubit.formatTimeDuration(
+                    minutes: this.duration.inMinutes,
+                    seconds: this.duration.inSeconds,
+                  ),
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -221,20 +222,26 @@ class _PlayerContentState extends State<PlayerContent>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
-                Icons.shuffle_rounded,
+            IconButton(
+              onPressed: _skipBackward,
+              icon: const Icon(
+                Icons.replay_10,
                 size: 30,
                 color: Colors.white,
               ),
             ),
             IconButton(
-              onPressed: _skipBackward,
-              icon: const Icon(
+              onPressed: cubit.state.hasNext
+                  ? () {
+                      controller.reset();
+                      controller.forward();
+                      cubit.onPrevTrack();
+                    }
+                  : null,
+              icon: Icon(
                 Icons.skip_previous_rounded,
                 size: 30,
-                color: Colors.white,
+                color: cubit.state.hasNext ? Colors.white : Colors.grey,
               ),
             ),
             Container(
@@ -255,24 +262,30 @@ class _PlayerContentState extends State<PlayerContent>
               child: IconButton(
                 onPressed: _onClickedPlayButton,
                 icon: Icon(
-                  _isPlaying ? Icons.pause : Icons.play_arrow,
+                  cubit.state.isPlaying ? Icons.pause : Icons.play_arrow,
                   size: 30,
                   color: Colors.black,
                 ),
               ),
             ),
             IconButton(
-              onPressed: _skipForward,
-              icon: const Icon(
+              onPressed: cubit.state.hasNext
+                  ? () {
+                      controller.reset();
+                      controller.forward();
+                      cubit.onNextTrack();
+                    }
+                  : null,
+              icon: Icon(
                 Icons.skip_next_rounded,
                 size: 30,
-                color: Colors.white,
+                color: cubit.state.hasNext ? Colors.white : Colors.grey,
               ),
             ),
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
-                Icons.timer_outlined,
+            IconButton(
+              onPressed: _skipForward,
+              icon: const Icon(
+                Icons.forward_10,
                 size: 30,
                 color: Colors.white,
               ),

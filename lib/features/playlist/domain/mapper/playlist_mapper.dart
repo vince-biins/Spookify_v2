@@ -29,7 +29,7 @@ extension AlbumTrackMapper on TrackResponse {
 }
 
 extension TrackMapper on TrackResponseItem {
-  Track transform() => Track(
+  Track transform(FavoriteEntity? favorite) => Track(
         trackId: id,
         albumId: null,
         artistName: artists.map((artist) => artist.name).join(', '),
@@ -37,7 +37,7 @@ extension TrackMapper on TrackResponseItem {
         type: TrackType.album,
         imageUrl: album?.images.firstOrNull?.url,
         trackName: name,
-        isFavorite: false,
+        isFavorite: favorite?.isFavorite ?? false,
         durationMs: durationMs,
       );
 }

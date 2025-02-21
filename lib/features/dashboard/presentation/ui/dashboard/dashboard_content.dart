@@ -19,21 +19,39 @@ class _DashboardContent extends StatelessWidget {
           const SizedBox(
             height: 16.0,
           ),
+          _buildHorizontalSection(
+            context: context,
+            sectionTitle: DashboardStrings.categories,
+            item: categories.toDashboardItem(),
+            showButton: true,
+            isClickable: false,
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
         ],
-        if (albums.isNotEmpty)
+        if (albums.isNotEmpty) ...[
           _buildHorizontalSection(
             context: context,
             sectionTitle: DashboardStrings.album,
             item: albums.toDashboardItem(),
             showButton: true,
           ),
+          const SizedBox(
+            height: 16.0,
+          ),
+        ],
         if (artists.isNotEmpty)
           _buildHorizontalSection(
             context: context,
             sectionTitle: DashboardStrings.artist,
             item: artists.toDashboardItem(),
-            showButton: true,
+            showButton: false,
           ),
+        SizedBox(
+          height: 150.0,
+          child: Container(),
+        )
       ],
     );
   }
@@ -43,6 +61,7 @@ class _DashboardContent extends StatelessWidget {
     required String sectionTitle,
     required List<DashboardItem> item,
     bool showButton = false,
+    bool isClickable = true,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -84,7 +103,7 @@ class _DashboardContent extends StatelessWidget {
             height: 4.0,
           ),
           SizedBox(
-            height: 230,
+            height: 200,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: item.length,
@@ -94,19 +113,21 @@ class _DashboardContent extends StatelessWidget {
                   child: SectionTile(
                     imageUrl: item[index].imageUrl,
                     title: item[index].name,
-                    onItemClicked: () {
-                      final extra = TrackDataProvider(
-                        id: item[index].id,
-                        imageUrl: item[index].imageUrl,
-                        artist: item[index].artist,
-                        title: item[index].name,
-                        type: item[index].type,
-                      );
-                      GoRouter.of(context).push(
-                        TrackDestination.track.pathUrl,
-                        extra: extra,
-                      );
-                    },
+                    onItemClicked: isClickable
+                        ? () {
+                            final extra = TrackDataProvider(
+                              id: item[index].id,
+                              imageUrl: item[index].imageUrl,
+                              artist: item[index].artist,
+                              title: item[index].name,
+                              type: item[index].type,
+                            );
+                            GoRouter.of(context).push(
+                              TrackDestination.track.pathUrl,
+                              extra: extra,
+                            );
+                          }
+                        : () {},
                   ),
                 );
               },

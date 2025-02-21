@@ -57,6 +57,7 @@ extension AlbumMapper on AlbumResponse {
 extension DashboardIemMapper<T> on List<T> {
   List<DashboardItem> toDashboardItem() {
     return map<DashboardItem?>((item) {
+      print(item.runtimeType);
       return switch (item) {
         Artist() => DashboardItem(
             id: item.id,
@@ -71,6 +72,13 @@ extension DashboardIemMapper<T> on List<T> {
             imageUrl: item.imageUrl,
             artist: item.artist.map((artist) => artist.name).join(','),
             type: item.type,
+          ),
+        Category() => DashboardItem(
+            id: item.id,
+            name: item.name,
+            imageUrl: item.imageUrl,
+            artist: '',
+            type: TrackType.category,
           ),
         _ => null,
       };

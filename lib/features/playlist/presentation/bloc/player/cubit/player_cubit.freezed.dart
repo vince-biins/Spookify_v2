@@ -17,9 +17,13 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PlayerState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isFavorite => throw _privateConstructorUsedError;
+  bool get isPlaying => throw _privateConstructorUsedError;
   Track get track => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
+  String get prevId => throw _privateConstructorUsedError;
+  String get currId => throw _privateConstructorUsedError;
+  String get nextId => throw _privateConstructorUsedError;
+  bool get hasNext => throw _privateConstructorUsedError;
 
   /// Create a copy of PlayerState
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +38,15 @@ abstract class $PlayerStateCopyWith<$Res> {
           PlayerState value, $Res Function(PlayerState) then) =
       _$PlayerStateCopyWithImpl<$Res, PlayerState>;
   @useResult
-  $Res call({bool isLoading, bool isFavorite, Track track, String error});
+  $Res call(
+      {bool isLoading,
+      bool isPlaying,
+      Track track,
+      String error,
+      String prevId,
+      String currId,
+      String nextId,
+      bool hasNext});
 }
 
 /// @nodoc
@@ -53,18 +65,22 @@ class _$PlayerStateCopyWithImpl<$Res, $Val extends PlayerState>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isFavorite = null,
+    Object? isPlaying = null,
     Object? track = null,
     Object? error = null,
+    Object? prevId = null,
+    Object? currId = null,
+    Object? nextId = null,
+    Object? hasNext = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFavorite: null == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
+      isPlaying: null == isPlaying
+          ? _value.isPlaying
+          : isPlaying // ignore: cast_nullable_to_non_nullable
               as bool,
       track: null == track
           ? _value.track
@@ -74,6 +90,22 @@ class _$PlayerStateCopyWithImpl<$Res, $Val extends PlayerState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      prevId: null == prevId
+          ? _value.prevId
+          : prevId // ignore: cast_nullable_to_non_nullable
+              as String,
+      currId: null == currId
+          ? _value.currId
+          : currId // ignore: cast_nullable_to_non_nullable
+              as String,
+      nextId: null == nextId
+          ? _value.nextId
+          : nextId // ignore: cast_nullable_to_non_nullable
+              as String,
+      hasNext: null == hasNext
+          ? _value.hasNext
+          : hasNext // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -86,7 +118,15 @@ abstract class _$$PlayerStateImplCopyWith<$Res>
       __$$PlayerStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, bool isFavorite, Track track, String error});
+  $Res call(
+      {bool isLoading,
+      bool isPlaying,
+      Track track,
+      String error,
+      String prevId,
+      String currId,
+      String nextId,
+      bool hasNext});
 }
 
 /// @nodoc
@@ -103,18 +143,22 @@ class __$$PlayerStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isFavorite = null,
+    Object? isPlaying = null,
     Object? track = null,
     Object? error = null,
+    Object? prevId = null,
+    Object? currId = null,
+    Object? nextId = null,
+    Object? hasNext = null,
   }) {
     return _then(_$PlayerStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFavorite: null == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
+      isPlaying: null == isPlaying
+          ? _value.isPlaying
+          : isPlaying // ignore: cast_nullable_to_non_nullable
               as bool,
       track: null == track
           ? _value.track
@@ -124,6 +168,22 @@ class __$$PlayerStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      prevId: null == prevId
+          ? _value.prevId
+          : prevId // ignore: cast_nullable_to_non_nullable
+              as String,
+      currId: null == currId
+          ? _value.currId
+          : currId // ignore: cast_nullable_to_non_nullable
+              as String,
+      nextId: null == nextId
+          ? _value.nextId
+          : nextId // ignore: cast_nullable_to_non_nullable
+              as String,
+      hasNext: null == hasNext
+          ? _value.hasNext
+          : hasNext // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -133,22 +193,34 @@ class __$$PlayerStateImplCopyWithImpl<$Res>
 class _$PlayerStateImpl implements _PlayerState {
   const _$PlayerStateImpl(
       {required this.isLoading,
-      required this.isFavorite,
+      required this.isPlaying,
       required this.track,
-      required this.error});
+      required this.error,
+      required this.prevId,
+      required this.currId,
+      required this.nextId,
+      required this.hasNext});
 
   @override
   final bool isLoading;
   @override
-  final bool isFavorite;
+  final bool isPlaying;
   @override
   final Track track;
   @override
   final String error;
+  @override
+  final String prevId;
+  @override
+  final String currId;
+  @override
+  final String nextId;
+  @override
+  final bool hasNext;
 
   @override
   String toString() {
-    return 'PlayerState(isLoading: $isLoading, isFavorite: $isFavorite, track: $track, error: $error)';
+    return 'PlayerState(isLoading: $isLoading, isPlaying: $isPlaying, track: $track, error: $error, prevId: $prevId, currId: $currId, nextId: $nextId, hasNext: $hasNext)';
   }
 
   @override
@@ -158,15 +230,19 @@ class _$PlayerStateImpl implements _PlayerState {
             other is _$PlayerStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite) &&
+            (identical(other.isPlaying, isPlaying) ||
+                other.isPlaying == isPlaying) &&
             (identical(other.track, track) || other.track == track) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.prevId, prevId) || other.prevId == prevId) &&
+            (identical(other.currId, currId) || other.currId == currId) &&
+            (identical(other.nextId, nextId) || other.nextId == nextId) &&
+            (identical(other.hasNext, hasNext) || other.hasNext == hasNext));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isLoading, isFavorite, track, error);
+  int get hashCode => Object.hash(runtimeType, isLoading, isPlaying, track,
+      error, prevId, currId, nextId, hasNext);
 
   /// Create a copy of PlayerState
   /// with the given fields replaced by the non-null parameter values.
@@ -180,18 +256,30 @@ class _$PlayerStateImpl implements _PlayerState {
 abstract class _PlayerState implements PlayerState {
   const factory _PlayerState(
       {required final bool isLoading,
-      required final bool isFavorite,
+      required final bool isPlaying,
       required final Track track,
-      required final String error}) = _$PlayerStateImpl;
+      required final String error,
+      required final String prevId,
+      required final String currId,
+      required final String nextId,
+      required final bool hasNext}) = _$PlayerStateImpl;
 
   @override
   bool get isLoading;
   @override
-  bool get isFavorite;
+  bool get isPlaying;
   @override
   Track get track;
   @override
   String get error;
+  @override
+  String get prevId;
+  @override
+  String get currId;
+  @override
+  String get nextId;
+  @override
+  bool get hasNext;
 
   /// Create a copy of PlayerState
   /// with the given fields replaced by the non-null parameter values.

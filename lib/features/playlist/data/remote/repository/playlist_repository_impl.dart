@@ -94,11 +94,11 @@ class PlaylistRepositoryImpl
   @override
   Future<Either<Failure, Track>> getTrack({required String id}) async {
     try {
+      final localResponse = await _favoriteDao.findTrackById(id);
       final response = await _service.getTrack(id);
-      print('PLAYER REPO $response');
-      return Right(response.transform());
+
+      return Right(response.transform(localResponse));
     } catch (e) {
-      print(e);
       return Left(handleApiError(e));
     }
   }

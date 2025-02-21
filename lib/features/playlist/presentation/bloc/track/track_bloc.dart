@@ -38,9 +38,10 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
       TrackType.album => _repository.getAlbumTrack(_args.id!),
       TrackType.artist => _repository.getArtistTopTracks(_args.id!),
       TrackType.favorite => _repository.fetchFavorites(),
+      _ => null
     };
 
-    result.fold(
+    result?.fold(
       (error) {
         emit(
           TrackState.error(message: error.message),

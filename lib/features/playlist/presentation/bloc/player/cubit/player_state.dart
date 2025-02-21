@@ -4,12 +4,15 @@ part of 'player_cubit.dart';
 class PlayerState with _$PlayerState {
   const factory PlayerState({
     required bool isLoading,
-    required bool isFavorite,
+    required bool isPlaying,
     required Track track,
     required String error,
+    required String prevId,
+    required String currId,
+    required String nextId,
+    required bool hasNext,
   }) = _PlayerState;
   factory PlayerState.initialized() => const PlayerState(
-        isFavorite: false,
         track: Track(
           trackId: '',
           albumId: '',
@@ -22,6 +25,11 @@ class PlayerState with _$PlayerState {
           durationMs: 0,
         ),
         isLoading: true,
+        isPlaying: false,
+        hasNext: true,
+        prevId: '',
+        currId: '',
+        nextId: '',
         error: '',
       );
 }

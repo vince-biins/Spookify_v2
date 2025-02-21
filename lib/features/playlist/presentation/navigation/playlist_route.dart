@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/destinations.dart';
+
 import 'package:spookify_v2/core/navigation/providers/playlist/playlist.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/ui.dart';
 
 final List<RouteBase> playlistRoute = [
@@ -17,10 +19,10 @@ final List<RouteBase> playlistRoute = [
   GoRoute(
     path: TrackDestination.player.path,
     pageBuilder: (context, state) {
-      final id = state.extra as String;
+      final extra = state.extra as TrackIdProvider;
       return _createSlideUpPage(
         PlayerPage(
-          id: id,
+          extra: extra,
         ),
       );
     },

@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/core/core.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/features/playlist/data/local/entity/favorite_entity.dart';
 import 'package:spookify_v2/features/playlist/domain/model/track.dart';
@@ -13,6 +14,7 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
   final PlaylistRepository _repository;
   bool _isInitializing = false;
 
+  final List<String> _trackIds = [];
   PlayerCubit({
     required PlaylistRepository repository,
   })  : _repository = repository,
@@ -44,24 +46,104 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
         ),
       );
     }, (success) {
-      emit(state.copyWith(isFavorite: success));
+      emit(state.copyWith(track: state.track.copyWith(isFavorite: success)));
     });
   }
 
-  Future<void> initialize(String id) async {
+  Future<void> initialize(TrackIdProvider args) async {
     if (_isInitializing) return;
     _isInitializing = true;
+    if (args.trackIds.length <= 1) {
+      emit(state.copyWith(hasNext: false));
+    }
+    _trackIds.addAll(args.trackIds);
 
-    final track = await _repository.getTrack(id: id);
+    if (state.currId.isEmpty) {
+      emit(state.copyWith(currId: args.currId));
+      _setPrevAndNextIds(args.currId, _trackIds);
+    }
+
+    final track = await _repository.getTrack(id: state.currId);
 
     track.fold((error) {
-      emit(state.copyWith(error: error.message, isLoading: false));
-      addNewFailedRequest(() => initialize(id));
+      emit(
+        state.copyWith(
+          error: error.message,
+          isLoading: false,
+        ),
+      );
+      addNewFailedRequest(() => initialize(args));
     }, (success) {
-      print(success);
       emit(state.copyWith(track: success, isLoading: false, error: ''));
     });
 
     _isInitializing = false;
   }
+
+  Future<void> _onRefresh() async {
+    if (_isInitializing) return;
+    _isInitializing = true;
+
+    final track = await _repository.getTrack(id: state.currId);
+
+    track.fold((error) {
+      emit(
+        state.copyWith(
+          error: error.message,
+          isLoading: false,
+        ),
+      );
+      addNewFailedRequest(() => _onRefresh());
+    }, (success) {
+      emit(state.copyWith(track: success, isLoading: false, error: ''));
+    });
+
+    _isInitializing = false;
+  }
+
+  void playMusic() {
+    emit(state.copyWith(isPlaying: true));
+  }
+
+  void pauseMusic() {
+    emit(state.copyWith(isPlaying: false));
+  }
+
+  void onNextTrack() {
+    if (_trackIds.isEmpty) return;
+    _setPrevAndNextIds(state.nextId, _trackIds);
+    _onRefresh();
+    emit(state.copyWith(isPlaying: true));
+  }
+
+  void onPrevTrack() {
+    if (_trackIds.isEmpty) return;
+    _setPrevAndNextIds(state.prevId, _trackIds);
+    _onRefresh();
+    emit(state.copyWith(isPlaying: true));
+  }
+
+  void _setPrevAndNextIds(
+    String currId,
+    List<String> trackIds,
+  ) {
+    final indexOfCurrentId = trackIds.indexOf(currId);
+
+    final prevId =
+        indexOfCurrentId == 0 ? trackIds.last : trackIds[indexOfCurrentId - 1];
+    final nextId = indexOfCurrentId == trackIds.length - 1
+        ? trackIds.first
+        : trackIds[indexOfCurrentId + 1];
+
+    emit(
+      state.copyWith(
+        prevId: prevId,
+        nextId: nextId,
+        currId: currId,
+      ),
+    );
+  }
+
+  String formatTimeDuration({required int minutes, required int seconds}) =>
+      "$minutes:${(seconds % 60).toString().padLeft(2, '0')}";
 }

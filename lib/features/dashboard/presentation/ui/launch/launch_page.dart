@@ -6,6 +6,7 @@ import 'package:spookify_v2/core/network/internet_connection/bloc/connectivity_b
 import 'package:spookify_v2/core/network/internet_connection/connectivity_status.dart';
 
 import 'package:spookify_v2/features/dashboard/presentation/widgets/bottom_bar_content.dart';
+import 'package:spookify_v2/features/dashboard/presentation/widgets/bottom_player.dart';
 import 'package:spookify_v2/service_locator.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class LaunchPage extends StatefulWidget {
 class _LaunchPageState extends State<LaunchPage> {
   bool _isVisibleOfflineIndicator = true;
   bool _isInitialState = true;
+
   @override
   Widget build(BuildContext context) {
     final showBottomNavRoutes = [
@@ -37,6 +39,11 @@ class _LaunchPageState extends State<LaunchPage> {
 
       return currentPath == route;
     });
+
+    final showBottomPlayer =
+        widget.navigationShell.shellRouteContext.routerState.fullPath !=
+            TrackDestination.player.pathUrl;
+
     return Scaffold(
       extendBody: true,
       body: Stack(
@@ -49,6 +56,7 @@ class _LaunchPageState extends State<LaunchPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (showBottomPlayer) const BottomPlayer(),
                 if (showBottomNav)
                   ClipRRect(
                     borderRadius: const BorderRadius.only(

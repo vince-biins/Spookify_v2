@@ -24,6 +24,30 @@ class Track extends Equatable {
     required this.durationMs,
   });
 
+  Track copyWith({
+    String? trackId,
+    String? albumId,
+    String? artistName,
+    int? trackNumber,
+    TrackType? type,
+    String? imageUrl,
+    String? trackName,
+    bool? isFavorite,
+    int? durationMs,
+  }) {
+    return Track(
+      trackId: trackId ?? this.trackId,
+      albumId: albumId ?? this.albumId,
+      artistName: artistName ?? this.artistName,
+      trackNumber: trackNumber ?? this.trackNumber,
+      type: type ?? this.type,
+      imageUrl: imageUrl ?? this.imageUrl,
+      trackName: trackName ?? this.trackName,
+      isFavorite: isFavorite ?? this.isFavorite,
+      durationMs: durationMs ?? this.durationMs,
+    );
+  }
+
   @override
   List<Object?> get props => [
         trackId,

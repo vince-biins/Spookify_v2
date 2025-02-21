@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart';
@@ -120,9 +121,14 @@ class _TrackListContentState extends State<TrackListContent> {
                             );
                       },
                       onClickTrack: () async {
+                        final extra = TrackIdProvider(
+                          currId: track[index].trackId,
+                          trackIds: track.map((item) => item.trackId).toList(),
+                        );
+
                         final result = await GoRouter.of(context).push(
                           TrackDestination.player.pathUrl,
-                          extra: track[index].trackId,
+                          extra: extra,
                         );
 
                         if (result == true) {

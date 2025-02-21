@@ -19,4 +19,5 @@ class DashboardStrings {
   static const String all = 'All';
   static const String music = 'Music';
   static const String podcast = 'Podcasts';
+  static const String categories = 'Categories';
 }
