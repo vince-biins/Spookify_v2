@@ -47,7 +47,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
     List<Favorite> favorites = [];
 
     await Future.wait<void>([
-      _fetchCategoryUsecase(limit: _limit).then((data) {
+      _fetchCategoryUsecase().then((data) {
         data.fold(
           (err) => errorMessage.add(err.message),
           (data) => categories = data,

@@ -17,7 +17,10 @@ class _DashboardContent extends StatelessWidget {
     return Column(
       children: [
         if (categories.isNotEmpty) ...[
-          _buildCategorySection(context: context, categories: categories),
+          _buildCategorySection(
+            context: context,
+            categories: categories.take(8).toList(),
+          ),
           const SizedBox(
             height: 16.0,
           ),
@@ -27,6 +30,11 @@ class _DashboardContent extends StatelessWidget {
             item: categories.toDashboardItem(),
             showButton: true,
             isClickable: false,
+            onItemClicked: (index) => _navigateToTrackListPage(
+              context: context,
+              item: categories.toDashboardItem(),
+              index: index,
+            ),
           ),
           const SizedBox(
             height: 16.0,
@@ -38,6 +46,11 @@ class _DashboardContent extends StatelessWidget {
             sectionTitle: DashboardStrings.artist,
             item: artists.toDashboardItem(),
             showButton: false,
+            onItemClicked: (index) => _navigateToTrackListPage(
+              context: context,
+              item: artists.toDashboardItem(),
+              index: index,
+            ),
           ),
           const SizedBox(
             height: 16.0,
@@ -49,6 +62,11 @@ class _DashboardContent extends StatelessWidget {
             sectionTitle: DashboardStrings.album,
             item: albums.toDashboardItem(),
             showButton: true,
+            onItemClicked: (index) => _navigateToTrackListPage(
+              context: context,
+              item: albums.toDashboardItem(),
+              index: index,
+            ),
           ),
           const SizedBox(
             height: 16.0,
@@ -60,6 +78,11 @@ class _DashboardContent extends StatelessWidget {
             sectionTitle: DashboardStrings.favorite,
             item: favorites.toDashboardItem(),
             showButton: false,
+            onItemClicked: (index) => _navigateToPlayerPage(
+              context: context,
+              item: favorites.toDashboardItem(),
+              index: index,
+            ),
           ),
           const SizedBox(
             height: 16.0,
@@ -76,8 +99,10 @@ class _DashboardContent extends StatelessWidget {
     required BuildContext context,
     required String sectionTitle,
     required List<DashboardItem> item,
+    required Function(int) onItemClicked,
     bool showButton = false,
     bool isClickable = true,
+    int displayItems = 8,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -119,10 +144,11 @@ class _DashboardContent extends StatelessWidget {
             height: 4.0,
           ),
           SizedBox(
-            height: 200,
+            height: 220,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: item.length,
+              itemCount:
+                  item.length > displayItems ? displayItems : item.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -132,17 +158,7 @@ class _DashboardContent extends StatelessWidget {
                     isRoundedImage: item[index].type == TrackType.artist,
                     onItemClicked: isClickable
                         ? () {
-                            final extra = TrackDataProvider(
-                              id: item[index].id,
-                              imageUrl: item[index].imageUrl,
-                              artist: item[index].artist,
-                              title: item[index].name,
-                              type: item[index].type,
-                            );
-                            GoRouter.of(context).push(
-                              TrackDestination.track.pathUrl,
-                              extra: extra,
-                            );
+                            onItemClicked(index);
                           }
                         : () {},
                   ),
@@ -185,5 +201,43 @@ class _DashboardContent extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _navigateToTrackListPage({
+    required BuildContext context,
+    required List<DashboardItem> item,
+    required int index,
+  }) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final extra = TrackDataProvider(
+        id: item[index].id,
+        imageUrl: item[index].imageUrl,
+        artist: item[index].artist,
+        title: item[index].name,
+        type: item[index].type,
+      );
+      GoRouter.of(context).push(
+        TrackDestination.track.pathUrl,
+        extra: extra,
+      );
+    });
+  }
+
+  void _navigateToPlayerPage({
+    required BuildContext context,
+    required List<DashboardItem> item,
+    required int index,
+  }) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final extra = TrackIdProvider(
+        currId: item[index].id,
+        trackIds: item.map((item) => item.id).toList(),
+      );
+
+      GoRouter.of(context).push(
+        TrackDestination.player.pathUrl,
+        extra: extra,
+      );
+    });
   }
 }

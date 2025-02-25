@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
 import 'package:spookify_v2/core/utils/track_type.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
