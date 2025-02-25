@@ -32,17 +32,6 @@ class _DashboardContent extends StatelessWidget {
             height: 16.0,
           ),
         ],
-        if (albums.isNotEmpty) ...[
-          _buildHorizontalSection(
-            context: context,
-            sectionTitle: DashboardStrings.album,
-            item: albums.toDashboardItem(),
-            showButton: true,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-        ],
         if (artists.isNotEmpty) ...[
           _buildHorizontalSection(
             context: context,
@@ -54,17 +43,31 @@ class _DashboardContent extends StatelessWidget {
             height: 16.0,
           ),
         ],
-        if (favorites.isNotEmpty) ...[
+        if (albums.isNotEmpty) ...[
           _buildHorizontalSection(
             context: context,
             sectionTitle: DashboardStrings.album,
-            item: favorites.toDashboardItem(),
+            item: albums.toDashboardItem(),
             showButton: true,
           ),
           const SizedBox(
             height: 16.0,
           ),
         ],
+        if (favorites.isNotEmpty) ...[
+          _buildHorizontalSection(
+            context: context,
+            sectionTitle: DashboardStrings.favorite,
+            item: favorites.toDashboardItem(),
+            showButton: false,
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+        ],
+        const SizedBox(
+          height: 100.0,
+        ),
       ],
     );
   }
@@ -126,6 +129,7 @@ class _DashboardContent extends StatelessWidget {
                   child: SectionTile(
                     imageUrl: item[index].imageUrl,
                     title: item[index].name,
+                    isRoundedImage: item[index].type == TrackType.artist,
                     onItemClicked: isClickable
                         ? () {
                             final extra = TrackDataProvider(

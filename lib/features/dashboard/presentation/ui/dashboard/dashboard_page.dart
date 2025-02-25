@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
+import 'package:spookify_v2/core/utils/track_type.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/favorite.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
@@ -16,7 +17,7 @@ import '../../../assets/assets.dart';
 part 'dashboard_content.dart';
 
 class DashboardPage extends StatelessWidget {
-  DashboardPage({super.key});
+  const DashboardPage({super.key});
 
   void _onDashboardHeaderButtonPressed(String buttonName) {}
 

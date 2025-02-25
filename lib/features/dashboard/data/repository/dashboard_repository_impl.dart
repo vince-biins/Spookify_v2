@@ -11,14 +11,14 @@ import 'package:spookify_v2/features/dashboard/domain/repository/repository.dart
 class DashboardRepositoryImpl
     with ApiErrorHandler
     implements DashboardRepository {
-  // final FavoriteDao _favoriteDao;
+  final FavoriteDao _favoriteDao;
   final DashboardService _service;
 
   DashboardRepositoryImpl({
     required DashboardService service,
-    // required FavoriteDao favoriteDao,
-  }) : _service = service;
-  // _favoriteDao = favoriteDao;
+    required FavoriteDao favoriteDao,
+  })  : _service = service,
+        _favoriteDao = favoriteDao;
 
   @override
   Future<Either<Failure, List<Album>>> getAlbums(String ids) async {
@@ -58,9 +58,9 @@ class DashboardRepositoryImpl
   @override
   Future<Either<Failure, List<Favorite>>> fetchFavorites() async {
     try {
-      //   final res = await _favoriteDao.findAllTracks();
+      final res = await _favoriteDao.findAllTracks();
 
-      return Right([]);
+      return Right(res?.transform() ?? []);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }

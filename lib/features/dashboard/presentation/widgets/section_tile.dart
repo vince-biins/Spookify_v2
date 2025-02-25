@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:spookify_v2/core/utils/track_type.dart';
 
 class SectionTile extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final bool isRoundedImage;
   final Function() onItemClicked;
   final double imageSize;
+
   const SectionTile({
     super.key,
     required this.title,
     required this.imageUrl,
     required this.onItemClicked,
+    required this.isRoundedImage,
     this.imageSize = 150.0,
   });
 
@@ -33,7 +37,7 @@ class SectionTile extends StatelessWidget {
               height: imageSize,
               width: imageSize,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(isRoundedImage ? 80 : 16),
                 image: DecorationImage(
                   image: NetworkImage(
                     imageUrl,

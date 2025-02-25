@@ -18,17 +18,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
   final FetchCategoryUsecase _fetchCategoryUsecase;
   final FetchArtistUsecase _fetchArtistUsecase;
   final FetchAlbumUsecase _fetchAlbumUsecase;
-  // final FetchFavoritesUsecase _fetchFavoriteUsecase;
+  final FetchFavoritesUsecase _fetchFavoriteUsecase;
 
   DashboardBloc({
     required FetchCategoryUsecase fetchCategoryUsecase,
     required FetchArtistUsecase fetchArtistUsecase,
     required FetchAlbumUsecase fetchAlbumUsecase,
-    //   required FetchFavoritesUsecase fetchFavoriteUsecase,
+    required FetchFavoritesUsecase fetchFavoriteUsecase,
   })  : _fetchCategoryUsecase = fetchCategoryUsecase,
         _fetchArtistUsecase = fetchArtistUsecase,
         _fetchAlbumUsecase = fetchAlbumUsecase,
-        //      _fetchFavoriteUsecase = fetchFavoriteUsecase,
+        _fetchFavoriteUsecase = fetchFavoriteUsecase,
         super(const DashboardState.initial()) {
     on<LoadDashboard>(_onLoadDashboard);
 
@@ -65,12 +65,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
           (data) => albums = data,
         );
       }),
-      // _fetchFavoriteUsecase().then((data) {
-      //   data.fold(
-      //     (err) => errorMessage.add(err.message),
-      //     (data) => favorites = data,
-      //   );
-      // }),
+      _fetchFavoriteUsecase().then((data) {
+        data.fold(
+          (err) => errorMessage.add(err.message),
+          (data) => favorites = data,
+        );
+      }),
     ]);
 
     if (errorMessage.isNotEmpty) {

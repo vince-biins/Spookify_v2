@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
+import 'package:spookify_v2/core/utils/track_type.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/dashboard_item.dart';
 
 import 'package:spookify_v2/features/dashboard/presentation/widgets/widgets.dart';
@@ -53,6 +54,7 @@ class CategoryListContent extends StatelessWidget {
                   imageSize: 180,
                   imageUrl: args[index].imageUrl,
                   title: title,
+                  isRoundedImage: args[index].type == TrackType.artist,
                   onItemClicked: () {
                     final extra = TrackDataProvider(
                       id: args[index].id,

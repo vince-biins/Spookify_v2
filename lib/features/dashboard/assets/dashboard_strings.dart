@@ -15,6 +15,7 @@ class DashboardStrings {
   static const String showAll = 'Browse all';
   static const String artist = 'Artists';
   static const String playlist = 'Playlists';
+  static const String favorite = 'Favorites';
   static const String album = 'Albums';
   static const String all = 'All';
   static const String music = 'Music';
