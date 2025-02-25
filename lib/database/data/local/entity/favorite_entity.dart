@@ -7,6 +7,7 @@ class FavoriteEntity {
   final String imageUrl;
   final String trackId;
   final String title;
+  final String? artist;
   final bool isFavorite;
 
   FavoriteEntity({
@@ -15,9 +16,10 @@ class FavoriteEntity {
     required this.title,
     required this.imageUrl,
     required this.isFavorite,
+    required this.artist,
   });
 
   @override
   String toString() =>
-      'FAVORITE ENTITY(id = $id, trackId = $trackId, title = $title, isFavorite = $isFavorite, imageUrl = $imageUrl)';
+      'FAVORITE ENTITY(id = $id, trackId = $trackId, title = $title, isFavorite = $isFavorite, imageUrl = $imageUrl, artist = $artist)';
 }

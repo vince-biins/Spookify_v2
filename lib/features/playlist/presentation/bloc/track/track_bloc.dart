@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
-import 'package:spookify_v2/features/playlist/data/local/entity/entity.dart';
+import 'package:spookify_v2/database/data/local/entity/entity.dart';
 
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
 import 'package:spookify_v2/features/playlist/domain/repository/repository.dart';
@@ -67,8 +67,9 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
           FavoriteEntity(
             trackId: event.track.trackId,
             title: event.track.trackName,
+            artist: event.track.artistName,
             isFavorite: true,
-            imageUrl: event.track.imageUrl ?? '',
+            imageUrl: event.track.imageUrl ?? event.tempImageUrl,
           ),
         ),
       false => await _repository.deleteFavorite(event.track.trackId)

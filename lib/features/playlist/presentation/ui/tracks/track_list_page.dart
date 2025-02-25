@@ -74,9 +74,9 @@ class _TrackListPageState extends State<TrackListPage> {
               return state.when(
                 initial: () => Center(child: Container()),
                 loading: () => const Center(child: CircularProgressIndicator()),
-                loaded: (albumTrack) => TrackListContent(
+                loaded: (track) => TrackListContent(
                   bgColor: gradientColor,
-                  track: albumTrack,
+                  track: track,
                   extra: widget.extra,
                   showDefaultAppbar: widget.extra.type != TrackType.favorite,
                 ),

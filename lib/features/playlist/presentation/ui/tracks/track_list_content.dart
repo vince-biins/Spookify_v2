@@ -39,6 +39,7 @@ class _TrackListContentState extends State<TrackListContent> {
   void initState() {
     super.initState();
     track = widget.track;
+
     _scrollController = ScrollController();
     _shouldShowHeader = !widget.showDefaultAppbar;
   }
@@ -117,6 +118,7 @@ class _TrackListContentState extends State<TrackListContent> {
                               TrackEvent.updateFavoriteTrack(
                                 track: track[index],
                                 isFavorite: !track[index].isFavorite,
+                                tempImageUrl: widget.extra.imageUrl ?? '',
                               ),
                             );
                       },
@@ -156,7 +158,7 @@ class _TrackListContentState extends State<TrackListContent> {
           minAppBarHeight: minAppBarHeight,
           playPauseButtonSize: playPauseButtonSize,
           infoBoxHeight:
-              widget.showDefaultAppbar ? infoBoxHeight : infoBoxHeight - 10,
+              widget.showDefaultAppbar ? infoBoxHeight : infoBoxHeight + 50,
         ),
       ],
     );
@@ -175,20 +177,23 @@ class _TrackListContentState extends State<TrackListContent> {
       snap: false,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          bool expandedAppbar = constraints.biggest.height > minAppBarHeight;
+          bool expandedAppbar = constraints.biggest.height > 150;
           return Container(
             decoration: BoxDecoration(
               gradient: !expandedAppbar
-                  ? const LinearGradient(
+                  ? LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Color.fromARGB(255, 57, 56, 56), Colors.green],
+                      colors: [
+                        Colors.green,
+                        Theme.of(context).scaffoldBackgroundColor,
+                      ],
                     )
                   : null,
             ),
             child: FlexibleSpaceBarSettings(
               hasLeading: false,
-              isScrolledUnder: true,
+              isScrolledUnder: false,
               toolbarOpacity: 1,
               minExtent: 0,
               maxExtent: 100,

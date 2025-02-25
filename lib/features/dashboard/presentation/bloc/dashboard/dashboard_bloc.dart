@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/favorite.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spookify_v2/features/dashboard/domain/usecase/fetch_favorites_usecase.dart';
 import 'package:spookify_v2/features/dashboard/domain/usecase/usecase.dart';
 
 part 'dashboard_event.dart';
@@ -16,23 +18,21 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
   final FetchCategoryUsecase _fetchCategoryUsecase;
   final FetchArtistUsecase _fetchArtistUsecase;
   final FetchAlbumUsecase _fetchAlbumUsecase;
+  // final FetchFavoritesUsecase _fetchFavoriteUsecase;
 
   DashboardBloc({
     required FetchCategoryUsecase fetchCategoryUsecase,
     required FetchArtistUsecase fetchArtistUsecase,
     required FetchAlbumUsecase fetchAlbumUsecase,
+    //   required FetchFavoritesUsecase fetchFavoriteUsecase,
   })  : _fetchCategoryUsecase = fetchCategoryUsecase,
         _fetchArtistUsecase = fetchArtistUsecase,
         _fetchAlbumUsecase = fetchAlbumUsecase,
+        //      _fetchFavoriteUsecase = fetchFavoriteUsecase,
         super(const DashboardState.initial()) {
     on<LoadDashboard>(_onLoadDashboard);
 
     listenForConnectionChange();
-    // connectivityBloc.stream.listen((state) {
-    //   if (state.status == ConnectivityStatus.connected) {
-    //     _retryFailedRequests();
-    //   }
-    // });
   }
 
   FutureOr<void> _onLoadDashboard(
@@ -44,6 +44,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
     List<Category> categories = [];
     List<Artist> artists = [];
     List<Album> albums = [];
+    List<Favorite> favorites = [];
 
     await Future.wait<void>([
       _fetchCategoryUsecase(limit: _limit).then((data) {
@@ -64,6 +65,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
           (data) => albums = data,
         );
       }),
+      // _fetchFavoriteUsecase().then((data) {
+      //   data.fold(
+      //     (err) => errorMessage.add(err.message),
+      //     (data) => favorites = data,
+      //   );
+      // }),
     ]);
 
     if (errorMessage.isNotEmpty) {
@@ -78,15 +85,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
           categories: categories,
           artists: artists,
           albums: albums,
+          favorites: favorites,
         ),
       );
     }
   }
-
-  // void _retryFailedRequests() {
-  //   for (var request in _failedRequests) {
-  //     request();
-  //   }
-  //   _failedRequests.clear();
-  // }
 }

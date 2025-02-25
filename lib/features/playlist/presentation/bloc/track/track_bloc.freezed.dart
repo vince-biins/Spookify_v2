@@ -19,19 +19,22 @@ mixin _$TrackEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadTrack,
-    required TResult Function(Track track, bool isFavorite) updateFavoriteTrack,
+    required TResult Function(Track track, String tempImageUrl, bool isFavorite)
+        updateFavoriteTrack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTrack,
-    TResult? Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTrack,
-    TResult Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    TResult Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +122,8 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadTrack,
-    required TResult Function(Track track, bool isFavorite) updateFavoriteTrack,
+    required TResult Function(Track track, String tempImageUrl, bool isFavorite)
+        updateFavoriteTrack,
   }) {
     return loadTrack();
   }
@@ -128,7 +132,8 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTrack,
-    TResult? Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
   }) {
     return loadTrack?.call();
   }
@@ -137,7 +142,8 @@ class _$LoadTrackImpl implements LoadTrack {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTrack,
-    TResult Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    TResult Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
     required TResult orElse(),
   }) {
     if (loadTrack != null) {
@@ -188,7 +194,7 @@ abstract class _$$UpdateFavoriteTrackImplCopyWith<$Res> {
           $Res Function(_$UpdateFavoriteTrackImpl) then) =
       __$$UpdateFavoriteTrackImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Track track, bool isFavorite});
+  $Res call({Track track, String tempImageUrl, bool isFavorite});
 }
 
 /// @nodoc
@@ -205,6 +211,7 @@ class __$$UpdateFavoriteTrackImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? track = null,
+    Object? tempImageUrl = null,
     Object? isFavorite = null,
   }) {
     return _then(_$UpdateFavoriteTrackImpl(
@@ -212,6 +219,10 @@ class __$$UpdateFavoriteTrackImplCopyWithImpl<$Res>
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as Track,
+      tempImageUrl: null == tempImageUrl
+          ? _value.tempImageUrl
+          : tempImageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -224,16 +235,20 @@ class __$$UpdateFavoriteTrackImplCopyWithImpl<$Res>
 
 class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
   const _$UpdateFavoriteTrackImpl(
-      {required this.track, required this.isFavorite});
+      {required this.track,
+      required this.tempImageUrl,
+      required this.isFavorite});
 
   @override
   final Track track;
+  @override
+  final String tempImageUrl;
   @override
   final bool isFavorite;
 
   @override
   String toString() {
-    return 'TrackEvent.updateFavoriteTrack(track: $track, isFavorite: $isFavorite)';
+    return 'TrackEvent.updateFavoriteTrack(track: $track, tempImageUrl: $tempImageUrl, isFavorite: $isFavorite)';
   }
 
   @override
@@ -242,12 +257,14 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
         (other.runtimeType == runtimeType &&
             other is _$UpdateFavoriteTrackImpl &&
             (identical(other.track, track) || other.track == track) &&
+            (identical(other.tempImageUrl, tempImageUrl) ||
+                other.tempImageUrl == tempImageUrl) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, track, isFavorite);
+  int get hashCode => Object.hash(runtimeType, track, tempImageUrl, isFavorite);
 
   /// Create a copy of TrackEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -262,29 +279,32 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadTrack,
-    required TResult Function(Track track, bool isFavorite) updateFavoriteTrack,
+    required TResult Function(Track track, String tempImageUrl, bool isFavorite)
+        updateFavoriteTrack,
   }) {
-    return updateFavoriteTrack(track, isFavorite);
+    return updateFavoriteTrack(track, tempImageUrl, isFavorite);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTrack,
-    TResult? Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
   }) {
-    return updateFavoriteTrack?.call(track, isFavorite);
+    return updateFavoriteTrack?.call(track, tempImageUrl, isFavorite);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTrack,
-    TResult Function(Track track, bool isFavorite)? updateFavoriteTrack,
+    TResult Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
     required TResult orElse(),
   }) {
     if (updateFavoriteTrack != null) {
-      return updateFavoriteTrack(track, isFavorite);
+      return updateFavoriteTrack(track, tempImageUrl, isFavorite);
     }
     return orElse();
   }
@@ -324,9 +344,11 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
 abstract class UpdateFavoriteTrack implements TrackEvent {
   const factory UpdateFavoriteTrack(
       {required final Track track,
+      required final String tempImageUrl,
       required final bool isFavorite}) = _$UpdateFavoriteTrackImpl;
 
   Track get track;
+  String get tempImageUrl;
   bool get isFavorite;
 
   /// Create a copy of TrackEvent

@@ -4,10 +4,12 @@ class _DashboardContent extends StatelessWidget {
   final List<Category> categories;
   final List<Artist> artists;
   final List<Album> albums;
+  final List<Favorite> favorites;
   const _DashboardContent({
     required this.categories,
     required this.artists,
     required this.albums,
+    required this.favorites,
   });
 
   @override
@@ -41,17 +43,28 @@ class _DashboardContent extends StatelessWidget {
             height: 16.0,
           ),
         ],
-        if (artists.isNotEmpty)
+        if (artists.isNotEmpty) ...[
           _buildHorizontalSection(
             context: context,
             sectionTitle: DashboardStrings.artist,
             item: artists.toDashboardItem(),
             showButton: false,
           ),
-        SizedBox(
-          height: 150.0,
-          child: Container(),
-        )
+          const SizedBox(
+            height: 16.0,
+          ),
+        ],
+        if (favorites.isNotEmpty) ...[
+          _buildHorizontalSection(
+            context: context,
+            sectionTitle: DashboardStrings.album,
+            item: favorites.toDashboardItem(),
+            showButton: true,
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+        ],
       ],
     );
   }

@@ -1,4 +1,4 @@
-import 'package:spookify_v2/features/playlist/data/local/entity/entity.dart';
+import 'package:spookify_v2/database/data/local/entity/entity.dart';
 
 import 'package:spookify_v2/core/utils/track_type.dart';
 import 'package:spookify_v2/features/playlist/data/remote/model/model.dart';
@@ -71,10 +71,10 @@ extension FavoriteMapper on List<FavoriteEntity> {
         (fav) => Track(
           trackId: fav.trackId.toString(),
           albumId: null,
-          artistName: null,
+          artistName: fav.artist,
           trackNumber: null,
           type: TrackType.favorite,
-          imageUrl: null,
+          imageUrl: fav.imageUrl.isNotEmpty ? fav.imageUrl : null,
           trackName: fav.title,
           isFavorite: fav.isFavorite,
           durationMs: 0,

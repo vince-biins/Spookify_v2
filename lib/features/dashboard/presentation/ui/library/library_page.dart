@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/core/core.dart';
-
 import 'package:spookify_v2/features/dashboard/presentation/ui/library/library_content.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/header_elevated_button.dart';
 
@@ -19,11 +17,11 @@ class LibraryPage extends StatelessWidget {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(120.0),
+      preferredSize: const Size.fromHeight(150.0),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 50,
           leadingWidth: 27,
           leading: const CircleAvatar(
             backgroundColor: Colors.blueAccent,
@@ -45,21 +43,17 @@ class LibraryPage extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.only(top: 65.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  HeaderElevatedButton(
-                    startedIndex: -1,
-                    text: const [
-                      DashboardStrings.playlist,
-                      DashboardStrings.album,
-                      DashboardStrings.artist,
-                    ],
-                    onPressed: (text) {},
-                  ),
-                ]),
+          flexibleSpace: Container(
+            margin: const EdgeInsets.only(top: 70.0),
+            child: HeaderElevatedButton(
+              startedIndex: -1,
+              text: const [
+                DashboardStrings.playlist,
+                DashboardStrings.album,
+                DashboardStrings.artist,
+              ],
+              onPressed: (text) {},
+            ),
           ),
         ),
       ),

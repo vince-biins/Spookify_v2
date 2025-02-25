@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/core/core.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
-import 'package:spookify_v2/features/playlist/data/local/entity/favorite_entity.dart';
+import 'package:spookify_v2/database/data/local/entity/favorite_entity.dart';
 import 'package:spookify_v2/features/playlist/domain/model/track.dart';
 import 'package:spookify_v2/features/playlist/domain/repository/playlist_repository.dart';
 
@@ -31,6 +31,7 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
           FavoriteEntity(
             trackId: track.trackId,
             title: track.trackName,
+            artist: track.artistName,
             imageUrl: track.imageUrl ?? '',
             isFavorite: true,
           ),

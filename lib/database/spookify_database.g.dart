@@ -96,7 +96,7 @@ class _$SpookifyDatabase extends SpookifyDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `FavoriteEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `imageUrl` TEXT NOT NULL, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `FavoriteEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `imageUrl` TEXT NOT NULL, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `artist` TEXT, `isFavorite` INTEGER NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -123,6 +123,7 @@ class _$FavoriteDao extends FavoriteDao {
                   'imageUrl': item.imageUrl,
                   'trackId': item.trackId,
                   'title': item.title,
+                  'artist': item.artist,
                   'isFavorite': item.isFavorite ? 1 : 0
                 });
 
@@ -142,7 +143,8 @@ class _$FavoriteDao extends FavoriteDao {
             trackId: row['trackId'] as String,
             title: row['title'] as String,
             imageUrl: row['imageUrl'] as String,
-            isFavorite: (row['isFavorite'] as int) != 0));
+            isFavorite: (row['isFavorite'] as int) != 0,
+            artist: row['artist'] as String?));
   }
 
   @override
@@ -154,20 +156,21 @@ class _$FavoriteDao extends FavoriteDao {
             trackId: row['trackId'] as String,
             title: row['title'] as String,
             imageUrl: row['imageUrl'] as String,
-            isFavorite: (row['isFavorite'] as int) != 0),
+            isFavorite: (row['isFavorite'] as int) != 0,
+            artist: row['artist'] as String?),
         arguments: [id]);
   }
 
   @override
-  Future<void> deleteTrack(String id) async {
-    await _queryAdapter.queryNoReturn(
-        'DELETE FROM FavoriteEntity WHERE trackId = ?1',
+  Future<int?> deleteTrack(String id) async {
+    return _queryAdapter.query('DELETE FROM FavoriteEntity WHERE trackId = ?1',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
         arguments: [id]);
   }
 
   @override
-  Future<void> insertTrackFavorite(FavoriteEntity favorite) async {
-    await _favoriteEntityInsertionAdapter.insert(
+  Future<int> insertTrackFavorite(FavoriteEntity favorite) {
+    return _favoriteEntityInsertionAdapter.insertAndReturnId(
         favorite, OnConflictStrategy.abort);
   }
 }

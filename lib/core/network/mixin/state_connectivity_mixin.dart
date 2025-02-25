@@ -23,6 +23,5 @@ mixin StateConnectivityMixin {
 
   void addNewFailedRequest(Function failedRequest) {
     _failedRequests.add(failedRequest);
-    print(_failedRequests);
   }
 }

@@ -46,10 +46,13 @@ class CategoryListContent extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               childAspectRatio: tileWidth / tileHeight,
               children: List.generate(args.length, (index) {
+                final title = args[index].artist.isEmpty
+                    ? args[index].name
+                    : args[index].artist;
                 return SectionTile(
                   imageSize: 180,
                   imageUrl: args[index].imageUrl,
-                  title: args[index].artist,
+                  title: title,
                   onItemClicked: () {
                     final extra = TrackDataProvider(
                       id: args[index].id,

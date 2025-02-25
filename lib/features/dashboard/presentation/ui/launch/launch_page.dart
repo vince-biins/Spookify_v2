@@ -56,7 +56,7 @@ class _LaunchPageState extends State<LaunchPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (showBottomPlayer) const BottomPlayer(),
+                //   if (showBottomPlayer) const BottomPlayer(),
                 if (showBottomNav)
                   ClipRRect(
                     borderRadius: const BorderRadius.only(

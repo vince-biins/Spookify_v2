@@ -293,8 +293,8 @@ mixin _$DashboardState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Category> categories, List<Artist> artists, List<Album> albums)
+    required TResult Function(List<Category> categories, List<Artist> artists,
+            List<Album> albums, List<Favorite> favorites)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -304,7 +304,7 @@ mixin _$DashboardState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -314,7 +314,7 @@ mixin _$DashboardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -411,8 +411,8 @@ class _$DashboardInitialImpl implements _DashboardInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Category> categories, List<Artist> artists, List<Album> albums)
+    required TResult Function(List<Category> categories, List<Artist> artists,
+            List<Album> albums, List<Favorite> favorites)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -425,7 +425,7 @@ class _$DashboardInitialImpl implements _DashboardInitial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -438,7 +438,7 @@ class _$DashboardInitialImpl implements _DashboardInitial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -534,8 +534,8 @@ class _$DashboardLoadingImpl implements _DashboardLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Category> categories, List<Artist> artists, List<Album> albums)
+    required TResult Function(List<Category> categories, List<Artist> artists,
+            List<Album> albums, List<Favorite> favorites)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -548,7 +548,7 @@ class _$DashboardLoadingImpl implements _DashboardLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -561,7 +561,7 @@ class _$DashboardLoadingImpl implements _DashboardLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -621,7 +621,10 @@ abstract class _$$DashboardLoadedImplCopyWith<$Res> {
       __$$DashboardLoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<Category> categories, List<Artist> artists, List<Album> albums});
+      {List<Category> categories,
+      List<Artist> artists,
+      List<Album> albums,
+      List<Favorite> favorites});
 }
 
 /// @nodoc
@@ -640,6 +643,7 @@ class __$$DashboardLoadedImplCopyWithImpl<$Res>
     Object? categories = null,
     Object? artists = null,
     Object? albums = null,
+    Object? favorites = null,
   }) {
     return _then(_$DashboardLoadedImpl(
       categories: null == categories
@@ -654,6 +658,10 @@ class __$$DashboardLoadedImplCopyWithImpl<$Res>
           ? _value._albums
           : albums // ignore: cast_nullable_to_non_nullable
               as List<Album>,
+      favorites: null == favorites
+          ? _value._favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<Favorite>,
     ));
   }
 }
@@ -664,10 +672,12 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
   const _$DashboardLoadedImpl(
       {required final List<Category> categories,
       required final List<Artist> artists,
-      required final List<Album> albums})
+      required final List<Album> albums,
+      required final List<Favorite> favorites})
       : _categories = categories,
         _artists = artists,
-        _albums = albums;
+        _albums = albums,
+        _favorites = favorites;
 
   final List<Category> _categories;
   @override
@@ -693,9 +703,17 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
     return EqualUnmodifiableListView(_albums);
   }
 
+  final List<Favorite> _favorites;
+  @override
+  List<Favorite> get favorites {
+    if (_favorites is EqualUnmodifiableListView) return _favorites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_favorites);
+  }
+
   @override
   String toString() {
-    return 'DashboardState.loaded(categories: $categories, artists: $artists, albums: $albums)';
+    return 'DashboardState.loaded(categories: $categories, artists: $artists, albums: $albums, favorites: $favorites)';
   }
 
   @override
@@ -706,7 +724,9 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality().equals(other._artists, _artists) &&
-            const DeepCollectionEquality().equals(other._albums, _albums));
+            const DeepCollectionEquality().equals(other._albums, _albums) &&
+            const DeepCollectionEquality()
+                .equals(other._favorites, _favorites));
   }
 
   @override
@@ -714,7 +734,8 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
       runtimeType,
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_artists),
-      const DeepCollectionEquality().hash(_albums));
+      const DeepCollectionEquality().hash(_albums),
+      const DeepCollectionEquality().hash(_favorites));
 
   /// Create a copy of DashboardState
   /// with the given fields replaced by the non-null parameter values.
@@ -730,12 +751,12 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Category> categories, List<Artist> artists, List<Album> albums)
+    required TResult Function(List<Category> categories, List<Artist> artists,
+            List<Album> albums, List<Favorite> favorites)
         loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(categories, artists, albums);
+    return loaded(categories, artists, albums, favorites);
   }
 
   @override
@@ -744,11 +765,11 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(categories, artists, albums);
+    return loaded?.call(categories, artists, albums, favorites);
   }
 
   @override
@@ -757,13 +778,13 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(categories, artists, albums);
+      return loaded(categories, artists, albums, favorites);
     }
     return orElse();
   }
@@ -810,11 +831,13 @@ abstract class _DashboardLoaded implements DashboardState {
   const factory _DashboardLoaded(
       {required final List<Category> categories,
       required final List<Artist> artists,
-      required final List<Album> albums}) = _$DashboardLoadedImpl;
+      required final List<Album> albums,
+      required final List<Favorite> favorites}) = _$DashboardLoadedImpl;
 
   List<Category> get categories;
   List<Artist> get artists;
   List<Album> get albums;
+  List<Favorite> get favorites;
 
   /// Create a copy of DashboardState
   /// with the given fields replaced by the non-null parameter values.
@@ -894,8 +917,8 @@ class _$DashboardErrorImpl implements _DashboardError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Category> categories, List<Artist> artists, List<Album> albums)
+    required TResult Function(List<Category> categories, List<Artist> artists,
+            List<Album> albums, List<Favorite> favorites)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -908,7 +931,7 @@ class _$DashboardErrorImpl implements _DashboardError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -921,7 +944,7 @@ class _$DashboardErrorImpl implements _DashboardError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums)?
+            List<Album> albums, List<Favorite> favorites)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

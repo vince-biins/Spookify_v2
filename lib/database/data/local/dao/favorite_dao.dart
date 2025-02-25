@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:spookify_v2/features/playlist/data/local/entity/entity.dart';
+import 'package:spookify_v2/database/data/local/entity/entity.dart';
 
 @dao
 abstract class FavoriteDao {
@@ -10,10 +10,10 @@ abstract class FavoriteDao {
   Future<FavoriteEntity?> findTrackById(String id);
 
   @insert
-  Future<void> insertTrackFavorite(FavoriteEntity favorite);
+  Future<int> insertTrackFavorite(FavoriteEntity favorite);
 
   // @delete
   // Future<void> deleteTrack(FavoriteEntity favorite);
   @Query('DELETE FROM FavoriteEntity WHERE trackId = :id')
-  Future<void> deleteTrack(String id);
+  Future<int?> deleteTrack(String id);
 }

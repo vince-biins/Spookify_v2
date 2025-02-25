@@ -68,6 +68,7 @@ class _SongItemTileState extends State<SongItemTile> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     widget.track.trackName,
@@ -75,14 +76,19 @@ class _SongItemTileState extends State<SongItemTile> {
                       color: Colors.white,
                       fontSize: 14,
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    widget.track.artistName ?? '',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
+                  if (widget.track.artistName != null)
+                    Text(
+                      widget.track.artistName!,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
                 ],
               ),
             ),

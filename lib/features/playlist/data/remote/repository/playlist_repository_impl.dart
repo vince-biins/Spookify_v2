@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/core/network/failure.dart';
 import 'package:spookify_v2/core/network/mixin/mixin.dart';
-import 'package:spookify_v2/features/playlist/data/local/local.dart';
+import 'package:spookify_v2/database/data/local/local.dart';
+import 'package:spookify_v2/database/domain/repository/local_repository.dart';
 import 'package:spookify_v2/features/playlist/domain/mapper/mapper.dart';
 import 'package:spookify_v2/features/playlist/data/remote/service/service.dart';
 
@@ -51,8 +52,11 @@ class PlaylistRepositoryImpl
   Future<Either<Failure, bool>> deleteFavorite(String trackId) async {
     try {
       final res = await _favoriteDao.deleteTrack(trackId);
-
-      return const Right(false);
+      if (res != null) {
+        return Right(!(res > 0));
+      } else {
+        throw Exception('Track not found');
+      }
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }
@@ -83,9 +87,9 @@ class PlaylistRepositoryImpl
   @override
   Future<Either<Failure, bool>> insertFavorite(FavoriteEntity favorite) async {
     try {
-      await _favoriteDao.insertTrackFavorite(favorite);
+      final res = await _favoriteDao.insertTrackFavorite(favorite);
 
-      return const Right(true);
+      return Right(res > 0);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }

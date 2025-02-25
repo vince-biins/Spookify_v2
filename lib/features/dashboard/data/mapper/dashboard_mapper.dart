@@ -1,5 +1,7 @@
 import 'package:spookify_v2/core/utils/track_type.dart';
+import 'package:spookify_v2/database/data/local/entity/favorite_entity.dart';
 import 'package:spookify_v2/features/dashboard/data/models/models.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/favorite.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 
 extension CategoryMapper on CategoryResponse {
@@ -57,7 +59,6 @@ extension AlbumMapper on AlbumResponse {
 extension DashboardIemMapper<T> on List<T> {
   List<DashboardItem> toDashboardItem() {
     return map<DashboardItem?>((item) {
-      print(item.runtimeType);
       return switch (item) {
         Artist() => DashboardItem(
             id: item.id,
@@ -80,8 +81,27 @@ extension DashboardIemMapper<T> on List<T> {
             artist: '',
             type: TrackType.category,
           ),
+        Favorite() => DashboardItem(
+            id: item.id,
+            name: item.name,
+            imageUrl: item.imageUrl,
+            artist: item.artist,
+            type: TrackType.category,
+          ),
         _ => null,
       };
     }).where((item) => item != null).cast<DashboardItem>().toList();
   }
+}
+
+extension FavoriteMapper on List<FavoriteEntity> {
+  List<Favorite> transform() => map(
+        (fav) => Favorite(
+          id: fav.trackId,
+          name: fav.title,
+          type: TrackType.favorite,
+          imageUrl: fav.imageUrl,
+          artist: fav.artist ?? '',
+        ),
+      ).toList();
 }

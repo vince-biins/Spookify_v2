@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:spookify_v2/database/data/local/dao/favorite_dao.dart';
 import 'package:spookify_v2/database/spookify_database.dart';
-import 'package:spookify_v2/features/playlist/data/local/model/model.dart';
+
 import 'package:spookify_v2/features/playlist/data/remote/remote.dart';
 import 'package:spookify_v2/features/playlist/domain/repository/repository.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/player/cubit/player_cubit.dart';

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/favorite.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/header_elevated_button.dart';
@@ -16,8 +17,6 @@ part 'dashboard_content.dart';
 
 class DashboardPage extends StatelessWidget {
   DashboardPage({super.key});
-
-  final dashboardBloc = getIt<DashboardBloc>();
 
   void _onDashboardHeaderButtonPressed(String buttonName) {}
 
@@ -59,21 +58,22 @@ class DashboardPage extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) =>
-            dashboardBloc..add(const DashboardEvent.loadDashboard()),
+            getIt<DashboardBloc>()..add(const DashboardEvent.loadDashboard()),
         child: SingleChildScrollView(
           child: BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
               return state.when(
                 initial: () => Center(child: Container()),
                 loading: () => const Center(child: CircularProgressIndicator()),
-                loaded: (categories, artists, albums) => SafeArea(
+                loaded: (categories, artists, albums, favorites) => SafeArea(
                   child: _DashboardContent(
                     categories: categories,
                     artists: artists,
                     albums: albums,
+                    favorites: favorites,
                   ),
                 ),
-                error: (message) => Center(child: ErrorScreen()),
+                error: (message) => const Center(child: ErrorScreen()),
               );
             },
           ),
