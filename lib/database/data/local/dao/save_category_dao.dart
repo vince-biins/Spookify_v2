@@ -1,0 +1,18 @@
+import 'package:floor/floor.dart';
+import 'package:spookify_v2/database/data/constants/constants.dart';
+import 'package:spookify_v2/database/data/local/entity/save_category_entity.dart';
+
+@dao
+abstract class SavedCategoryDao {
+  @Query('SELECT * FROM $saveCategoryEntity')
+  Future<List<SaveCategoryEntity>>? getAllSavedCategories();
+
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<int> insertCategory(SaveCategoryEntity category);
+
+  @Query('SELECT * FROM  $saveCategoryEntity WHERE trackId = :id')
+  Future<SaveCategoryEntity?> getCategoryById(String id);
+
+  @Query('DELETE FROM  $saveCategoryEntity WHERE TrackId = :id')
+  Future<int?> deleteCategory(String id);
+}

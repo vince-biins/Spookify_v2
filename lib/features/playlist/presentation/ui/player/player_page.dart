@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
+import 'package:spookify_v2/core/widgets/custom_loading_image_indicator.dart';
+import 'package:spookify_v2/core/widgets/custom_loading_indicator.dart';
 import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/player/cubit/player_cubit.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/player/player_content.dart';
@@ -30,7 +32,7 @@ class PlayerPage extends StatelessWidget {
         child: BlocBuilder<PlayerCubit, PlayerState>(
           builder: (context, state) {
             if (state.isLoading) {
-              return Center(child: const CircularProgressIndicator());
+              return const Center(child: CustomLoadingIndicator());
             } else if (state.error.isNotEmpty) {
               return const Center(child: ErrorScreen());
             } else {
@@ -87,6 +89,21 @@ class PlayerPage extends StatelessWidget {
                       child: Image.network(
                         state.track.imageUrl ?? '',
                         fit: BoxFit.cover,
+                        loadingBuilder: (
+                          BuildContext context,
+                          Widget child,
+                          ImageChunkEvent? loadingProgress,
+                        ) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return const Center(
+                            child: CustomLoadingImageIndicator(),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container();
+                        },
                       ),
                     ),
                     Container(

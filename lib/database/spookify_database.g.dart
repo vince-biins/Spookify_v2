@@ -74,13 +74,17 @@ class _$SpookifyDatabase extends SpookifyDatabase {
 
   FavoriteDao? _favoriteDaoInstance;
 
+  SavedCategoryDao? _savedCategoryDaoInstance;
+
+  TrackDao? _trackDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 2,
+      version: 1,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -96,7 +100,11 @@ class _$SpookifyDatabase extends SpookifyDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `FavoriteEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `imageUrl` TEXT NOT NULL, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `artist` TEXT, `isFavorite` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `FAVORITE_ENTITY` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `imageUrl` TEXT NOT NULL, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `artist` TEXT, `isFavorite` INTEGER NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `SAVE_CATEGORY_ENTITY` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `trackId` TEXT NOT NULL, `title` TEXT NOT NULL, `imageUrl` TEXT, `artistName` TEXT, `type` INTEGER NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `TRACK_ENTITY` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `categoryId` TEXT NOT NULL, `trackId` TEXT NOT NULL, `albumId` TEXT, `artistName` TEXT, `trackNumber` INTEGER, `type` INTEGER NOT NULL, `imageUrl` TEXT, `trackName` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, `durationMs` INTEGER NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -108,6 +116,17 @@ class _$SpookifyDatabase extends SpookifyDatabase {
   FavoriteDao get favoriteDao {
     return _favoriteDaoInstance ??= _$FavoriteDao(database, changeListener);
   }
+
+  @override
+  SavedCategoryDao get savedCategoryDao {
+    return _savedCategoryDaoInstance ??=
+        _$SavedCategoryDao(database, changeListener);
+  }
+
+  @override
+  TrackDao get trackDao {
+    return _trackDaoInstance ??= _$TrackDao(database, changeListener);
+  }
 }
 
 class _$FavoriteDao extends FavoriteDao {
@@ -117,7 +136,7 @@ class _$FavoriteDao extends FavoriteDao {
   )   : _queryAdapter = QueryAdapter(database),
         _favoriteEntityInsertionAdapter = InsertionAdapter(
             database,
-            'FavoriteEntity',
+            'FAVORITE_ENTITY',
             (FavoriteEntity item) => <String, Object?>{
                   'id': item.id,
                   'imageUrl': item.imageUrl,
@@ -137,7 +156,7 @@ class _$FavoriteDao extends FavoriteDao {
 
   @override
   Future<List<FavoriteEntity>?> findAllTracks() async {
-    return _queryAdapter.queryList('SELECT * FROM FavoriteEntity',
+    return _queryAdapter.queryList('SELECT * FROM  FAVORITE_ENTITY',
         mapper: (Map<String, Object?> row) => FavoriteEntity(
             id: row['id'] as int?,
             trackId: row['trackId'] as String,
@@ -150,7 +169,7 @@ class _$FavoriteDao extends FavoriteDao {
   @override
   Future<FavoriteEntity?> findTrackById(String id) async {
     return _queryAdapter.query(
-        'SELECT * FROM FavoriteEntity WHERE trackId = ?1',
+        'SELECT * FROM FAVORITE_ENTITY WHERE trackId = ?1',
         mapper: (Map<String, Object?> row) => FavoriteEntity(
             id: row['id'] as int?,
             trackId: row['trackId'] as String,
@@ -163,7 +182,7 @@ class _$FavoriteDao extends FavoriteDao {
 
   @override
   Future<int?> deleteTrack(String id) async {
-    return _queryAdapter.query('DELETE FROM FavoriteEntity WHERE trackId = ?1',
+    return _queryAdapter.query('DELETE FROM FAVORITE_ENTITY WHERE trackId = ?1',
         mapper: (Map<String, Object?> row) => row.values.first as int,
         arguments: [id]);
   }
@@ -171,6 +190,136 @@ class _$FavoriteDao extends FavoriteDao {
   @override
   Future<int> insertTrackFavorite(FavoriteEntity favorite) {
     return _favoriteEntityInsertionAdapter.insertAndReturnId(
-        favorite, OnConflictStrategy.abort);
+        favorite, OnConflictStrategy.replace);
+  }
+}
+
+class _$SavedCategoryDao extends SavedCategoryDao {
+  _$SavedCategoryDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _saveCategoryEntityInsertionAdapter = InsertionAdapter(
+            database,
+            'SAVE_CATEGORY_ENTITY',
+            (SaveCategoryEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'trackId': item.trackId,
+                  'title': item.title,
+                  'imageUrl': item.imageUrl,
+                  'artistName': item.artistName,
+                  'type': item.type.index
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<SaveCategoryEntity>
+      _saveCategoryEntityInsertionAdapter;
+
+  @override
+  Future<List<SaveCategoryEntity>>? getAllSavedCategories() async {
+    return _queryAdapter.queryList('SELECT * FROM SAVE_CATEGORY_ENTITY',
+        mapper: (Map<String, Object?> row) => SaveCategoryEntity(
+            id: row['id'] as int?,
+            title: row['title'] as String,
+            trackId: row['trackId'] as String,
+            imageUrl: row['imageUrl'] as String?,
+            artistName: row['artistName'] as String?,
+            type: TrackType.values[row['type'] as int]));
+  }
+
+  @override
+  Future<SaveCategoryEntity?> getCategoryById(String id) async {
+    return _queryAdapter.query(
+        'SELECT * FROM  SAVE_CATEGORY_ENTITY WHERE trackId = ?1',
+        mapper: (Map<String, Object?> row) => SaveCategoryEntity(
+            id: row['id'] as int?,
+            title: row['title'] as String,
+            trackId: row['trackId'] as String,
+            imageUrl: row['imageUrl'] as String?,
+            artistName: row['artistName'] as String?,
+            type: TrackType.values[row['type'] as int]),
+        arguments: [id]);
+  }
+
+  @override
+  Future<int?> deleteCategory(String id) async {
+    return _queryAdapter.query(
+        'DELETE FROM  SAVE_CATEGORY_ENTITY WHERE TrackId = ?1',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
+        arguments: [id]);
+  }
+
+  @override
+  Future<int> insertCategory(SaveCategoryEntity category) {
+    return _saveCategoryEntityInsertionAdapter.insertAndReturnId(
+        category, OnConflictStrategy.replace);
+  }
+}
+
+class _$TrackDao extends TrackDao {
+  _$TrackDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _trackEntityInsertionAdapter = InsertionAdapter(
+            database,
+            'TRACK_ENTITY',
+            (TrackEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'categoryId': item.categoryId,
+                  'trackId': item.trackId,
+                  'albumId': item.albumId,
+                  'artistName': item.artistName,
+                  'trackNumber': item.trackNumber,
+                  'type': item.type.index,
+                  'imageUrl': item.imageUrl,
+                  'trackName': item.trackName,
+                  'isFavorite': item.isFavorite ? 1 : 0,
+                  'durationMs': item.durationMs
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<TrackEntity> _trackEntityInsertionAdapter;
+
+  @override
+  Future<List<TrackEntity>> getTrackForCategory(int categoryId) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM TRACK_ENTITY WHERE categoryId = ?1',
+        mapper: (Map<String, Object?> row) => TrackEntity(
+            id: row['id'] as int?,
+            categoryId: row['categoryId'] as String,
+            trackId: row['trackId'] as String,
+            albumId: row['albumId'] as String?,
+            artistName: row['artistName'] as String?,
+            trackNumber: row['trackNumber'] as int?,
+            type: TrackType.values[row['type'] as int],
+            imageUrl: row['imageUrl'] as String?,
+            trackName: row['trackName'] as String,
+            isFavorite: (row['isFavorite'] as int) != 0,
+            durationMs: row['durationMs'] as int),
+        arguments: [categoryId]);
+  }
+
+  @override
+  Future<int?> deleteAllForCategory(int categoryId) async {
+    return _queryAdapter.query('DELETE FROM TRACK_ENTITY WHERE categoryId = ?1',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
+        arguments: [categoryId]);
+  }
+
+  @override
+  Future<List<int>> insertAllTracks(List<TrackEntity> music) {
+    return _trackEntityInsertionAdapter.insertListAndReturnIds(
+        music, OnConflictStrategy.replace);
   }
 }

@@ -6,14 +6,19 @@ import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 class TrackInfoSection extends StatelessWidget {
   final TrackDataProvider extra;
   final double infoBoxHeight;
+  final bool isDownloaded;
+  final VoidCallback onClickDownloadTrack;
   const TrackInfoSection({
     super.key,
     required this.infoBoxHeight,
     required this.extra,
+    required this.onClickDownloadTrack,
+    required this.isDownloaded,
   });
 
   @override
   Widget build(BuildContext context) {
+    print('Categor: $isDownloaded');
     final String title =
         extra.artist == null ? extra.title : 'With ${extra.artist}';
     return SliverToBoxAdapter(
@@ -101,11 +106,11 @@ class TrackInfoSection extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: onClickDownloadTrack,
                           iconSize: 30,
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.download_for_offline_outlined,
-                            color: Colors.white70,
+                            color: isDownloaded ? Colors.green : Colors.white70,
                           ),
                         ),
                         IconButton(

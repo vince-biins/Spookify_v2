@@ -1,10 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/core/network/failure.dart';
 import 'package:spookify_v2/core/network/mixin/mixin.dart';
+import 'package:spookify_v2/database/data/local/dao/save_category_dao.dart';
+import 'package:spookify_v2/database/data/local/dao/track_dao.dart';
 import 'package:spookify_v2/database/data/local/local.dart';
 import 'package:spookify_v2/database/domain/repository/local_repository.dart';
 import 'package:spookify_v2/features/playlist/domain/mapper/mapper.dart';
 import 'package:spookify_v2/features/playlist/data/remote/service/service.dart';
+import 'package:spookify_v2/features/playlist/domain/model/save_category_dto.dart';
 
 import 'package:spookify_v2/features/playlist/domain/model/track.dart';
 import 'package:spookify_v2/features/playlist/domain/repository/repository.dart';
@@ -14,11 +17,17 @@ class PlaylistRepositoryImpl
     implements PlaylistRepository {
   final PlaylistService _service;
   final FavoriteDao _favoriteDao;
+  final SavedCategoryDao _savedCategoryDao;
+  final TrackDao _trackDao;
 
   PlaylistRepositoryImpl({
     required PlaylistService service,
     required FavoriteDao favoriteDao,
+    required SavedCategoryDao saveCategoryDao,
+    required TrackDao trackDao,
   })  : _service = service,
+        _savedCategoryDao = saveCategoryDao,
+        _trackDao = trackDao,
         _favoriteDao = favoriteDao;
 
   @override
@@ -102,6 +111,40 @@ class PlaylistRepositoryImpl
       final response = await _service.getTrack(id);
 
       return Right(response.transform(localResponse));
+    } catch (e) {
+      return Left(handleApiError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> saveAllTracksInLocal({
+    required SaveCategoryDto saveCategory,
+    required List<Track> tracks,
+  }) async {
+    try {
+      final saveCategoryResult =
+          await _savedCategoryDao.insertCategory(saveCategory.toEntity());
+      final trackResult = await _trackDao.insertAllTracks(
+        tracks.map((item) => item.toEntity(saveCategory.id)).toList(),
+      );
+
+      return Right(saveCategoryResult > 0 && trackResult.isNotEmpty);
+    } catch (e) {
+      return Left(handleApiError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> getSavedCategoryById(String id) async {
+    try {
+      final saveCategoryResult = await _savedCategoryDao.getCategoryById(id);
+
+      if (saveCategoryResult != null) {
+        print(saveCategoryResult.title);
+        return const Right(true);
+      } else {
+        return const Right(false);
+      }
     } catch (e) {
       return Left(handleApiError(e));
     }

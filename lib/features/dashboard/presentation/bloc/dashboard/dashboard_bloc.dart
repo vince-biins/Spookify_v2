@@ -14,6 +14,8 @@ part 'dashboard_bloc.freezed.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
     with StateConnectivityMixin {
+  StreamSubscription? _connectivitySubscription;
+
   final int _limit = 8;
   final FetchCategoryUsecase _fetchCategoryUsecase;
   final FetchArtistUsecase _fetchArtistUsecase;
@@ -32,7 +34,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
         super(const DashboardState.initial()) {
     on<LoadDashboard>(_onLoadDashboard);
 
-    listenForConnectionChange();
+    _connectivitySubscription = listenForConnectionChange();
+  }
+
+  @override
+  Future<void> close() {
+    _connectivitySubscription?.cancel();
+    return super.close();
   }
 
   FutureOr<void> _onLoadDashboard(

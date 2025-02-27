@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/core/core.dart';
@@ -14,12 +16,20 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
   final PlaylistRepository _repository;
   bool _isInitializing = false;
 
+  StreamSubscription? _connectivitySubscription;
+
   final List<String> _trackIds = [];
   PlayerCubit({
     required PlaylistRepository repository,
   })  : _repository = repository,
         super(PlayerState.initialized()) {
-    listenForConnectionChange();
+    _connectivitySubscription = listenForConnectionChange();
+  }
+
+  @override
+  Future<void> close() {
+    _connectivitySubscription?.cancel();
+    return super.close();
   }
 
   Future<void> toggleFavorite({

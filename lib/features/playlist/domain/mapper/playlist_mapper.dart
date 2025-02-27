@@ -1,8 +1,11 @@
 import 'package:spookify_v2/database/data/local/entity/entity.dart';
 
 import 'package:spookify_v2/core/utils/track_type.dart';
+import 'package:spookify_v2/database/data/local/entity/save_category_entity.dart';
+import 'package:spookify_v2/database/data/local/entity/track_entity.dart';
 import 'package:spookify_v2/features/playlist/data/remote/model/model.dart';
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
+import 'package:spookify_v2/features/playlist/domain/model/save_category_dto.dart';
 
 extension AlbumTrackMapper on TrackResponse {
   List<Track> transform(List<FavoriteEntity> favorite) => items
@@ -80,4 +83,29 @@ extension FavoriteMapper on List<FavoriteEntity> {
           durationMs: 0,
         ),
       ).toList();
+}
+
+extension SaveCategoryEntityMapper on SaveCategoryDto {
+  SaveCategoryEntity toEntity() => SaveCategoryEntity(
+        trackId: id,
+        title: title,
+        type: type,
+        artistName: artistName,
+        imageUrl: imageUrl,
+      );
+}
+
+extension TrackEntityMapper on Track {
+  TrackEntity toEntity(String categoryId) => TrackEntity(
+        categoryId: categoryId,
+        trackId: trackId,
+        albumId: albumId,
+        artistName: artistName,
+        trackNumber: trackNumber,
+        type: type,
+        imageUrl: imageUrl,
+        trackName: trackName,
+        isFavorite: isFavorite,
+        durationMs: durationMs,
+      );
 }

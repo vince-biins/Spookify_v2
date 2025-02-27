@@ -1,19 +1,20 @@
 import 'package:floor/floor.dart';
+import 'package:spookify_v2/database/data/constants/constants.dart';
 import 'package:spookify_v2/database/data/local/entity/entity.dart';
 
 @dao
 abstract class FavoriteDao {
-  @Query('SELECT * FROM FavoriteEntity')
+  @Query('SELECT * FROM  $favoriteEntity')
   Future<List<FavoriteEntity>?> findAllTracks();
 
-  @Query('SELECT * FROM FavoriteEntity WHERE trackId = :id')
+  @Query('SELECT * FROM $favoriteEntity WHERE trackId = :id')
   Future<FavoriteEntity?> findTrackById(String id);
 
-  @insert
+  @Insert(onConflict: OnConflictStrategy.replace)
   Future<int> insertTrackFavorite(FavoriteEntity favorite);
 
   // @delete
   // Future<void> deleteTrack(FavoriteEntity favorite);
-  @Query('DELETE FROM FavoriteEntity WHERE trackId = :id')
+  @Query('DELETE FROM $favoriteEntity WHERE trackId = :id')
   Future<int?> deleteTrack(String id);
 }

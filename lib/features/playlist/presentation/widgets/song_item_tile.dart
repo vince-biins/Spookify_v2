@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:spookify_v2/core/theme/app_colors.dart';
+import 'package:spookify_v2/core/widgets/custom_loading_image_indicator.dart';
 
 import 'package:spookify_v2/features/playlist/domain/model/track.dart';
 
@@ -33,6 +34,7 @@ class _SongItemTileState extends State<SongItemTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onClickTrack,
+      onDoubleTap: () {},
       child: Container(
         color: AppColors.background,
         margin: const EdgeInsets.symmetric(vertical: 4.0),
@@ -46,6 +48,24 @@ class _SongItemTileState extends State<SongItemTile> {
                     child: Image.network(
                       widget.track.imageUrl!,
                       fit: BoxFit.cover,
+                      loadingBuilder: (
+                        BuildContext context,
+                        Widget child,
+                        ImageChunkEvent? loadingProgress,
+                      ) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return const Center(
+                          child: CustomLoadingImageIndicator(),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/images/error.png',
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   )
                 : widget.track.trackNumber != null

@@ -13,7 +13,7 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
       routes: [
         GoRoute(
           path: DashboardDestination.home,
-          builder: (context, state) => DashboardPage(),
+          builder: (context, state) => const DashboardPage(),
           routes: [
             ...playlistRoute,
             GoRoute(

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/playlist_data_provider.dart';
+import 'package:spookify_v2/core/widgets/custom_loading_image_indicator.dart';
 
 class CustomAppBar extends StatelessWidget {
   final double maxHeight;
@@ -104,13 +105,33 @@ class CustomAppBar extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black,
                     spreadRadius: 1,
-                    blurRadius: 10,
+                    blurRadius: 5,
                   ),
                 ],
                 image: DecorationImage(
-                  image: NetworkImage(
+                  image: Image.network(
                     imageUrl,
-                  ),
+                    loadingBuilder: (
+                      BuildContext context,
+                      Widget child,
+                      ImageChunkEvent? loadingProgress,
+                    ) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CustomLoadingImageIndicator(),
+                      );
+                    },
+                    errorBuilder: (
+                      BuildContext context,
+                      Object exception,
+                      StackTrace? stackTrace,
+                    ) {
+                      return Image.asset(
+                        'assets/images/error.png',
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  ).image,
                   fit: BoxFit.cover,
                 ),
               ),

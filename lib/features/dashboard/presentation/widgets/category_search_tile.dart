@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:spookify_v2/core/widgets/custom_loading_image_indicator.dart';
+
 class CategorySearchTile extends StatelessWidget {
   final Color color;
   final String imageUrl;
@@ -31,6 +33,26 @@ class CategorySearchTile extends StatelessWidget {
                 height: 70,
                 width: 70,
                 fit: BoxFit.cover,
+                loadingBuilder: (
+                  BuildContext context,
+                  Widget child,
+                  ImageChunkEvent? loadingProgress,
+                ) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return const Center(
+                    child: CustomLoadingImageIndicator(),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/images/error.png',
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
             ),
           ),

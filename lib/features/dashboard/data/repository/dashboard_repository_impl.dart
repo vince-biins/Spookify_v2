@@ -1,23 +1,28 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/core/network/network.dart';
 import 'package:spookify_v2/database/data/local/dao/favorite_dao.dart';
+import 'package:spookify_v2/database/data/local/dao/save_category_dao.dart';
 import 'package:spookify_v2/database/data/local/entity/favorite_entity.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
 import 'package:spookify_v2/features/dashboard/data/service/service.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/favorite.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
+import 'package:spookify_v2/features/dashboard/domain/model/save_category.dart';
 import 'package:spookify_v2/features/dashboard/domain/repository/repository.dart';
 
 class DashboardRepositoryImpl
     with ApiErrorHandler
     implements DashboardRepository {
   final FavoriteDao _favoriteDao;
+  final SavedCategoryDao _savedCategoryDao;
   final DashboardService _service;
 
   DashboardRepositoryImpl({
     required DashboardService service,
     required FavoriteDao favoriteDao,
+    required SavedCategoryDao savedCategoryDao,
   })  : _service = service,
+        _savedCategoryDao = savedCategoryDao,
         _favoriteDao = favoriteDao;
 
   @override
@@ -77,4 +82,15 @@ class DashboardRepositoryImpl
   @override
   Future<Either<Failure, bool>> insertFavorite(FavoriteEntity favorite) async =>
       Left(Failure(message: 'Unimplmented method'));
+
+  @override
+  Future<Either<Failure, List<SaveCategory>>> getSaveCategories() async {
+    try {
+      final res = await _savedCategoryDao.getAllSavedCategories();
+
+      return Right(res?.transform() ?? []);
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
 }

@@ -105,6 +105,24 @@ class _PlayerContentState extends State<PlayerContent>
               child: Image.network(
                 widget._track.imageUrl!,
                 fit: BoxFit.cover,
+                loadingBuilder: (
+                  BuildContext context,
+                  Widget child,
+                  ImageChunkEvent? loadingProgress,
+                ) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/images/error.png',
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
             ),
           ),

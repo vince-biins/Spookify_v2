@@ -8,4 +8,8 @@ class TrackEvent with _$TrackEvent {
     required String tempImageUrl,
     required bool isFavorite,
   }) = UpdateFavoriteTrack;
+  const factory TrackEvent.saveAllTracks({
+    required SaveCategoryDto saveCategory,
+    required List<Track> tracks,
+  }) = SavedAllTracks;
 }

@@ -15,6 +15,7 @@ part 'search_bloc.freezed.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState>
     with StateConnectivityMixin {
   final FetchCategoryUsecase _fetchCategoryUsecase;
+  StreamSubscription? _connectivitySubscription;
 
   SearchBloc({
     required FetchCategoryUsecase fetchCategoryUsecase,
@@ -22,12 +23,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState>
         super(const SearchState.loading()) {
     on<LoadedSearch>(_onLoadedSeach);
 
-    // connectivityBloc.stream.listen((state) {
-    //   if (state.status == ConnectivityStatus.connected) {
-    //     _retryFailedRequests();
-    //   }
-    // });
-    listenForConnectionChange();
+    _connectivitySubscription = listenForConnectionChange();
+  }
+
+  @override
+  Future<void> close() {
+    _connectivitySubscription?.cancel();
+    return super.close();
   }
 
   FutureOr<void> _onLoadedSeach(

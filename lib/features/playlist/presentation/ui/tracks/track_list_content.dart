@@ -5,6 +5,7 @@ import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/features/playlist/assets/playlist_strings.dart';
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
+import 'package:spookify_v2/features/playlist/domain/model/save_category_dto.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track.dart';
 
 import 'package:spookify_v2/features/playlist/presentation/widgets/widgets.dart';
@@ -14,12 +15,14 @@ class TrackListContent extends StatefulWidget {
   final List<Track> track;
   final TrackDataProvider extra;
   final bool showDefaultAppbar;
+  final bool isDownloaded;
   const TrackListContent({
     super.key,
     required this.track,
     required this.extra,
     required this.showDefaultAppbar,
     required this.bgColor,
+    required this.isDownloaded,
   });
 
   @override
@@ -86,6 +89,21 @@ class _TrackListContentState extends State<TrackListContent> {
             TrackInfoSection(
               infoBoxHeight: infoBoxHeight,
               extra: widget.extra,
+              isDownloaded: widget.isDownloaded,
+              onClickDownloadTrack: () {
+                context.read<TrackBloc>().add(
+                      TrackEvent.saveAllTracks(
+                        saveCategory: SaveCategoryDto(
+                          id: widget.extra.id ?? '',
+                          title: widget.extra.title,
+                          imageUrl: widget.extra.imageUrl,
+                          artistName: widget.extra.artist,
+                          type: widget.extra.type,
+                        ),
+                        tracks: track,
+                      ),
+                    );
+              },
             ),
             if (_shouldShowHeader)
               SliverToBoxAdapter(

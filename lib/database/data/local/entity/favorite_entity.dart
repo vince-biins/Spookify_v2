@@ -1,6 +1,7 @@
 import 'package:floor/floor.dart';
+import 'package:spookify_v2/database/data/constants/constants.dart';
 
-@entity
+@Entity(tableName: favoriteEntity)
 class FavoriteEntity {
   @PrimaryKey(autoGenerate: true)
   int? id;

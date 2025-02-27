@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/core/network/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/database/data/local/entity/entity.dart';
 
 import 'package:spookify_v2/features/playlist/domain/model/model.dart';
+import 'package:spookify_v2/features/playlist/domain/model/save_category_dto.dart';
 import 'package:spookify_v2/features/playlist/domain/repository/repository.dart';
 import 'package:spookify_v2/core/utils/utils.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/provider/provider.dart';
@@ -18,6 +20,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
     with StateConnectivityMixin {
   final TrackBlocProvider _args;
   final PlaylistRepository _repository;
+  StreamSubscription? _connectivitySubscription;
 
   TrackBloc({
     required TrackBlocProvider args,
@@ -27,8 +30,9 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
         super(const TrackState.initial()) {
     on<LoadTrack>(_onLoadTrack);
     on<UpdateFavoriteTrack>(_onAddedFavoriteTrack);
+    on<SavedAllTracks>(_onSavedAllTracks);
 
-    listenForConnectionChange();
+    _connectivitySubscription = listenForConnectionChange();
   }
 
   FutureOr<void> _onLoadTrack(LoadTrack event, Emitter<TrackState> emit) async {
@@ -41,6 +45,14 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
       _ => null
     };
 
+    final saveCategoryRes =
+        await _repository.getSavedCategoryById(_args.id ?? '');
+
+    bool isDownloaded = false;
+    saveCategoryRes.fold((error) {}, (data) {
+      isDownloaded = data;
+    });
+
     result?.fold(
       (error) {
         emit(
@@ -51,7 +63,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
       (data) {
         if (!emit.isDone) {
           emit(
-            TrackState.loaded(tracks: data),
+            TrackState.loaded(tracks: data, isDownloaded: isDownloaded),
           );
         }
       },
@@ -76,7 +88,47 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
     };
 
     res.fold((error) {}, (success) {
-      emit(TrackState.loaded(tracks: (state as _LoadedTrack).tracks));
+      final index = (state as _LoadedTrack)
+          .tracks
+          .indexWhere((item) => event.track.trackId == item.trackId);
+
+      final List<Track> updatedTracks =
+          List.from((state as _LoadedTrack).tracks);
+      updatedTracks[index] = updatedTracks[index].copyWith(isFavorite: true);
+
+      emit(
+        TrackState.loaded(
+          tracks: updatedTracks,
+          isDownloaded: (state as _LoadedTrack).isDownloaded,
+        ),
+      );
     });
+  }
+
+  FutureOr<void> _onSavedAllTracks(
+    SavedAllTracks event,
+    Emitter<TrackState> emit,
+  ) async {
+    final res = await _repository.saveAllTracksInLocal(
+      saveCategory: event.saveCategory,
+      tracks: event.tracks,
+    );
+
+    res.fold((error) {
+      emit(TrackState.error(message: error.message));
+    }, (isDownloaded) {
+      emit(
+        TrackState.loaded(
+          tracks: (state as _LoadedTrack).tracks,
+          isDownloaded: isDownloaded,
+        ),
+      );
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _connectivitySubscription?.cancel();
+    return super.close();
   }
 }

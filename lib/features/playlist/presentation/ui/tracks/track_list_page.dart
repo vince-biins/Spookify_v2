@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:spookify_v2/core/core.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
+import 'package:spookify_v2/core/widgets/custom_loading_indicator.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track_bloc.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/tracks/track_list_content.dart';
@@ -32,15 +33,20 @@ class _TrackListPageState extends State<TrackListPage> {
         type: widget.extra.type,
       ),
     )..add(const TrackEvent.loadTrack());
-    _updatePaletteGenerator();
+    if (widget.extra.imageUrl != null) {
+      _updatePaletteGenerator(widget.extra.imageUrl!);
+    }
     super.initState();
   }
 
-  Future<void> _updatePaletteGenerator() async {
-    if (widget.extra.imageUrl != null) {
+  Future<void> _updatePaletteGenerator(String imageUrl) async {
+    try {
       paletteGenerator = await PaletteGenerator.fromImageProvider(
-        Image.network(widget.extra.imageUrl!).image,
+        NetworkImage(imageUrl),
       );
+    } catch (e) {
+      paletteGenerator =
+          PaletteGenerator.fromColors([PaletteColor(Colors.grey, 1)]);
     }
 
     setState(() {});
@@ -73,12 +79,13 @@ class _TrackListPageState extends State<TrackListPage> {
             builder: (context, state) {
               return state.when(
                 initial: () => Center(child: Container()),
-                loading: () => const Center(child: CircularProgressIndicator()),
-                loaded: (track) => TrackListContent(
+                loading: () => const Center(child: CustomLoadingIndicator()),
+                loaded: (track, isDownloaded) => TrackListContent(
                   bgColor: gradientColor,
                   track: track,
                   extra: widget.extra,
                   showDefaultAppbar: widget.extra.type != TrackType.favorite,
+                  isDownloaded: isDownloaded,
                 ),
                 error: (message) => const Center(child: ErrorScreen()),
               );

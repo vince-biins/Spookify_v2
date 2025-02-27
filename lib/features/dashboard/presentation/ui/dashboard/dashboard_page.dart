@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
 import 'package:spookify_v2/core/utils/track_type.dart';
+import 'package:spookify_v2/core/widgets/custom_loading_indicator.dart';
 import 'package:spookify_v2/features/dashboard/data/mapper/mapper.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/favorite.dart';
 import 'package:spookify_v2/features/dashboard/domain/model/model.dart';
@@ -61,13 +63,13 @@ class DashboardPage extends StatelessWidget {
       body: BlocProvider(
         create: (context) =>
             getIt<DashboardBloc>()..add(const DashboardEvent.loadDashboard()),
-        child: SingleChildScrollView(
-          child: BlocBuilder<DashboardBloc, DashboardState>(
-            builder: (context, state) {
-              return state.when(
-                initial: () => Center(child: Container()),
-                loading: () => const Center(child: CircularProgressIndicator()),
-                loaded: (categories, artists, albums, favorites) => SafeArea(
+        child: BlocBuilder<DashboardBloc, DashboardState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => Center(child: Container()),
+              loading: () => const Center(child: CustomLoadingIndicator()),
+              loaded: (categories, artists, albums, favorites) => SafeArea(
+                child: SingleChildScrollView(
                   child: _DashboardContent(
                     categories: categories,
                     artists: artists,
@@ -75,10 +77,10 @@ class DashboardPage extends StatelessWidget {
                     favorites: favorites,
                   ),
                 ),
-                error: (message) => const Center(child: ErrorScreen()),
-              );
-            },
-          ),
+              ),
+              error: (message) => const Center(child: ErrorScreen()),
+            );
+          },
         ),
       ),
     );
