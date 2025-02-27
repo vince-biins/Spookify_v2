@@ -102,8 +102,8 @@ class LibraryTile extends StatelessWidget {
     final bool isArtistType = type == TrackType.artist;
     return ClipRRect(
       borderRadius: BorderRadius.circular(
-        isArtistType ? 80 : 12.0,
-      ), // Apply borderRadius here
+        isArtistType ? 80 : 4.0,
+      ),
       child: SizedBox(
         width: imageSize,
         height: imageSize,

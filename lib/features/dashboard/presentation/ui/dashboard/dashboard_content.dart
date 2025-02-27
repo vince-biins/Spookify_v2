@@ -208,7 +208,7 @@ class _DashboardContent extends StatelessWidget {
     required List<DashboardItem> item,
     required int index,
   }) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final extra = TrackDataProvider(
         id: item[index].id,
         imageUrl: item[index].imageUrl,
@@ -216,10 +216,15 @@ class _DashboardContent extends StatelessWidget {
         title: item[index].name,
         type: item[index].type,
       );
-      GoRouter.of(context).push(
+
+      final result = await GoRouter.of(context).push(
         TrackDestination.track.pathUrl,
         extra: extra,
       );
+
+      if (context.mounted && result == true) {
+        context.read<DashboardBloc>().add(const DashboardEvent.loadDashboard());
+      }
     });
   }
 
@@ -228,16 +233,20 @@ class _DashboardContent extends StatelessWidget {
     required List<DashboardItem> item,
     required int index,
   }) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final extra = TrackIdProvider(
         currId: item[index].id,
         trackIds: item.map((item) => item.id).toList(),
       );
 
-      GoRouter.of(context).push(
+      final result = await GoRouter.of(context).push(
         TrackDestination.player.pathUrl,
         extra: extra,
       );
+
+      if (context.mounted && result == true) {
+        context.read<DashboardBloc>().add(const DashboardEvent.loadDashboard());
+      }
     });
   }
 }

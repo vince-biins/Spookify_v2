@@ -93,7 +93,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
           categories: categories,
           artists: artists,
           albums: albums,
-          favorites: favorites,
+          favorites: favorites.reversed.toList(),
         ),
       );
     }

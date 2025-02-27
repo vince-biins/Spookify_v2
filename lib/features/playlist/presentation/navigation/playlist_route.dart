@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/destinations.dart';
 
 import 'package:spookify_v2/core/navigation/providers/playlist/playlist.dart';
 import 'package:spookify_v2/core/navigation/providers/playlist/track_id_provider.dart';
+import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
+import 'package:spookify_v2/features/playlist/presentation/bloc/track/track_bloc.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/ui.dart';
+import 'package:spookify_v2/service_locator.dart';
 
 final List<RouteBase> playlistRoute = [
   GoRoute(
     path: TrackDestination.track.path,
     builder: (context, state) {
       final TrackDataProvider trackData = state.extra as TrackDataProvider;
-      return TrackListPage(
-        extra: trackData,
+      return BlocProvider(
+        create: (context) => getIt<TrackBloc>(
+          param1: TrackBlocProvider(
+            id: trackData.id,
+            type: trackData.type,
+          ),
+        )..add(const TrackEvent.loadTrack()),
+        child: TrackListPage(
+          extra: trackData,
+        ),
       );
     },
   ),

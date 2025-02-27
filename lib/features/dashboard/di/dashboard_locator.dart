@@ -10,6 +10,7 @@ import 'package:spookify_v2/features/dashboard/domain/repository/repository.dart
 import 'package:spookify_v2/features/dashboard/domain/usecase/fetch_favorites_usecase.dart';
 import 'package:spookify_v2/features/dashboard/domain/usecase/usecase.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/dashboard/dashboard.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/launch/launch_bloc.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/library/library_bloc.dart';
 import 'package:spookify_v2/features/dashboard/presentation/bloc/search/search_bloc.dart';
 
@@ -39,6 +40,10 @@ void initializeDashboardLocator(GetIt getIt) {
 
   getIt.registerLazySingleton(
     () => FetchFavoritesUsecase(repository: getIt<DashboardRepository>()),
+  );
+
+  getIt.registerFactory(
+    () => LaunchBloc(),
   );
 
   getIt.registerFactory(

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/destinations.dart';
 import 'package:spookify_v2/core/network/internet_connection/bloc/connectivity_bloc.dart';
 import 'package:spookify_v2/core/network/internet_connection/connectivity_status.dart';
-
+import 'package:spookify_v2/features/dashboard/presentation/bloc/launch/launch_bloc.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/bottom_bar_content.dart';
 import 'package:spookify_v2/features/dashboard/presentation/widgets/bottom_player.dart';
 import 'package:spookify_v2/service_locator.dart';
@@ -40,9 +40,9 @@ class _LaunchPageState extends State<LaunchPage> {
       return currentPath == route;
     });
 
-    final showBottomPlayer =
-        widget.navigationShell.shellRouteContext.routerState.fullPath !=
-            TrackDestination.player.pathUrl;
+    // final showBottomPlayer =
+    //     widget.navigationShell.shellRouteContext.routerState.fullPath !=
+    //         TrackDestination.player.pathUrl;
 
     return Scaffold(
       extendBody: true,
@@ -56,7 +56,7 @@ class _LaunchPageState extends State<LaunchPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                //   if (showBottomPlayer) const BottomPlayer(),
+                //         if (showBottomPlayer) const BottomPlayer(),
                 if (showBottomNav)
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
@@ -67,7 +67,13 @@ class _LaunchPageState extends State<LaunchPage> {
                       elevation: 0,
                       enableFeedback: false,
                       currentIndex: widget.navigationShell.currentIndex,
-                      onTap: widget.navigationShell.goBranch,
+                      onTap: (index) {
+                        context
+                            .read<LaunchBloc>()
+                            .add(LaunchEvent.tabChanged(index: index));
+                        widget.navigationShell
+                            .goBranch(index, initialLocation: true);
+                      },
                       unselectedFontSize: 10.0,
                       selectedFontSize: 12.0,
                       iconSize: 26.0,

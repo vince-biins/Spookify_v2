@@ -1,19 +1,36 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/core/navigation/navigation.dart';
-import 'package:spookify_v2/features/dashboard/domain/model/dashboard_item.dart';
-import 'package:spookify_v2/features/dashboard/presentation/ui/ui.dart';
+import 'package:spookify_v2/features/dashboard/dashboard.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/launch/launch_bloc.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/library/library_bloc.dart';
+import 'package:spookify_v2/features/dashboard/presentation/bloc/search/search.dart';
+import 'package:spookify_v2/features/dashboard/presentation/ui/wrapper/refresh_wrapper.dart';
 import 'package:spookify_v2/features/playlist/presentation/navigation/navigation.dart';
+import 'package:spookify_v2/service_locator.dart';
 
 final dashboardRoute = StatefulShellRoute.indexedStack(
-  builder: (context, state, navigationShell) => LaunchPage(
-    navigationShell: navigationShell,
+  builder: (context, state, navigationShell) => BlocProvider(
+    create: (context) => getIt<LaunchBloc>(),
+    child: LaunchPage(
+      navigationShell: navigationShell,
+    ),
   ),
   branches: [
     StatefulShellBranch(
       routes: [
         GoRoute(
           path: DashboardDestination.home,
-          builder: (context, state) => const DashboardPage(),
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<DashboardBloc>()
+              ..add(const DashboardEvent.loadDashboard()),
+            child: RefreshWrapper(
+              refreshFunction: (context) => context
+                  .read<DashboardBloc>()
+                  .add(const DashboardEvent.loadDashboard()),
+              child: const DashboardPage(),
+            ),
+          ),
           routes: [
             ...playlistRoute,
             GoRoute(
@@ -33,7 +50,11 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
       routes: [
         GoRoute(
           path: DashboardDestination.search,
-          builder: (context, state) => const SearchPage(),
+          builder: (context, state) => BlocProvider(
+            create: (context) =>
+                getIt<SearchBloc>()..add(const SearchEvent.loadedSearch()),
+            child: const SearchPage(),
+          ),
           routes: const [],
         ),
       ],
@@ -42,7 +63,16 @@ final dashboardRoute = StatefulShellRoute.indexedStack(
       routes: [
         GoRoute(
           path: DashboardDestination.library,
-          builder: (context, state) => LibraryPage(),
+          builder: (context, state) => BlocProvider(
+            create: (context) =>
+                getIt<LibraryBloc>()..add(const LibraryEvent.loadLibrary()),
+            child: RefreshWrapper(
+              refreshFunction: (context) => context
+                  .read<LibraryBloc>()
+                  .add(const LibraryEvent.loadLibrary()),
+              child: const LibraryPage(),
+            ),
+          ),
           routes: const [],
         ),
       ],

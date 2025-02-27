@@ -176,7 +176,9 @@ class CustomAppBar extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  context.pop();
+                  if (Navigator.of(context).canPop()) {
+                    GoRouter.of(context).pop<bool>(true);
+                  }
                 },
                 icon: const Icon(
                   Icons.arrow_back,

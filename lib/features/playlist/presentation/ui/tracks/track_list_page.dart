@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:spookify_v2/core/core.dart';
 import 'package:spookify_v2/core/utils/error_screen.dart';
 import 'package:spookify_v2/core/widgets/custom_loading_indicator.dart';
-import 'package:spookify_v2/features/playlist/presentation/bloc/provider/track_bloc_provider.dart';
 import 'package:spookify_v2/features/playlist/presentation/bloc/track/track_bloc.dart';
 import 'package:spookify_v2/features/playlist/presentation/ui/tracks/track_list_content.dart';
-
-import 'package:spookify_v2/service_locator.dart';
 
 class TrackListPage extends StatefulWidget {
   final TrackDataProvider extra;
@@ -23,16 +21,9 @@ class TrackListPage extends StatefulWidget {
 }
 
 class _TrackListPageState extends State<TrackListPage> {
-  late TrackBloc trackBloc;
   PaletteGenerator? paletteGenerator;
   @override
   void initState() {
-    trackBloc = getIt<TrackBloc>(
-      param1: TrackBlocProvider(
-        id: widget.extra.id,
-        type: widget.extra.type,
-      ),
-    )..add(const TrackEvent.loadTrack());
     if (widget.extra.imageUrl != null) {
       _updatePaletteGenerator(widget.extra.imageUrl!);
     }
@@ -56,8 +47,17 @@ class _TrackListPageState extends State<TrackListPage> {
   Widget build(BuildContext context) {
     final Color gradientColor =
         paletteGenerator?.dominantColor?.color ?? AppColors.primary;
-    return BlocProvider(
-      create: (context) => trackBloc,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          return;
+        }
+
+        if (Navigator.of(context).canPop()) {
+          GoRouter.of(context).pop<bool>(true);
+        }
+      },
       child: Scaffold(
         extendBody: true,
         body: DecoratedBox(
