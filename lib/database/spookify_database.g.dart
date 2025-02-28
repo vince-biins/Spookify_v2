@@ -249,7 +249,7 @@ class _$SavedCategoryDao extends SavedCategoryDao {
   @override
   Future<int?> deleteCategory(String id) async {
     return _queryAdapter.query(
-        'DELETE FROM  SAVE_CATEGORY_ENTITY WHERE TrackId = ?1',
+        'DELETE FROM  SAVE_CATEGORY_ENTITY WHERE trackId = ?1',
         mapper: (Map<String, Object?> row) => row.values.first as int,
         arguments: [id]);
   }
@@ -292,7 +292,7 @@ class _$TrackDao extends TrackDao {
   final InsertionAdapter<TrackEntity> _trackEntityInsertionAdapter;
 
   @override
-  Future<List<TrackEntity>> getTrackForCategory(int categoryId) async {
+  Future<List<TrackEntity>> getTrackForCategory(String categoryId) async {
     return _queryAdapter.queryList(
         'SELECT * FROM TRACK_ENTITY WHERE categoryId = ?1',
         mapper: (Map<String, Object?> row) => TrackEntity(
@@ -311,7 +311,7 @@ class _$TrackDao extends TrackDao {
   }
 
   @override
-  Future<int?> deleteAllForCategory(int categoryId) async {
+  Future<int?> deleteAllForCategory(String categoryId) async {
     return _queryAdapter.query('DELETE FROM TRACK_ENTITY WHERE categoryId = ?1',
         mapper: (Map<String, Object?> row) => row.values.first as int,
         arguments: [categoryId]);
