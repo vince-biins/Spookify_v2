@@ -15,4 +15,5 @@ abstract class PlaylistRepository implements LocalRepository<Track> {
     required List<Track> tracks,
   });
   Future<Either<Failure, bool>> getSavedCategoryById(String id);
+  Future<Either<Failure, bool>> deleteSavedCategoryById(String id);
 }

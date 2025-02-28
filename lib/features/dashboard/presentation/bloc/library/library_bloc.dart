@@ -32,13 +32,10 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState>
       (data) => savedcategories = data,
     );
 
-    if (savedcategories.isNotEmpty) {
-      emit(state.copyWith(saveCategories: savedcategories));
-    }
     if (errorMessage.isNotEmpty) {
       emit(state.copyWith(error: errorMessage));
     }
 
-    emit(state.copyWith(isLoading: false));
+    emit(state.copyWith(saveCategories: savedcategories, isLoading: false));
   }
 }

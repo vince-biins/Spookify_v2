@@ -109,21 +109,28 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
     SavedAllTracks event,
     Emitter<TrackState> emit,
   ) async {
-    final res = await _repository.saveAllTracksInLocal(
-      saveCategory: event.saveCategory,
-      tracks: event.tracks,
-    );
+    if (state is _LoadedTrack) {
+      final isDownloaded = (state as _LoadedTrack).isDownloaded;
 
-    res.fold((error) {
-      emit(TrackState.error(message: error.message));
-    }, (isDownloaded) {
-      emit(
-        TrackState.loaded(
-          tracks: (state as _LoadedTrack).tracks,
-          isDownloaded: isDownloaded,
-        ),
-      );
-    });
+      final res = await switch (!isDownloaded) {
+        true => _repository.saveAllTracksInLocal(
+            saveCategory: event.saveCategory,
+            tracks: event.tracks,
+          ),
+        false => _repository.deleteSavedCategoryById(event.saveCategory.id)
+      };
+
+      res.fold((error) {
+        emit(TrackState.error(message: error.message));
+      }, (data) {
+        emit(
+          TrackState.loaded(
+            tracks: (state as _LoadedTrack).tracks,
+            isDownloaded: !isDownloaded,
+          ),
+        );
+      });
+    }
   }
 
   @override

@@ -13,6 +13,6 @@ abstract class SavedCategoryDao {
   @Query('SELECT * FROM  $saveCategoryEntity WHERE trackId = :id')
   Future<SaveCategoryEntity?> getCategoryById(String id);
 
-  @Query('DELETE FROM  $saveCategoryEntity WHERE TrackId = :id')
+  @Query('DELETE FROM  $saveCategoryEntity WHERE trackId = :id')
   Future<int?> deleteCategory(String id);
 }

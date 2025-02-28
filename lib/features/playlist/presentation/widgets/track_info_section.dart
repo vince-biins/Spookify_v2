@@ -18,7 +18,6 @@ class TrackInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Categor: $isDownloaded');
     final String title =
         extra.artist == null ? extra.title : 'With ${extra.artist}';
     return SliverToBoxAdapter(
@@ -109,7 +108,9 @@ class TrackInfoSection extends StatelessWidget {
                           onPressed: onClickDownloadTrack,
                           iconSize: 30,
                           icon: Icon(
-                            Icons.download_for_offline_outlined,
+                            isDownloaded
+                                ? Icons.download_done_rounded
+                                : Icons.download_for_offline_outlined,
                             color: isDownloaded ? Colors.green : Colors.white70,
                           ),
                         ),

@@ -140,8 +140,30 @@ class PlaylistRepositoryImpl
       final saveCategoryResult = await _savedCategoryDao.getCategoryById(id);
 
       if (saveCategoryResult != null) {
-        print(saveCategoryResult.title);
         return const Right(true);
+      } else {
+        return const Right(false);
+      }
+    } catch (e) {
+      return Left(handleApiError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteSavedCategoryById(String id) async {
+    try {
+      int? categoryResult;
+      int? trackResult;
+      await Future.wait([
+        _savedCategoryDao
+            .deleteCategory(id)
+            .then((res) => categoryResult = res),
+        _trackDao.deleteAllForCategory(id).then((res) => trackResult = res),
+      ]);
+
+      print(categoryResult);
+      if (categoryResult != null && trackResult != null) {
+        return Right(categoryResult! > 0 && trackResult! > 0);
       } else {
         return const Right(false);
       }
