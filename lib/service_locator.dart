@@ -1,21 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:floor/floor.dart';
 
 import 'package:get_it/get_it.dart';
-import 'package:spookify_v2/core/network/internet_connection/bloc/connectivity_bloc.dart';
-import 'package:spookify_v2/core/network/internet_connection/di/connection_locator.dart';
+import 'package:spookify_v2/infrastructure/di/connection_locator.dart';
+import 'package:spookify_v2/infrastructure/secret/environment.dart';
+import 'package:spookify_v2/infrastructure/data_source/local/database_locator.dart';
+import 'package:spookify_v2/infrastructure/di/auth_locator.dart';
+import 'package:spookify_v2/domain/repositories/auth_repository.dart';
+import 'package:spookify_v2/infrastructure/di/dashboard_locator.dart';
+import 'package:spookify_v2/infrastructure/token_interceptor.dart';
 
-import 'package:spookify_v2/core/secret/environment.dart';
-import 'package:spookify_v2/database/data/local/dao/favorite_dao.dart';
-import 'package:spookify_v2/database/di/database_locator.dart';
-
-import 'package:spookify_v2/database/spookify_database.dart';
-import 'package:spookify_v2/features/auth/di/auth_locator.dart';
-import 'package:spookify_v2/features/auth/domain/auth_repository.dart';
-import 'package:spookify_v2/features/auth/token_interceptor.dart';
-import 'package:spookify_v2/features/dashboard/di/di.dart';
-
-import 'package:spookify_v2/features/playlist/di/playlist_locator.dart';
+import 'package:spookify_v2/infrastructure/di/playlist_locator.dart';
 
 final getIt = GetIt.instance;
 Future<void> initializeDependencies() async {
