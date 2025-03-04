@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/utils/constants/destinations.dart';
 
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
@@ -14,7 +14,7 @@ final List<RouteBase> playlistRoute = [
   GoRoute(
     path: TrackDestination.track.path,
     builder: (context, state) {
-      final TrackDataProvider trackData = state.extra as TrackDataProvider;
+      final TrackParam trackData = state.extra as TrackParam;
       return BlocProvider(
         create: (context) => getIt<TrackBloc>(
           param1: TrackBlocProvider(

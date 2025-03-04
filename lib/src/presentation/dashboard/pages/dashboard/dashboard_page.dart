@@ -6,7 +6,7 @@ import 'package:spookify_v2/src/domain/models/artist.dart';
 import 'package:spookify_v2/src/domain/models/category.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/mappers/dashboard_mapper.dart';
 import 'package:spookify_v2/src/application/paramaters/dashboard_item.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
 import 'package:spookify_v2/src/presentation/dashboard/pages/dashboard/component/dashboard_grid_section.dart';
 import 'package:spookify_v2/src/presentation/dashboard/pages/dashboard/component/dashboard_horizontal_section.dart';
@@ -17,6 +17,7 @@ import 'package:spookify_v2/src/domain/models/favorite.dart';
 import 'package:spookify_v2/src/application/state/bloc/dashboard/dashboard/dashboard_bloc.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/header_elevated_button.dart';
 import 'package:spookify_v2/utils/constants/dashboard_strings.dart';
+import 'package:spookify_v2/utils/helper/dominant_color_helper.dart';
 
 part 'dashboard_content.dart';
 

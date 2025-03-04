@@ -94,16 +94,20 @@ class _DashboardContent extends StatelessWidget {
     required BuildContext context,
     required List<DashboardItem> item,
     required int index,
-  }) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final extra = TrackDataProvider(
-        id: item[index].id,
-        imageUrl: item[index].imageUrl,
-        artist: item[index].artist,
-        title: item[index].name,
-        type: item[index].type,
-      );
+  }) async {
+    Color dominantColor =
+        await DominantColorHelper.getDominantColor(item[index].imageUrl);
 
+    final extra = TrackParam(
+      id: item[index].id,
+      imageUrl: item[index].imageUrl,
+      artist: item[index].artist,
+      title: item[index].name,
+      type: item[index].type,
+      color: dominantColor,
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final result = await GoRouter.of(context).push(
         TrackDestination.track.pathUrl,
         extra: extra,

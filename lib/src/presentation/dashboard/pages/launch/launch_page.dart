@@ -6,7 +6,6 @@ import 'package:spookify_v2/src/application/state/bloc/internet_connection/conne
 import 'package:spookify_v2/src/application/resources/connectivity_status.dart';
 import 'package:spookify_v2/src/application/state/bloc/dashboard/launch/launch_bloc.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/bottom_bar_content.dart';
-import 'package:spookify_v2/src/presentation/dashboard/components/bottom_player.dart';
 import 'package:spookify_v2/utils/injectors/service_locator.dart';
 
 class LaunchPage extends StatefulWidget {

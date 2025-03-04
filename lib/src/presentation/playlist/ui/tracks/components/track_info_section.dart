@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/presentation/theme/app_colors.dart';
 import 'package:spookify_v2/utils/constants/playlist_strings.dart';
 
 class TrackInfoSection extends StatelessWidget {
-  final TrackDataProvider extra;
+  final TrackParam extra;
   final double infoBoxHeight;
   final bool isDownloaded;
   final VoidCallback onClickDownloadTrack;

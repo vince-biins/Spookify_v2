@@ -1,28 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:spookify_v2/src/domain/models/category.dart';
-import 'package:spookify_v2/src/presentation/dashboard/components/category_search_tile.dart';
+import 'package:spookify_v2/src/presentation/dashboard/pages/search/component/search_grid_tiles.dart';
 import 'package:spookify_v2/utils/constants/dashboard_strings.dart';
 
-class SearchContent extends StatefulWidget {
+class SearchContent extends StatelessWidget {
   final List<Category> categories;
   const SearchContent({super.key, required this.categories});
-
-  @override
-  State<SearchContent> createState() => _SearchContentState();
-}
-
-class _SearchContentState extends State<SearchContent> {
-  late Color _randomColor;
-
-  Color _generateRandomColor() {
-    final Random random = Random();
-    int red = random.nextInt(156) + 50;
-    int green = random.nextInt(156) + 50;
-    int blue = random.nextInt(156) + 50;
-    return Color.fromARGB(255, red, green, blue);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,39 +67,9 @@ class _SearchContentState extends State<SearchContent> {
             16.0,
             100,
           ),
-          sliver:
-              _buildCategory(context: context, categories: widget.categories),
+          sliver: SearchGridTiles(categories: categories),
         ),
       ],
-    );
-  }
-
-  Widget _buildCategory({
-    required BuildContext context,
-    required List<Category> categories,
-  }) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double tileWidth = (screenWidth - 32) / 2;
-    double tileHeight = 100;
-
-    return SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: tileWidth / tileHeight,
-      ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          _randomColor = _generateRandomColor();
-          return CategorySearchTile(
-            title: categories[index].name,
-            imageUrl: categories[index].imageUrl ?? '',
-            color: _randomColor,
-          );
-        },
-        childCount: categories.length,
-      ),
     );
   }
 }

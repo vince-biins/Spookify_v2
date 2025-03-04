@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/src/domain/models/models.dart';
-import 'package:spookify_v2/src/domain/models/track.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
+import 'package:spookify_v2/src/presentation/playlist/ui/tracks/components/search_app_bar.dart';
 import 'package:spookify_v2/utils/constants/playlist_strings.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/local/entity/save_category_dto.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track.dart';
 
 import 'package:spookify_v2/src/presentation/playlist/widgets/widgets.dart';
 import 'package:spookify_v2/utils/constants/destinations.dart';
 
-class TrackListContent extends StatefulWidget {
+class TrackListContent extends StatelessWidget {
   final Color bgColor;
   final List<Track> track;
-  final TrackDataProvider extra;
+  final TrackParam extra;
   final bool showDefaultAppbar;
   final bool isDownloaded;
-  const TrackListContent({
+  final ScrollController _scrollController = ScrollController();
+  TrackListContent({
     super.key,
     required this.track,
     required this.extra,
@@ -28,86 +28,52 @@ class TrackListContent extends StatefulWidget {
   });
 
   @override
-  State<TrackListContent> createState() => _TrackListContentState();
-}
-
-class _TrackListContentState extends State<TrackListContent> {
-  late ScrollController _scrollController;
-
-  late double playPauseButtonSize;
-  late double infoBoxHeight;
-
-  late List<Track> track;
-  late bool _shouldShowHeader;
-
-  @override
-  void initState() {
-    super.initState();
-    track = widget.track;
-
-    _scrollController = ScrollController();
-    _shouldShowHeader = !widget.showDefaultAppbar;
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _refreshPage() {
-    context.read<TrackBloc>().add(const TrackEvent.loadTrack());
-  }
-
-  late double maxAppBarHeight;
-  late double minAppBarHeight;
-  @override
   Widget build(BuildContext context) {
-    maxAppBarHeight = MediaQuery.of(context).size.height * 0.5;
-    minAppBarHeight = MediaQuery.of(context).padding.top +
+    double maxAppBarHeight = MediaQuery.of(context).size.height * 0.5;
+    double minAppBarHeight = MediaQuery.of(context).padding.top +
         MediaQuery.of(context).size.height * 0.1;
 
-    playPauseButtonSize = (MediaQuery.of(context).size.width / 320) * 50 > 80
-        ? 80
-        : (MediaQuery.of(context).size.width / 320) * 50;
-    infoBoxHeight = 150;
+    double playPauseButtonSize =
+        (MediaQuery.of(context).size.width / 320) * 50 > 80
+            ? 80
+            : (MediaQuery.of(context).size.width / 320) * 50;
+    double infoBoxHeight = 150;
 
     return Stack(
       children: [
         CustomScrollView(
           controller: _scrollController,
           slivers: [
-            widget.showDefaultAppbar
-                ? CustomAppBar(
+            showDefaultAppbar
+                ? CustomContainerAppBar(
                     maxHeight: maxAppBarHeight,
                     minHeight: minAppBarHeight,
-                    extra: widget.extra,
-                    bgColor: widget.bgColor,
+                    extra: extra,
+                    bgColor: bgColor,
                   )
-                : _buildLibraryAppbar(
-                    minAppBarHeight: 90,
+                : const SearchAppBar(
                     maxAppBarHeight: 200,
                   ),
             TrackInfoSection(
               infoBoxHeight: infoBoxHeight,
-              extra: widget.extra,
-              isDownloaded: widget.isDownloaded,
+              extra: extra,
+              isDownloaded: isDownloaded,
               onClickDownloadTrack: () {
                 context.read<TrackBloc>().add(
                       TrackEvent.saveAllTracks(
                         saveCategory: Category(
-                          id: widget.extra.id ?? '',
-                          name: widget.extra.title,
-                          imageUrl: widget.extra.imageUrl,
-                          artistName: widget.extra.artist,
-                          type: widget.extra.type,
+                          id: extra.id ?? '',
+                          name: extra.title,
+                          imageUrl: extra.imageUrl,
+                          artistName: extra.artist,
+                          type: extra.type,
                         ),
                         tracks: track,
                       ),
                     );
               },
             ),
-            if (_shouldShowHeader)
+            if (!showDefaultAppbar)
               SliverToBoxAdapter(
                 child: Container(
                   padding: const EdgeInsets.symmetric(
@@ -138,7 +104,7 @@ class _TrackListContentState extends State<TrackListContent> {
                               TrackEvent.updateFavoriteTrack(
                                 track: track[index],
                                 isFavorite: !track[index].isFavorite,
-                                tempImageUrl: widget.extra.imageUrl ?? '',
+                                tempImageUrl: extra.imageUrl ?? '',
                               ),
                             );
                       },
@@ -153,8 +119,10 @@ class _TrackListContentState extends State<TrackListContent> {
                           extra: extra,
                         );
 
-                        if (result == true) {
-                          _refreshPage();
+                        if (result == true && context.mounted) {
+                          context
+                              .read<TrackBloc>()
+                              .add(const TrackEvent.loadTrack());
                         }
                       },
                     ),
@@ -172,98 +140,13 @@ class _TrackListContentState extends State<TrackListContent> {
         ),
         StickyPlayButton(
           scrollController: _scrollController,
-          maxAppBarHeight: widget.showDefaultAppbar
-              ? maxAppBarHeight - 20
-              : maxAppBarHeight * 0.4,
+          maxAppBarHeight:
+              showDefaultAppbar ? maxAppBarHeight - 20 : maxAppBarHeight * 0.4,
           minAppBarHeight: minAppBarHeight,
           playPauseButtonSize: playPauseButtonSize,
-          infoBoxHeight:
-              widget.showDefaultAppbar ? infoBoxHeight : infoBoxHeight + 50,
+          infoBoxHeight: showDefaultAppbar ? infoBoxHeight : infoBoxHeight + 50,
         ),
       ],
-    );
-  }
-
-  Widget _buildLibraryAppbar({
-    required double maxAppBarHeight,
-    required double minAppBarHeight,
-  }) {
-    return SliverAppBar(
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      expandedHeight: maxAppBarHeight,
-      pinned: true,
-      snap: false,
-      flexibleSpace: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          bool expandedAppbar = constraints.biggest.height > 150;
-          return Container(
-            decoration: BoxDecoration(
-              gradient: !expandedAppbar
-                  ? LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.green,
-                        Theme.of(context).scaffoldBackgroundColor,
-                      ],
-                    )
-                  : null,
-            ),
-            child: FlexibleSpaceBarSettings(
-              hasLeading: false,
-              isScrolledUnder: false,
-              toolbarOpacity: 1,
-              minExtent: 0,
-              maxExtent: 100,
-              currentExtent: 0,
-              child: FlexibleSpaceBar(
-                title: expandedAppbar
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 8.0,
-                        ),
-                        child: SizedBox(
-                          height: 50,
-                          child: TextField(
-                            cursorColor: Colors.white,
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.search),
-                              prefixIconColor: Colors.white,
-                              hintText: PlaylistStrings.search,
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                              filled: true,
-                              fillColor: Colors.white24,
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                            ),
-                            onSubmitted: (value) {},
-                          ),
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 40.0, left: 50.0),
-                        child: AnimatedOpacity(
-                          duration: const Duration(milliseconds: 300),
-                          opacity: !expandedAppbar ? 1.0 : 0.0,
-                          child: const Text(
-                            PlaylistStrings.search,
-                          ),
-                        ),
-                      ),
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 }

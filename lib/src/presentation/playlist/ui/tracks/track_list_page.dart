@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/presentation/components/error_screen.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_indicator.dart';
@@ -10,45 +10,20 @@ import 'package:spookify_v2/src/application/state/bloc/playlist/track/track_bloc
 import 'package:spookify_v2/src/presentation/playlist/ui/tracks/track_list_content.dart';
 import 'package:spookify_v2/src/presentation/theme/app_colors.dart';
 
-class TrackListPage extends StatefulWidget {
-  final TrackDataProvider extra;
+class TrackListPage extends StatelessWidget {
+  final TrackParam extra;
+
+  final PaletteGenerator? paletteGenerator;
 
   const TrackListPage({
     super.key,
     required this.extra,
+    this.paletteGenerator,
   });
 
   @override
-  State<TrackListPage> createState() => _TrackListPageState();
-}
-
-class _TrackListPageState extends State<TrackListPage> {
-  PaletteGenerator? paletteGenerator;
-  @override
-  void initState() {
-    if (widget.extra.imageUrl != null) {
-      _updatePaletteGenerator(widget.extra.imageUrl!);
-    }
-    super.initState();
-  }
-
-  Future<void> _updatePaletteGenerator(String imageUrl) async {
-    try {
-      paletteGenerator = await PaletteGenerator.fromImageProvider(
-        NetworkImage(imageUrl),
-      );
-    } catch (e) {
-      paletteGenerator =
-          PaletteGenerator.fromColors([PaletteColor(Colors.grey, 1)]);
-    }
-
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final Color gradientColor =
-        paletteGenerator?.dominantColor?.color ?? AppColors.primary;
+    final Color gradientColor = extra.color ?? AppColors.primary;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -85,8 +60,8 @@ class _TrackListPageState extends State<TrackListPage> {
                 loaded: (track, isDownloaded) => TrackListContent(
                   bgColor: gradientColor,
                   track: track,
-                  extra: widget.extra,
-                  showDefaultAppbar: widget.extra.type != TrackType.favorite,
+                  extra: extra,
+                  showDefaultAppbar: extra.type != TrackType.favorite,
                   isDownloaded: isDownloaded,
                 ),
                 error: (message) => const Center(child: ErrorScreen()),

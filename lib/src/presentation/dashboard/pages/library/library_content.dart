@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/domain/models/downloads.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/library_tile.dart';
 import 'package:spookify_v2/utils/constants/destinations.dart';
+import 'package:spookify_v2/utils/helper/dominant_color_helper.dart';
 
 class LibraryContent extends StatelessWidget {
   final List<Downloads> categories;
@@ -25,12 +26,13 @@ class LibraryContent extends StatelessWidget {
             title: 'Favorites',
             description: 'Saved playlists',
             onClickTile: (_) {
-              final extra = TrackDataProvider(
+              final extra = TrackParam(
                 id: null,
                 imageUrl: null,
                 artist: null,
                 title: 'Liked songs',
                 type: TrackType.favorite,
+                color: null,
               );
               GoRouter.of(context).push(
                 TrackDestination.track.pathUrl,
@@ -49,18 +51,27 @@ class LibraryContent extends StatelessWidget {
                 title: category.title,
                 description: category.type.name,
                 imageUrl: category.imageUrl,
-                onClickTile: (id) {
-                  final extra = TrackDataProvider(
+                onClickTile: (id) async {
+                  Color dominantColor =
+                      await DominantColorHelper.getDominantColor(
+                    category.imageUrl ?? '',
+                  );
+
+                  final extra = TrackParam(
                     id: id,
                     imageUrl: category.imageUrl,
                     artist: category.artistName,
                     title: category.title,
                     type: category.type,
+                    color: dominantColor,
                   );
-                  GoRouter.of(context).push(
-                    TrackDestination.track.pathUrl,
-                    extra: extra,
-                  );
+
+                  if (context.mounted) {
+                    GoRouter.of(context).push(
+                      TrackDestination.track.pathUrl,
+                      extra: extra,
+                    );
+                  }
                 },
               );
             },

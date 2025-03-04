@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spookify_v2/src/application/paramaters/track_data_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/utils/constants/destinations.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/application/paramaters/dashboard_item.dart';
 
 import 'package:spookify_v2/src/presentation/dashboard/components/widgets.dart';
 import 'package:spookify_v2/utils/constants/dashboard_strings.dart';
+import 'package:spookify_v2/utils/helper/dominant_color_helper.dart';
 
 class CategoryListContent extends StatelessWidget {
   final List<DashboardItem> args;
@@ -55,18 +56,27 @@ class CategoryListContent extends StatelessWidget {
                   imageUrl: args[index].imageUrl,
                   title: title,
                   isRoundedImage: args[index].type == TrackType.artist,
-                  onItemClicked: () {
-                    final extra = TrackDataProvider(
+                  onItemClicked: () async {
+                    Color dominantColor =
+                        await DominantColorHelper.getDominantColor(
+                      args[index].imageUrl,
+                    );
+
+                    final extra = TrackParam(
                       id: args[index].id,
                       imageUrl: args[index].imageUrl,
                       artist: args[index].artist,
                       title: args[index].name,
                       type: args[index].type,
+                      color: dominantColor,
                     );
-                    GoRouter.of(context).push(
-                      TrackDestination.track.pathUrl,
-                      extra: extra,
-                    );
+
+                    if (context.mounted) {
+                      GoRouter.of(context).push(
+                        TrackDestination.track.pathUrl,
+                        extra: extra,
+                      );
+                    }
                   },
                 );
               }),
