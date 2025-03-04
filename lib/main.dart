@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/presentation/theme/spookify_theme.dart';
-import 'package:spookify_v2/presentation/routes/router.dart';
-import 'package:spookify_v2/service_locator.dart';
+import 'package:spookify_v2/src/presentation/theme/spookify_theme.dart';
+import 'package:spookify_v2/src/presentation/routes/router.dart';
+import 'package:spookify_v2/utils/injectors/service_locator.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
