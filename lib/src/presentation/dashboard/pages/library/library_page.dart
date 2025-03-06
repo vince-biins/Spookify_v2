@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/src/presentation/components/error_screen.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_indicator.dart';
 import 'package:spookify_v2/src/application/state/bloc/dashboard/library/library_bloc.dart';
 import 'package:spookify_v2/src/presentation/dashboard/pages/library/library_content.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/header_elevated_button.dart';
+import 'package:spookify_v2/utils/constants/destinations.dart';
 
 class LibraryPage extends StatelessWidget {
   const LibraryPage({super.key});
@@ -66,7 +68,23 @@ class LibraryPage extends StatelessWidget {
         },
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: BlocBuilder<LibraryBloc, LibraryState>(
+          child: BlocConsumer<LibraryBloc, LibraryState>(
+            listener: (context, state) async {
+              if (state.event is NavigateToTrackListPage) {
+                final result = await GoRouter.of(context).push(
+                  TrackDestination.track.pathUrl,
+                  extra: (state.event as NavigateToTrackListPage).track,
+                );
+
+                if (result == true) {
+                  if (context.mounted) {
+                    context
+                        .read<LibraryBloc>()
+                        .add(const LibraryEvent.loadLibrary());
+                  }
+                }
+              }
+            },
             builder: (context, state) {
               if (state.isLoading) {
                 return const Center(child: CustomLoadingIndicator());

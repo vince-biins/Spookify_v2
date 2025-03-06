@@ -9,6 +9,7 @@ import 'package:spookify_v2/src/presentation/components/custom_loading_indicator
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track_bloc.dart';
 import 'package:spookify_v2/src/presentation/playlist/ui/tracks/track_list_content.dart';
 import 'package:spookify_v2/src/presentation/theme/app_colors.dart';
+import 'package:spookify_v2/utils/constants/destinations.dart';
 
 class TrackListPage extends StatelessWidget {
   final TrackParam extra;
@@ -32,7 +33,7 @@ class TrackListPage extends StatelessWidget {
         }
 
         if (Navigator.of(context).canPop()) {
-          GoRouter.of(context).pop<bool>(true);
+          context.read<TrackBloc>().add(const TrackEvent.navigateBack());
         }
       },
       child: Scaffold(
@@ -52,12 +53,35 @@ class TrackListPage extends StatelessWidget {
               ],
             ),
           ),
-          child: BlocBuilder<TrackBloc, TrackState>(
+          child: BlocConsumer<TrackBloc, TrackState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                loaded: (track, isDownloaded, event) async {
+                  if (event is NavigateBack) {
+                    GoRouter.of(context).pop<bool>(true);
+                  }
+
+                  if (event is NavigateToPlayerPage) {
+                    final result = await GoRouter.of(context).push(
+                      TrackDestination.player.pathUrl,
+                      extra: event.track,
+                    );
+
+                    if (result == true && context.mounted) {
+                      context
+                          .read<TrackBloc>()
+                          .add(const TrackEvent.loadTrack());
+                    }
+                  }
+                },
+                orElse: () {},
+              );
+            },
             builder: (context, state) {
               return state.when(
                 initial: () => Center(child: Container()),
                 loading: () => const Center(child: CustomLoadingIndicator()),
-                loaded: (track, isDownloaded) => TrackListContent(
+                loaded: (track, isDownloaded, event) => TrackListContent(
                   bgColor: gradientColor,
                   track: track,
                   extra: extra,

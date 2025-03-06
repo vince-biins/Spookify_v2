@@ -62,12 +62,43 @@ class DashboardPage extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<DashboardBloc, DashboardState>(
+      body: BlocConsumer<DashboardBloc, DashboardState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            loaded: (categories, artists, albums, favorites, event) async {
+              if (event is NavigateToTrackListPage && context.mounted) {
+                final result = await GoRouter.of(context).push(
+                  TrackDestination.track.pathUrl,
+                  extra: event.track,
+                );
+
+                if (context.mounted && result == true) {
+                  context
+                      .read<DashboardBloc>()
+                      .add(const DashboardEvent.loadDashboard());
+                }
+              }
+              if (event is NavigateToPlayerPage && context.mounted) {
+                final result = await GoRouter.of(context).push(
+                  TrackDestination.player.pathUrl,
+                  extra: event.track,
+                );
+
+                if (context.mounted && result == true) {
+                  context
+                      .read<DashboardBloc>()
+                      .add(const DashboardEvent.loadDashboard());
+                }
+              }
+            },
+            orElse: () {},
+          );
+        },
         builder: (context, state) {
           return state.when(
             initial: () => Center(child: Container()),
             loading: () => const Center(child: CustomLoadingIndicator()),
-            loaded: (categories, artists, albums, favorites) => SafeArea(
+            loaded: (categories, artists, albums, favorites, event) => SafeArea(
               child: SingleChildScrollView(
                 child: _DashboardContent(
                   categories: categories,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spookify_v2/src/domain/models/track.dart';
 import 'package:spookify_v2/src/application/state/cubit/player/player_cubit.dart';
+import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 import 'package:spookify_v2/src/presentation/playlist/ui/player/component/track_player_indicator.dart';
 
 class PlayerContent extends StatelessWidget {
@@ -39,27 +40,10 @@ class PlayerContent extends StatelessWidget {
             dimension: 60,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                _track.imageUrl!,
-                fit: BoxFit.cover,
-                loadingBuilder: (
-                  BuildContext context,
-                  Widget child,
-                  ImageChunkEvent? loadingProgress,
-                ) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/images/error.png',
-                    fit: BoxFit.cover,
-                  );
-                },
+              child: ImageNetworkErrorHandling(
+                imageSize: 60,
+                loadingIndicatorSize: 20,
+                imageUrl: _track.imageUrl!,
               ),
             ),
           ),

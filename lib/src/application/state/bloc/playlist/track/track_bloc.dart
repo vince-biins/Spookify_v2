@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/src/domain/models/playlist.dart';
 import 'package:spookify_v2/src/domain/repositories/playlist_repository.dart';
@@ -27,6 +28,8 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
     on<LoadTrack>(_onLoadTrack);
     on<UpdateFavoriteTrack>(_onAddedFavoriteTrack);
     on<SavedAllTracks>(_onSavedAllTracks);
+    on<NavigateBack>(_onNavigateBack);
+    on<NavigateToPlayerPage>(_onNavigateToPlayerPage);
 
     _connectivitySubscription = listenForConnectionChange();
   }
@@ -54,7 +57,11 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
       (data) {
         if (!emit.isDone) {
           emit(
-            TrackState.loaded(tracks: data, isDownloaded: isDownloaded),
+            TrackState.loaded(
+              tracks: data,
+              isDownloaded: isDownloaded,
+              event: event,
+            ),
           );
         }
       },
@@ -84,6 +91,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
         TrackState.loaded(
           tracks: updatedTracks,
           isDownloaded: (state as _LoadedTrack).isDownloaded,
+          event: event,
         ),
       );
     });
@@ -110,6 +118,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
           TrackState.loaded(
             tracks: (state as _LoadedTrack).tracks,
             isDownloaded: !isDownloaded,
+            event: event,
           ),
         );
       });
@@ -120,5 +129,20 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
   Future<void> close() {
     _connectivitySubscription?.cancel();
     return super.close();
+  }
+
+  FutureOr<void> _onNavigateToPlayerPage(
+      NavigateToPlayerPage event, Emitter<TrackState> emit) {
+    if (state is _LoadedTrack) {
+      final currentState = state as _LoadedTrack;
+      emit(currentState.copyWith(event: event));
+    }
+  }
+
+  FutureOr<void> _onNavigateBack(NavigateBack event, Emitter<TrackState> emit) {
+    if (state is _LoadedTrack) {
+      final currentState = state as _LoadedTrack;
+      emit(currentState.copyWith(event: event));
+    }
   }
 }

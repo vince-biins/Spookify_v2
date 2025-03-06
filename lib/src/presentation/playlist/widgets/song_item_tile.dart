@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 
 import 'package:spookify_v2/src/presentation/theme/app_colors.dart';
-import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
 
 import 'package:spookify_v2/src/domain/models/track.dart';
 
@@ -45,27 +45,10 @@ class _SongItemTileState extends State<SongItemTile> {
             widget.track.imageUrl != null
                 ? SizedBox.square(
                     dimension: 50,
-                    child: Image.network(
-                      widget.track.imageUrl!,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (
-                        BuildContext context,
-                        Widget child,
-                        ImageChunkEvent? loadingProgress,
-                      ) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return const Center(
-                          child: CustomLoadingImageIndicator(),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          'assets/images/error.png',
-                          fit: BoxFit.cover,
-                        );
-                      },
+                    child: ImageNetworkErrorHandling(
+                      imageSize: 50,
+                      loadingIndicatorSize: 20,
+                      imageUrl: widget.track.imageUrl ?? '',
                     ),
                   )
                 : widget.track.trackNumber != null

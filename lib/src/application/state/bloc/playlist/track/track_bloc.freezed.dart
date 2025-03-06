@@ -23,6 +23,8 @@ mixin _$TrackEvent {
         updateFavoriteTrack,
     required TResult Function(Category saveCategory, List<Track> tracks)
         saveAllTracks,
+    required TResult Function() navigateBack,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +33,8 @@ mixin _$TrackEvent {
     TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult? Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult? Function()? navigateBack,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +43,8 @@ mixin _$TrackEvent {
     TResult Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult Function()? navigateBack,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +53,8 @@ mixin _$TrackEvent {
     required TResult Function(LoadTrack value) loadTrack,
     required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
     required TResult Function(SavedAllTracks value) saveAllTracks,
+    required TResult Function(NavigateBack value) navigateBack,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +62,8 @@ mixin _$TrackEvent {
     TResult? Function(LoadTrack value)? loadTrack,
     TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult? Function(SavedAllTracks value)? saveAllTracks,
+    TResult? Function(NavigateBack value)? navigateBack,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +71,8 @@ mixin _$TrackEvent {
     TResult Function(LoadTrack value)? loadTrack,
     TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult Function(SavedAllTracks value)? saveAllTracks,
+    TResult Function(NavigateBack value)? navigateBack,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -133,6 +145,8 @@ class _$LoadTrackImpl implements LoadTrack {
         updateFavoriteTrack,
     required TResult Function(Category saveCategory, List<Track> tracks)
         saveAllTracks,
+    required TResult Function() navigateBack,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) {
     return loadTrack();
   }
@@ -144,6 +158,8 @@ class _$LoadTrackImpl implements LoadTrack {
     TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult? Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult? Function()? navigateBack,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) {
     return loadTrack?.call();
   }
@@ -155,6 +171,8 @@ class _$LoadTrackImpl implements LoadTrack {
     TResult Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult Function()? navigateBack,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (loadTrack != null) {
@@ -169,6 +187,8 @@ class _$LoadTrackImpl implements LoadTrack {
     required TResult Function(LoadTrack value) loadTrack,
     required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
     required TResult Function(SavedAllTracks value) saveAllTracks,
+    required TResult Function(NavigateBack value) navigateBack,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) {
     return loadTrack(this);
   }
@@ -179,6 +199,8 @@ class _$LoadTrackImpl implements LoadTrack {
     TResult? Function(LoadTrack value)? loadTrack,
     TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult? Function(SavedAllTracks value)? saveAllTracks,
+    TResult? Function(NavigateBack value)? navigateBack,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) {
     return loadTrack?.call(this);
   }
@@ -189,6 +211,8 @@ class _$LoadTrackImpl implements LoadTrack {
     TResult Function(LoadTrack value)? loadTrack,
     TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult Function(SavedAllTracks value)? saveAllTracks,
+    TResult Function(NavigateBack value)? navigateBack,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (loadTrack != null) {
@@ -297,6 +321,8 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
         updateFavoriteTrack,
     required TResult Function(Category saveCategory, List<Track> tracks)
         saveAllTracks,
+    required TResult Function() navigateBack,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) {
     return updateFavoriteTrack(track, tempImageUrl, isFavorite);
   }
@@ -308,6 +334,8 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
     TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult? Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult? Function()? navigateBack,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) {
     return updateFavoriteTrack?.call(track, tempImageUrl, isFavorite);
   }
@@ -319,6 +347,8 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
     TResult Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult Function()? navigateBack,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (updateFavoriteTrack != null) {
@@ -333,6 +363,8 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
     required TResult Function(LoadTrack value) loadTrack,
     required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
     required TResult Function(SavedAllTracks value) saveAllTracks,
+    required TResult Function(NavigateBack value) navigateBack,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) {
     return updateFavoriteTrack(this);
   }
@@ -343,6 +375,8 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
     TResult? Function(LoadTrack value)? loadTrack,
     TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult? Function(SavedAllTracks value)? saveAllTracks,
+    TResult? Function(NavigateBack value)? navigateBack,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) {
     return updateFavoriteTrack?.call(this);
   }
@@ -353,6 +387,8 @@ class _$UpdateFavoriteTrackImpl implements UpdateFavoriteTrack {
     TResult Function(LoadTrack value)? loadTrack,
     TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult Function(SavedAllTracks value)? saveAllTracks,
+    TResult Function(NavigateBack value)? navigateBack,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (updateFavoriteTrack != null) {
@@ -470,6 +506,8 @@ class _$SavedAllTracksImpl implements SavedAllTracks {
         updateFavoriteTrack,
     required TResult Function(Category saveCategory, List<Track> tracks)
         saveAllTracks,
+    required TResult Function() navigateBack,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) {
     return saveAllTracks(saveCategory, tracks);
   }
@@ -481,6 +519,8 @@ class _$SavedAllTracksImpl implements SavedAllTracks {
     TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult? Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult? Function()? navigateBack,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) {
     return saveAllTracks?.call(saveCategory, tracks);
   }
@@ -492,6 +532,8 @@ class _$SavedAllTracksImpl implements SavedAllTracks {
     TResult Function(Track track, String tempImageUrl, bool isFavorite)?
         updateFavoriteTrack,
     TResult Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult Function()? navigateBack,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (saveAllTracks != null) {
@@ -506,6 +548,8 @@ class _$SavedAllTracksImpl implements SavedAllTracks {
     required TResult Function(LoadTrack value) loadTrack,
     required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
     required TResult Function(SavedAllTracks value) saveAllTracks,
+    required TResult Function(NavigateBack value) navigateBack,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) {
     return saveAllTracks(this);
   }
@@ -516,6 +560,8 @@ class _$SavedAllTracksImpl implements SavedAllTracks {
     TResult? Function(LoadTrack value)? loadTrack,
     TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult? Function(SavedAllTracks value)? saveAllTracks,
+    TResult? Function(NavigateBack value)? navigateBack,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) {
     return saveAllTracks?.call(this);
   }
@@ -526,6 +572,8 @@ class _$SavedAllTracksImpl implements SavedAllTracks {
     TResult Function(LoadTrack value)? loadTrack,
     TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
     TResult Function(SavedAllTracks value)? saveAllTracks,
+    TResult Function(NavigateBack value)? navigateBack,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (saveAllTracks != null) {
@@ -551,12 +599,306 @@ abstract class SavedAllTracks implements TrackEvent {
 }
 
 /// @nodoc
+abstract class _$$NavigateBackImplCopyWith<$Res> {
+  factory _$$NavigateBackImplCopyWith(
+          _$NavigateBackImpl value, $Res Function(_$NavigateBackImpl) then) =
+      __$$NavigateBackImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$NavigateBackImplCopyWithImpl<$Res>
+    extends _$TrackEventCopyWithImpl<$Res, _$NavigateBackImpl>
+    implements _$$NavigateBackImplCopyWith<$Res> {
+  __$$NavigateBackImplCopyWithImpl(
+      _$NavigateBackImpl _value, $Res Function(_$NavigateBackImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$NavigateBackImpl implements NavigateBack {
+  const _$NavigateBackImpl();
+
+  @override
+  String toString() {
+    return 'TrackEvent.navigateBack()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$NavigateBackImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadTrack,
+    required TResult Function(Track track, String tempImageUrl, bool isFavorite)
+        updateFavoriteTrack,
+    required TResult Function(Category saveCategory, List<Track> tracks)
+        saveAllTracks,
+    required TResult Function() navigateBack,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
+  }) {
+    return navigateBack();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadTrack,
+    TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
+    TResult? Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult? Function()? navigateBack,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
+  }) {
+    return navigateBack?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadTrack,
+    TResult Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
+    TResult Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult Function()? navigateBack,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateBack != null) {
+      return navigateBack();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadTrack value) loadTrack,
+    required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
+    required TResult Function(SavedAllTracks value) saveAllTracks,
+    required TResult Function(NavigateBack value) navigateBack,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
+  }) {
+    return navigateBack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadTrack value)? loadTrack,
+    TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
+    TResult? Function(SavedAllTracks value)? saveAllTracks,
+    TResult? Function(NavigateBack value)? navigateBack,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+  }) {
+    return navigateBack?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadTrack value)? loadTrack,
+    TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
+    TResult Function(SavedAllTracks value)? saveAllTracks,
+    TResult Function(NavigateBack value)? navigateBack,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateBack != null) {
+      return navigateBack(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavigateBack implements TrackEvent {
+  const factory NavigateBack() = _$NavigateBackImpl;
+}
+
+/// @nodoc
+abstract class _$$NavigateToPlayerPageImplCopyWith<$Res> {
+  factory _$$NavigateToPlayerPageImplCopyWith(_$NavigateToPlayerPageImpl value,
+          $Res Function(_$NavigateToPlayerPageImpl) then) =
+      __$$NavigateToPlayerPageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TrackIdProvider track});
+}
+
+/// @nodoc
+class __$$NavigateToPlayerPageImplCopyWithImpl<$Res>
+    extends _$TrackEventCopyWithImpl<$Res, _$NavigateToPlayerPageImpl>
+    implements _$$NavigateToPlayerPageImplCopyWith<$Res> {
+  __$$NavigateToPlayerPageImplCopyWithImpl(_$NavigateToPlayerPageImpl _value,
+      $Res Function(_$NavigateToPlayerPageImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? track = null,
+  }) {
+    return _then(_$NavigateToPlayerPageImpl(
+      null == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as TrackIdProvider,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NavigateToPlayerPageImpl implements NavigateToPlayerPage {
+  const _$NavigateToPlayerPageImpl(this.track);
+
+  @override
+  final TrackIdProvider track;
+
+  @override
+  String toString() {
+    return 'TrackEvent.navigateToPlayerPage(track: $track)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NavigateToPlayerPageImpl &&
+            (identical(other.track, track) || other.track == track));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, track);
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NavigateToPlayerPageImplCopyWith<_$NavigateToPlayerPageImpl>
+      get copyWith =>
+          __$$NavigateToPlayerPageImplCopyWithImpl<_$NavigateToPlayerPageImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadTrack,
+    required TResult Function(Track track, String tempImageUrl, bool isFavorite)
+        updateFavoriteTrack,
+    required TResult Function(Category saveCategory, List<Track> tracks)
+        saveAllTracks,
+    required TResult Function() navigateBack,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadTrack,
+    TResult? Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
+    TResult? Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult? Function()? navigateBack,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage?.call(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadTrack,
+    TResult Function(Track track, String tempImageUrl, bool isFavorite)?
+        updateFavoriteTrack,
+    TResult Function(Category saveCategory, List<Track> tracks)? saveAllTracks,
+    TResult Function()? navigateBack,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToPlayerPage != null) {
+      return navigateToPlayerPage(track);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadTrack value) loadTrack,
+    required TResult Function(UpdateFavoriteTrack value) updateFavoriteTrack,
+    required TResult Function(SavedAllTracks value) saveAllTracks,
+    required TResult Function(NavigateBack value) navigateBack,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadTrack value)? loadTrack,
+    TResult? Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
+    TResult? Function(SavedAllTracks value)? saveAllTracks,
+    TResult? Function(NavigateBack value)? navigateBack,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadTrack value)? loadTrack,
+    TResult Function(UpdateFavoriteTrack value)? updateFavoriteTrack,
+    TResult Function(SavedAllTracks value)? saveAllTracks,
+    TResult Function(NavigateBack value)? navigateBack,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToPlayerPage != null) {
+      return navigateToPlayerPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavigateToPlayerPage implements TrackEvent {
+  const factory NavigateToPlayerPage(final TrackIdProvider track) =
+      _$NavigateToPlayerPageImpl;
+
+  TrackIdProvider get track;
+
+  /// Create a copy of TrackEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NavigateToPlayerPageImplCopyWith<_$NavigateToPlayerPageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$TrackState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Track> tracks, bool isDownloaded) loaded,
+    required TResult Function(
+            List<Track> tracks, bool isDownloaded, TrackEvent event)
+        loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -564,7 +906,8 @@ mixin _$TrackState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult? Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -572,7 +915,8 @@ mixin _$TrackState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -668,7 +1012,9 @@ class _$InitialTrackImpl implements _InitialTrack {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Track> tracks, bool isDownloaded) loaded,
+    required TResult Function(
+            List<Track> tracks, bool isDownloaded, TrackEvent event)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -679,7 +1025,8 @@ class _$InitialTrackImpl implements _InitialTrack {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult? Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -690,7 +1037,8 @@ class _$InitialTrackImpl implements _InitialTrack {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -785,7 +1133,9 @@ class _$LoadingTrackImpl implements _LoadingTrack {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Track> tracks, bool isDownloaded) loaded,
+    required TResult Function(
+            List<Track> tracks, bool isDownloaded, TrackEvent event)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -796,7 +1146,8 @@ class _$LoadingTrackImpl implements _LoadingTrack {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult? Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -807,7 +1158,8 @@ class _$LoadingTrackImpl implements _LoadingTrack {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -865,7 +1217,9 @@ abstract class _$$LoadedTrackImplCopyWith<$Res> {
           _$LoadedTrackImpl value, $Res Function(_$LoadedTrackImpl) then) =
       __$$LoadedTrackImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Track> tracks, bool isDownloaded});
+  $Res call({List<Track> tracks, bool isDownloaded, TrackEvent event});
+
+  $TrackEventCopyWith<$Res> get event;
 }
 
 /// @nodoc
@@ -883,6 +1237,7 @@ class __$$LoadedTrackImplCopyWithImpl<$Res>
   $Res call({
     Object? tracks = null,
     Object? isDownloaded = null,
+    Object? event = null,
   }) {
     return _then(_$LoadedTrackImpl(
       tracks: null == tracks
@@ -893,7 +1248,21 @@ class __$$LoadedTrackImplCopyWithImpl<$Res>
           ? _value.isDownloaded
           : isDownloaded // ignore: cast_nullable_to_non_nullable
               as bool,
+      event: null == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as TrackEvent,
     ));
+  }
+
+  /// Create a copy of TrackState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TrackEventCopyWith<$Res> get event {
+    return $TrackEventCopyWith<$Res>(_value.event, (value) {
+      return _then(_value.copyWith(event: value));
+    });
   }
 }
 
@@ -901,7 +1270,9 @@ class __$$LoadedTrackImplCopyWithImpl<$Res>
 
 class _$LoadedTrackImpl implements _LoadedTrack {
   const _$LoadedTrackImpl(
-      {required final List<Track> tracks, required this.isDownloaded})
+      {required final List<Track> tracks,
+      required this.isDownloaded,
+      required this.event})
       : _tracks = tracks;
 
   final List<Track> _tracks;
@@ -914,10 +1285,12 @@ class _$LoadedTrackImpl implements _LoadedTrack {
 
   @override
   final bool isDownloaded;
+  @override
+  final TrackEvent event;
 
   @override
   String toString() {
-    return 'TrackState.loaded(tracks: $tracks, isDownloaded: $isDownloaded)';
+    return 'TrackState.loaded(tracks: $tracks, isDownloaded: $isDownloaded, event: $event)';
   }
 
   @override
@@ -927,12 +1300,13 @@ class _$LoadedTrackImpl implements _LoadedTrack {
             other is _$LoadedTrackImpl &&
             const DeepCollectionEquality().equals(other._tracks, _tracks) &&
             (identical(other.isDownloaded, isDownloaded) ||
-                other.isDownloaded == isDownloaded));
+                other.isDownloaded == isDownloaded) &&
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_tracks), isDownloaded);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_tracks), isDownloaded, event);
 
   /// Create a copy of TrackState
   /// with the given fields replaced by the non-null parameter values.
@@ -947,10 +1321,12 @@ class _$LoadedTrackImpl implements _LoadedTrack {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Track> tracks, bool isDownloaded) loaded,
+    required TResult Function(
+            List<Track> tracks, bool isDownloaded, TrackEvent event)
+        loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(tracks, isDownloaded);
+    return loaded(tracks, isDownloaded, event);
   }
 
   @override
@@ -958,10 +1334,11 @@ class _$LoadedTrackImpl implements _LoadedTrack {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult? Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(tracks, isDownloaded);
+    return loaded?.call(tracks, isDownloaded, event);
   }
 
   @override
@@ -969,12 +1346,13 @@ class _$LoadedTrackImpl implements _LoadedTrack {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(tracks, isDownloaded);
+      return loaded(tracks, isDownloaded, event);
     }
     return orElse();
   }
@@ -1020,10 +1398,12 @@ class _$LoadedTrackImpl implements _LoadedTrack {
 abstract class _LoadedTrack implements TrackState {
   const factory _LoadedTrack(
       {required final List<Track> tracks,
-      required final bool isDownloaded}) = _$LoadedTrackImpl;
+      required final bool isDownloaded,
+      required final TrackEvent event}) = _$LoadedTrackImpl;
 
   List<Track> get tracks;
   bool get isDownloaded;
+  TrackEvent get event;
 
   /// Create a copy of TrackState
   /// with the given fields replaced by the non-null parameter values.
@@ -1102,7 +1482,9 @@ class _$ErrorTrackImpl implements _ErrorTrack {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Track> tracks, bool isDownloaded) loaded,
+    required TResult Function(
+            List<Track> tracks, bool isDownloaded, TrackEvent event)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -1113,7 +1495,8 @@ class _$ErrorTrackImpl implements _ErrorTrack {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult? Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -1124,7 +1507,8 @@ class _$ErrorTrackImpl implements _ErrorTrack {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Track> tracks, bool isDownloaded)? loaded,
+    TResult Function(List<Track> tracks, bool isDownloaded, TrackEvent event)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

@@ -19,32 +19,39 @@ mixin _$LibraryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadLibrary,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadLibrary,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadLibrary,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadLibrary value) loadLibrary,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadLibrary value)? loadLibrary,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadLibrary value)? loadLibrary,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +120,7 @@ class _$LoadLibraryImpl implements _LoadLibrary {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadLibrary,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
   }) {
     return loadLibrary();
   }
@@ -121,6 +129,7 @@ class _$LoadLibraryImpl implements _LoadLibrary {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadLibrary,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
   }) {
     return loadLibrary?.call();
   }
@@ -129,6 +138,7 @@ class _$LoadLibraryImpl implements _LoadLibrary {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadLibrary,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
     required TResult orElse(),
   }) {
     if (loadLibrary != null) {
@@ -141,6 +151,8 @@ class _$LoadLibraryImpl implements _LoadLibrary {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadLibrary value) loadLibrary,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
   }) {
     return loadLibrary(this);
   }
@@ -149,6 +161,7 @@ class _$LoadLibraryImpl implements _LoadLibrary {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadLibrary value)? loadLibrary,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
   }) {
     return loadLibrary?.call(this);
   }
@@ -157,6 +170,7 @@ class _$LoadLibraryImpl implements _LoadLibrary {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadLibrary value)? loadLibrary,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
     required TResult orElse(),
   }) {
     if (loadLibrary != null) {
@@ -171,10 +185,157 @@ abstract class _LoadLibrary implements LibraryEvent {
 }
 
 /// @nodoc
+abstract class _$$NavigateToTrackListPageImplCopyWith<$Res> {
+  factory _$$NavigateToTrackListPageImplCopyWith(
+          _$NavigateToTrackListPageImpl value,
+          $Res Function(_$NavigateToTrackListPageImpl) then) =
+      __$$NavigateToTrackListPageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TrackParam track});
+}
+
+/// @nodoc
+class __$$NavigateToTrackListPageImplCopyWithImpl<$Res>
+    extends _$LibraryEventCopyWithImpl<$Res, _$NavigateToTrackListPageImpl>
+    implements _$$NavigateToTrackListPageImplCopyWith<$Res> {
+  __$$NavigateToTrackListPageImplCopyWithImpl(
+      _$NavigateToTrackListPageImpl _value,
+      $Res Function(_$NavigateToTrackListPageImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of LibraryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? track = freezed,
+  }) {
+    return _then(_$NavigateToTrackListPageImpl(
+      freezed == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as TrackParam,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NavigateToTrackListPageImpl implements NavigateToTrackListPage {
+  const _$NavigateToTrackListPageImpl(this.track);
+
+  @override
+  final TrackParam track;
+
+  @override
+  String toString() {
+    return 'LibraryEvent.navigateToTrackListPage(track: $track)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NavigateToTrackListPageImpl &&
+            const DeepCollectionEquality().equals(other.track, track));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(track));
+
+  /// Create a copy of LibraryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NavigateToTrackListPageImplCopyWith<_$NavigateToTrackListPageImpl>
+      get copyWith => __$$NavigateToTrackListPageImplCopyWithImpl<
+          _$NavigateToTrackListPageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadLibrary,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
+  }) {
+    return navigateToTrackListPage(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadLibrary,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
+  }) {
+    return navigateToTrackListPage?.call(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadLibrary,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToTrackListPage != null) {
+      return navigateToTrackListPage(track);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadLibrary value) loadLibrary,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
+  }) {
+    return navigateToTrackListPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadLibrary value)? loadLibrary,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+  }) {
+    return navigateToTrackListPage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadLibrary value)? loadLibrary,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToTrackListPage != null) {
+      return navigateToTrackListPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavigateToTrackListPage implements LibraryEvent {
+  const factory NavigateToTrackListPage(final TrackParam track) =
+      _$NavigateToTrackListPageImpl;
+
+  TrackParam get track;
+
+  /// Create a copy of LibraryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NavigateToTrackListPageImplCopyWith<_$NavigateToTrackListPageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$LibraryState {
   bool get isLoading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
   List<Downloads> get saveCategories => throw _privateConstructorUsedError;
+  LibraryEvent get event => throw _privateConstructorUsedError;
 
   /// Create a copy of LibraryState
   /// with the given fields replaced by the non-null parameter values.
@@ -189,7 +350,13 @@ abstract class $LibraryStateCopyWith<$Res> {
           LibraryState value, $Res Function(LibraryState) then) =
       _$LibraryStateCopyWithImpl<$Res, LibraryState>;
   @useResult
-  $Res call({bool isLoading, String error, List<Downloads> saveCategories});
+  $Res call(
+      {bool isLoading,
+      String error,
+      List<Downloads> saveCategories,
+      LibraryEvent event});
+
+  $LibraryEventCopyWith<$Res> get event;
 }
 
 /// @nodoc
@@ -210,6 +377,7 @@ class _$LibraryStateCopyWithImpl<$Res, $Val extends LibraryState>
     Object? isLoading = null,
     Object? error = null,
     Object? saveCategories = null,
+    Object? event = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -224,7 +392,21 @@ class _$LibraryStateCopyWithImpl<$Res, $Val extends LibraryState>
           ? _value.saveCategories
           : saveCategories // ignore: cast_nullable_to_non_nullable
               as List<Downloads>,
+      event: null == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as LibraryEvent,
     ) as $Val);
+  }
+
+  /// Create a copy of LibraryState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LibraryEventCopyWith<$Res> get event {
+    return $LibraryEventCopyWith<$Res>(_value.event, (value) {
+      return _then(_value.copyWith(event: value) as $Val);
+    });
   }
 }
 
@@ -236,7 +418,14 @@ abstract class _$$LibraryStateImplCopyWith<$Res>
       __$$LibraryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String error, List<Downloads> saveCategories});
+  $Res call(
+      {bool isLoading,
+      String error,
+      List<Downloads> saveCategories,
+      LibraryEvent event});
+
+  @override
+  $LibraryEventCopyWith<$Res> get event;
 }
 
 /// @nodoc
@@ -255,6 +444,7 @@ class __$$LibraryStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? error = null,
     Object? saveCategories = null,
+    Object? event = null,
   }) {
     return _then(_$LibraryStateImpl(
       isLoading: null == isLoading
@@ -269,6 +459,10 @@ class __$$LibraryStateImplCopyWithImpl<$Res>
           ? _value._saveCategories
           : saveCategories // ignore: cast_nullable_to_non_nullable
               as List<Downloads>,
+      event: null == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as LibraryEvent,
     ));
   }
 }
@@ -279,7 +473,8 @@ class _$LibraryStateImpl implements _LibraryState {
   const _$LibraryStateImpl(
       {required this.isLoading,
       required this.error,
-      required final List<Downloads> saveCategories})
+      required final List<Downloads> saveCategories,
+      required this.event})
       : _saveCategories = saveCategories;
 
   @override
@@ -295,8 +490,11 @@ class _$LibraryStateImpl implements _LibraryState {
   }
 
   @override
+  final LibraryEvent event;
+
+  @override
   String toString() {
-    return 'LibraryState(isLoading: $isLoading, error: $error, saveCategories: $saveCategories)';
+    return 'LibraryState(isLoading: $isLoading, error: $error, saveCategories: $saveCategories, event: $event)';
   }
 
   @override
@@ -308,12 +506,13 @@ class _$LibraryStateImpl implements _LibraryState {
                 other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error) &&
             const DeepCollectionEquality()
-                .equals(other._saveCategories, _saveCategories));
+                .equals(other._saveCategories, _saveCategories) &&
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, error,
-      const DeepCollectionEquality().hash(_saveCategories));
+      const DeepCollectionEquality().hash(_saveCategories), event);
 
   /// Create a copy of LibraryState
   /// with the given fields replaced by the non-null parameter values.
@@ -328,7 +527,8 @@ abstract class _LibraryState implements LibraryState {
   const factory _LibraryState(
       {required final bool isLoading,
       required final String error,
-      required final List<Downloads> saveCategories}) = _$LibraryStateImpl;
+      required final List<Downloads> saveCategories,
+      required final LibraryEvent event}) = _$LibraryStateImpl;
 
   @override
   bool get isLoading;
@@ -336,6 +536,8 @@ abstract class _LibraryState implements LibraryState {
   String get error;
   @override
   List<Downloads> get saveCategories;
+  @override
+  LibraryEvent get event;
 
   /// Create a copy of LibraryState
   /// with the given fields replaced by the non-null parameter values.

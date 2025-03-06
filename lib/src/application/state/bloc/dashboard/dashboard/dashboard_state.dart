@@ -9,6 +9,7 @@ class DashboardState with _$DashboardState {
     required List<Artist> artists,
     required List<Album> albums,
     required List<Favorite> favorites,
+    required DashboardEvent? event,
   }) = _DashboardLoaded;
   const factory DashboardState.error({
     required String message,

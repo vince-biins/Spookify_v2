@@ -20,18 +20,24 @@ mixin _$DashboardEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() loadDashboard,
     required TResult Function() refreshedDashboard,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadDashboard,
     TResult? Function()? refreshedDashboard,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadDashboard,
     TResult Function()? refreshedDashboard,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +45,25 @@ mixin _$DashboardEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(LoadDashboard value) loadDashboard,
     required TResult Function(RefreshedDashboard value) refreshedDashboard,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadDashboard value)? loadDashboard,
     TResult? Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadDashboard value)? loadDashboard,
     TResult Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,6 +133,8 @@ class _$LoadDashboardImpl implements LoadDashboard {
   TResult when<TResult extends Object?>({
     required TResult Function() loadDashboard,
     required TResult Function() refreshedDashboard,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) {
     return loadDashboard();
   }
@@ -129,6 +144,8 @@ class _$LoadDashboardImpl implements LoadDashboard {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadDashboard,
     TResult? Function()? refreshedDashboard,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) {
     return loadDashboard?.call();
   }
@@ -138,6 +155,8 @@ class _$LoadDashboardImpl implements LoadDashboard {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadDashboard,
     TResult Function()? refreshedDashboard,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (loadDashboard != null) {
@@ -151,6 +170,9 @@ class _$LoadDashboardImpl implements LoadDashboard {
   TResult map<TResult extends Object?>({
     required TResult Function(LoadDashboard value) loadDashboard,
     required TResult Function(RefreshedDashboard value) refreshedDashboard,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) {
     return loadDashboard(this);
   }
@@ -160,6 +182,8 @@ class _$LoadDashboardImpl implements LoadDashboard {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadDashboard value)? loadDashboard,
     TResult? Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) {
     return loadDashboard?.call(this);
   }
@@ -169,6 +193,8 @@ class _$LoadDashboardImpl implements LoadDashboard {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadDashboard value)? loadDashboard,
     TResult Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (loadDashboard != null) {
@@ -225,6 +251,8 @@ class _$RefreshedDashboardImpl implements RefreshedDashboard {
   TResult when<TResult extends Object?>({
     required TResult Function() loadDashboard,
     required TResult Function() refreshedDashboard,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
   }) {
     return refreshedDashboard();
   }
@@ -234,6 +262,8 @@ class _$RefreshedDashboardImpl implements RefreshedDashboard {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadDashboard,
     TResult? Function()? refreshedDashboard,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
   }) {
     return refreshedDashboard?.call();
   }
@@ -243,6 +273,8 @@ class _$RefreshedDashboardImpl implements RefreshedDashboard {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadDashboard,
     TResult Function()? refreshedDashboard,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (refreshedDashboard != null) {
@@ -256,6 +288,9 @@ class _$RefreshedDashboardImpl implements RefreshedDashboard {
   TResult map<TResult extends Object?>({
     required TResult Function(LoadDashboard value) loadDashboard,
     required TResult Function(RefreshedDashboard value) refreshedDashboard,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
   }) {
     return refreshedDashboard(this);
   }
@@ -265,6 +300,8 @@ class _$RefreshedDashboardImpl implements RefreshedDashboard {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadDashboard value)? loadDashboard,
     TResult? Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
   }) {
     return refreshedDashboard?.call(this);
   }
@@ -274,6 +311,8 @@ class _$RefreshedDashboardImpl implements RefreshedDashboard {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadDashboard value)? loadDashboard,
     TResult Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
     required TResult orElse(),
   }) {
     if (refreshedDashboard != null) {
@@ -288,13 +327,326 @@ abstract class RefreshedDashboard implements DashboardEvent {
 }
 
 /// @nodoc
+abstract class _$$NavigateToTrackListPageImplCopyWith<$Res> {
+  factory _$$NavigateToTrackListPageImplCopyWith(
+          _$NavigateToTrackListPageImpl value,
+          $Res Function(_$NavigateToTrackListPageImpl) then) =
+      __$$NavigateToTrackListPageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TrackParam track});
+}
+
+/// @nodoc
+class __$$NavigateToTrackListPageImplCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res, _$NavigateToTrackListPageImpl>
+    implements _$$NavigateToTrackListPageImplCopyWith<$Res> {
+  __$$NavigateToTrackListPageImplCopyWithImpl(
+      _$NavigateToTrackListPageImpl _value,
+      $Res Function(_$NavigateToTrackListPageImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DashboardEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? track = null,
+  }) {
+    return _then(_$NavigateToTrackListPageImpl(
+      null == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as TrackParam,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NavigateToTrackListPageImpl implements NavigateToTrackListPage {
+  const _$NavigateToTrackListPageImpl(this.track);
+
+  @override
+  final TrackParam track;
+
+  @override
+  String toString() {
+    return 'DashboardEvent.navigateToTrackListPage(track: $track)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NavigateToTrackListPageImpl &&
+            (identical(other.track, track) || other.track == track));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, track);
+
+  /// Create a copy of DashboardEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NavigateToTrackListPageImplCopyWith<_$NavigateToTrackListPageImpl>
+      get copyWith => __$$NavigateToTrackListPageImplCopyWithImpl<
+          _$NavigateToTrackListPageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadDashboard,
+    required TResult Function() refreshedDashboard,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
+  }) {
+    return navigateToTrackListPage(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadDashboard,
+    TResult? Function()? refreshedDashboard,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
+  }) {
+    return navigateToTrackListPage?.call(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadDashboard,
+    TResult Function()? refreshedDashboard,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToTrackListPage != null) {
+      return navigateToTrackListPage(track);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadDashboard value) loadDashboard,
+    required TResult Function(RefreshedDashboard value) refreshedDashboard,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
+  }) {
+    return navigateToTrackListPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadDashboard value)? loadDashboard,
+    TResult? Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+  }) {
+    return navigateToTrackListPage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadDashboard value)? loadDashboard,
+    TResult Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToTrackListPage != null) {
+      return navigateToTrackListPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavigateToTrackListPage implements DashboardEvent {
+  const factory NavigateToTrackListPage(final TrackParam track) =
+      _$NavigateToTrackListPageImpl;
+
+  TrackParam get track;
+
+  /// Create a copy of DashboardEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NavigateToTrackListPageImplCopyWith<_$NavigateToTrackListPageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NavigateToPlayerPageImplCopyWith<$Res> {
+  factory _$$NavigateToPlayerPageImplCopyWith(_$NavigateToPlayerPageImpl value,
+          $Res Function(_$NavigateToPlayerPageImpl) then) =
+      __$$NavigateToPlayerPageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TrackIdProvider track});
+}
+
+/// @nodoc
+class __$$NavigateToPlayerPageImplCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res, _$NavigateToPlayerPageImpl>
+    implements _$$NavigateToPlayerPageImplCopyWith<$Res> {
+  __$$NavigateToPlayerPageImplCopyWithImpl(_$NavigateToPlayerPageImpl _value,
+      $Res Function(_$NavigateToPlayerPageImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DashboardEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? track = null,
+  }) {
+    return _then(_$NavigateToPlayerPageImpl(
+      null == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as TrackIdProvider,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NavigateToPlayerPageImpl implements NavigateToPlayerPage {
+  const _$NavigateToPlayerPageImpl(this.track);
+
+  @override
+  final TrackIdProvider track;
+
+  @override
+  String toString() {
+    return 'DashboardEvent.navigateToPlayerPage(track: $track)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NavigateToPlayerPageImpl &&
+            (identical(other.track, track) || other.track == track));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, track);
+
+  /// Create a copy of DashboardEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NavigateToPlayerPageImplCopyWith<_$NavigateToPlayerPageImpl>
+      get copyWith =>
+          __$$NavigateToPlayerPageImplCopyWithImpl<_$NavigateToPlayerPageImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadDashboard,
+    required TResult Function() refreshedDashboard,
+    required TResult Function(TrackParam track) navigateToTrackListPage,
+    required TResult Function(TrackIdProvider track) navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadDashboard,
+    TResult? Function()? refreshedDashboard,
+    TResult? Function(TrackParam track)? navigateToTrackListPage,
+    TResult? Function(TrackIdProvider track)? navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage?.call(track);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadDashboard,
+    TResult Function()? refreshedDashboard,
+    TResult Function(TrackParam track)? navigateToTrackListPage,
+    TResult Function(TrackIdProvider track)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToPlayerPage != null) {
+      return navigateToPlayerPage(track);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadDashboard value) loadDashboard,
+    required TResult Function(RefreshedDashboard value) refreshedDashboard,
+    required TResult Function(NavigateToTrackListPage value)
+        navigateToTrackListPage,
+    required TResult Function(NavigateToPlayerPage value) navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadDashboard value)? loadDashboard,
+    TResult? Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult? Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult? Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+  }) {
+    return navigateToPlayerPage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadDashboard value)? loadDashboard,
+    TResult Function(RefreshedDashboard value)? refreshedDashboard,
+    TResult Function(NavigateToTrackListPage value)? navigateToTrackListPage,
+    TResult Function(NavigateToPlayerPage value)? navigateToPlayerPage,
+    required TResult orElse(),
+  }) {
+    if (navigateToPlayerPage != null) {
+      return navigateToPlayerPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavigateToPlayerPage implements DashboardEvent {
+  const factory NavigateToPlayerPage(final TrackIdProvider track) =
+      _$NavigateToPlayerPageImpl;
+
+  TrackIdProvider get track;
+
+  /// Create a copy of DashboardEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NavigateToPlayerPageImplCopyWith<_$NavigateToPlayerPageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$DashboardState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)
+            List<Album> albums, List<Favorite> favorites, DashboardEvent? event)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -303,8 +655,12 @@ mixin _$DashboardState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult? Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -313,8 +669,12 @@ mixin _$DashboardState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -412,7 +772,7 @@ class _$DashboardInitialImpl implements _DashboardInitial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)
+            List<Album> albums, List<Favorite> favorites, DashboardEvent? event)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -424,8 +784,12 @@ class _$DashboardInitialImpl implements _DashboardInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult? Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -437,8 +801,12 @@ class _$DashboardInitialImpl implements _DashboardInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -535,7 +903,7 @@ class _$DashboardLoadingImpl implements _DashboardLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)
+            List<Album> albums, List<Favorite> favorites, DashboardEvent? event)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -547,8 +915,12 @@ class _$DashboardLoadingImpl implements _DashboardLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult? Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -560,8 +932,12 @@ class _$DashboardLoadingImpl implements _DashboardLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -624,7 +1000,10 @@ abstract class _$$DashboardLoadedImplCopyWith<$Res> {
       {List<Category> categories,
       List<Artist> artists,
       List<Album> albums,
-      List<Favorite> favorites});
+      List<Favorite> favorites,
+      DashboardEvent? event});
+
+  $DashboardEventCopyWith<$Res>? get event;
 }
 
 /// @nodoc
@@ -644,6 +1023,7 @@ class __$$DashboardLoadedImplCopyWithImpl<$Res>
     Object? artists = null,
     Object? albums = null,
     Object? favorites = null,
+    Object? event = freezed,
   }) {
     return _then(_$DashboardLoadedImpl(
       categories: null == categories
@@ -662,7 +1042,25 @@ class __$$DashboardLoadedImplCopyWithImpl<$Res>
           ? _value._favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<Favorite>,
+      event: freezed == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as DashboardEvent?,
     ));
+  }
+
+  /// Create a copy of DashboardState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardEventCopyWith<$Res>? get event {
+    if (_value.event == null) {
+      return null;
+    }
+
+    return $DashboardEventCopyWith<$Res>(_value.event!, (value) {
+      return _then(_value.copyWith(event: value));
+    });
   }
 }
 
@@ -673,7 +1071,8 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
       {required final List<Category> categories,
       required final List<Artist> artists,
       required final List<Album> albums,
-      required final List<Favorite> favorites})
+      required final List<Favorite> favorites,
+      required this.event})
       : _categories = categories,
         _artists = artists,
         _albums = albums,
@@ -712,8 +1111,11 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
   }
 
   @override
+  final DashboardEvent? event;
+
+  @override
   String toString() {
-    return 'DashboardState.loaded(categories: $categories, artists: $artists, albums: $albums, favorites: $favorites)';
+    return 'DashboardState.loaded(categories: $categories, artists: $artists, albums: $albums, favorites: $favorites, event: $event)';
   }
 
   @override
@@ -726,7 +1128,8 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
             const DeepCollectionEquality().equals(other._artists, _artists) &&
             const DeepCollectionEquality().equals(other._albums, _albums) &&
             const DeepCollectionEquality()
-                .equals(other._favorites, _favorites));
+                .equals(other._favorites, _favorites) &&
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
@@ -735,7 +1138,8 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_artists),
       const DeepCollectionEquality().hash(_albums),
-      const DeepCollectionEquality().hash(_favorites));
+      const DeepCollectionEquality().hash(_favorites),
+      event);
 
   /// Create a copy of DashboardState
   /// with the given fields replaced by the non-null parameter values.
@@ -752,11 +1156,11 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)
+            List<Album> albums, List<Favorite> favorites, DashboardEvent? event)
         loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(categories, artists, albums, favorites);
+    return loaded(categories, artists, albums, favorites, event);
   }
 
   @override
@@ -764,12 +1168,16 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult? Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(categories, artists, albums, favorites);
+    return loaded?.call(categories, artists, albums, favorites, event);
   }
 
   @override
@@ -777,14 +1185,18 @@ class _$DashboardLoadedImpl implements _DashboardLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(categories, artists, albums, favorites);
+      return loaded(categories, artists, albums, favorites, event);
     }
     return orElse();
   }
@@ -832,12 +1244,14 @@ abstract class _DashboardLoaded implements DashboardState {
       {required final List<Category> categories,
       required final List<Artist> artists,
       required final List<Album> albums,
-      required final List<Favorite> favorites}) = _$DashboardLoadedImpl;
+      required final List<Favorite> favorites,
+      required final DashboardEvent? event}) = _$DashboardLoadedImpl;
 
   List<Category> get categories;
   List<Artist> get artists;
   List<Album> get albums;
   List<Favorite> get favorites;
+  DashboardEvent? get event;
 
   /// Create a copy of DashboardState
   /// with the given fields replaced by the non-null parameter values.
@@ -918,7 +1332,7 @@ class _$DashboardErrorImpl implements _DashboardError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)
+            List<Album> albums, List<Favorite> favorites, DashboardEvent? event)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -930,8 +1344,12 @@ class _$DashboardErrorImpl implements _DashboardError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult? Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -943,8 +1361,12 @@ class _$DashboardErrorImpl implements _DashboardError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Category> categories, List<Artist> artists,
-            List<Album> albums, List<Favorite> favorites)?
+    TResult Function(
+            List<Category> categories,
+            List<Artist> artists,
+            List<Album> albums,
+            List<Favorite> favorites,
+            DashboardEvent? event)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

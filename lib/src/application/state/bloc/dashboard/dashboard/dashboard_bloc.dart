@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/src/domain/models/album.dart';
 import 'package:spookify_v2/src/domain/models/artist.dart';
@@ -35,6 +37,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
         _fetchFavoriteUsecase = fetchFavoriteUsecase,
         super(const DashboardState.initial()) {
     on<LoadDashboard>(_onLoadDashboard);
+    on<NavigateToTrackListPage>(_onNavigateToTrackListPage);
+    on<NavigateToPlayerPage>(_onNavigateToPlayerPage);
 
     _connectivitySubscription = listenForConnectionChange();
   }
@@ -96,8 +100,29 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState>
           artists: artists,
           albums: albums,
           favorites: favorites.reversed.toList(),
+          event: event,
         ),
       );
+    }
+  }
+
+  FutureOr<void> _onNavigateToTrackListPage(
+    NavigateToTrackListPage event,
+    Emitter<DashboardState> emit,
+  ) {
+    if (state is _DashboardLoaded) {
+      final currentState = state as _DashboardLoaded;
+      emit(currentState.copyWith(event: event));
+    }
+  }
+
+  FutureOr<void> _onNavigateToPlayerPage(
+    NavigateToPlayerPage event,
+    Emitter<DashboardState> emit,
+  ) {
+    if (state is _DashboardLoaded) {
+      final currentState = state as _DashboardLoaded;
+      emit(currentState.copyWith(event: event));
     }
   }
 }

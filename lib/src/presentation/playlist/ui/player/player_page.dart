@@ -5,6 +5,7 @@ import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
 import 'package:spookify_v2/src/presentation/components/error_screen.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_indicator.dart';
+import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 import 'package:spookify_v2/utils/constants/playlist_strings.dart';
 import 'package:spookify_v2/src/application/state/cubit/player/player_cubit.dart';
 import 'package:spookify_v2/src/presentation/playlist/ui/player/player_content.dart';
@@ -86,24 +87,10 @@ class PlayerPage extends StatelessWidget {
                 body: Stack(
                   children: [
                     Positioned.fill(
-                      child: Image.network(
-                        state.track.imageUrl ?? '',
-                        fit: BoxFit.cover,
-                        loadingBuilder: (
-                          BuildContext context,
-                          Widget child,
-                          ImageChunkEvent? loadingProgress,
-                        ) {
-                          if (loadingProgress == null) {
-                            return child;
-                          }
-                          return const Center(
-                            child: CustomLoadingImageIndicator(),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container();
-                        },
+                      child: ImageNetworkErrorHandling(
+                        imageSize: double.infinity,
+                        loadingIndicatorSize: 20,
+                        imageUrl: state.track.imageUrl ?? '',
                       ),
                     ),
                     Container(

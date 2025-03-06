@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/src/domain/models/downloads.dart';
 import 'package:spookify_v2/src/domain/repositories/dashboard_repository.dart';
@@ -17,6 +18,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState>
       : _repository = repository,
         super(LibraryState.initialized()) {
     on<_LoadLibrary>(_onLoadLibrary);
+    on<NavigateToTrackListPage>(_onNavigateToTrackListPage);
   }
 
   FutureOr<void> _onLoadLibrary(
@@ -35,6 +37,19 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState>
       emit(state.copyWith(error: errorMessage));
     }
 
-    emit(state.copyWith(saveCategories: savedcategories, isLoading: false));
+    emit(
+      state.copyWith(
+        saveCategories: savedcategories,
+        isLoading: false,
+        event: event,
+      ),
+    );
+  }
+
+  FutureOr<void> _onNavigateToTrackListPage(
+    NavigateToTrackListPage event,
+    Emitter<LibraryState> emit,
+  ) {
+    emit(state.copyWith(event: event));
   }
 }

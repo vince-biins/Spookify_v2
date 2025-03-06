@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/src/domain/models/models.dart';
 import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
@@ -9,7 +8,6 @@ import 'package:spookify_v2/utils/constants/playlist_strings.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track.dart';
 
 import 'package:spookify_v2/src/presentation/playlist/widgets/widgets.dart';
-import 'package:spookify_v2/utils/constants/destinations.dart';
 
 class TrackListContent extends StatelessWidget {
   final Color bgColor;
@@ -114,16 +112,9 @@ class TrackListContent extends StatelessWidget {
                           trackIds: track.map((item) => item.trackId).toList(),
                         );
 
-                        final result = await GoRouter.of(context).push(
-                          TrackDestination.player.pathUrl,
-                          extra: extra,
-                        );
-
-                        if (result == true && context.mounted) {
-                          context
-                              .read<TrackBloc>()
-                              .add(const TrackEvent.loadTrack());
-                        }
+                        context
+                            .read<TrackBloc>()
+                            .add(TrackEvent.navigateToPlayerPage(extra));
                       },
                     ),
                   ),

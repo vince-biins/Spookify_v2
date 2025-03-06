@@ -107,16 +107,11 @@ class _DashboardContent extends StatelessWidget {
       color: dominantColor,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final result = await GoRouter.of(context).push(
-        TrackDestination.track.pathUrl,
-        extra: extra,
-      );
-
-      if (context.mounted && result == true) {
-        context.read<DashboardBloc>().add(const DashboardEvent.loadDashboard());
-      }
-    });
+    if (context.mounted) {
+      context
+          .read<DashboardBloc>()
+          .add(DashboardEvent.navigateToTrackListPage(extra));
+    }
   }
 
   void _navigateToPlayerPage({
@@ -124,20 +119,13 @@ class _DashboardContent extends StatelessWidget {
     required List<DashboardItem> item,
     required int index,
   }) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final extra = TrackIdProvider(
-        currId: item[index].id,
-        trackIds: item.map((item) => item.id).toList(),
-      );
+    final extra = TrackIdProvider(
+      currId: item[index].id,
+      trackIds: item.map((item) => item.id).toList(),
+    );
 
-      final result = await GoRouter.of(context).push(
-        TrackDestination.player.pathUrl,
-        extra: extra,
-      );
-
-      if (context.mounted && result == true) {
-        context.read<DashboardBloc>().add(const DashboardEvent.loadDashboard());
-      }
-    });
+    context
+        .read<DashboardBloc>()
+        .add(DashboardEvent.navigateToPlayerPage(extra));
   }
 }

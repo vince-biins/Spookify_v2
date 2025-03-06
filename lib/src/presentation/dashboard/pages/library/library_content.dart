@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spookify_v2/src/application/paramaters/track_param.dart';
+import 'package:spookify_v2/src/application/state/bloc/dashboard/library/library_bloc.dart';
 
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/domain/models/downloads.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/library_tile.dart';
-import 'package:spookify_v2/utils/constants/destinations.dart';
+
 import 'package:spookify_v2/utils/helper/dominant_color_helper.dart';
 
 class LibraryContent extends StatelessWidget {
@@ -34,10 +35,9 @@ class LibraryContent extends StatelessWidget {
                 type: TrackType.favorite,
                 color: null,
               );
-              GoRouter.of(context).push(
-                TrackDestination.track.pathUrl,
-                extra: extra,
-              );
+              context
+                  .read<LibraryBloc>()
+                  .add(LibraryEvent.navigateToTrackListPage(extra));
             },
           ),
         ),
@@ -67,10 +67,9 @@ class LibraryContent extends StatelessWidget {
                   );
 
                   if (context.mounted) {
-                    GoRouter.of(context).push(
-                      TrackDestination.track.pathUrl,
-                      extra: extra,
-                    );
+                    context
+                        .read<LibraryBloc>()
+                        .add(LibraryEvent.navigateToTrackListPage(extra));
                   }
                 },
               );

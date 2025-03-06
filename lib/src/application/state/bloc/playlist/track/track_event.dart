@@ -12,4 +12,8 @@ class TrackEvent with _$TrackEvent {
     required Category saveCategory,
     required List<Track> tracks,
   }) = SavedAllTracks;
+
+  const factory TrackEvent.navigateBack() = NavigateBack;
+  const factory TrackEvent.navigateToPlayerPage(TrackIdProvider track) =
+      NavigateToPlayerPage;
 }

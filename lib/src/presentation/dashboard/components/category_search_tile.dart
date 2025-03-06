@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
+import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 
 class CategorySearchTile extends StatelessWidget {
   final Color color;
@@ -28,31 +29,10 @@ class CategorySearchTile extends StatelessWidget {
             bottom: 0,
             child: Transform.rotate(
               angle: 15 * math.pi / 180,
-              child: Image.network(
-                imageUrl,
-                height: 70,
-                width: 70,
-                fit: BoxFit.cover,
-                loadingBuilder: (
-                  BuildContext context,
-                  Widget child,
-                  ImageChunkEvent? loadingProgress,
-                ) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-                  return const Center(
-                    child: CustomLoadingImageIndicator(),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/images/error.png',
-                    width: 70,
-                    height: 70,
-                    fit: BoxFit.cover,
-                  );
-                },
+              child: ImageNetworkErrorHandling(
+                imageSize: 70,
+                loadingIndicatorSize: 20,
+                imageUrl: imageUrl,
               ),
             ),
           ),

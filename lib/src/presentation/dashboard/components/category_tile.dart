@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
+import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 
 class CategoryTile extends StatelessWidget {
   final double width;
@@ -36,31 +37,10 @@ class CategoryTile extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
-                child: Image.network(
-                  imageSrc,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (
-                    BuildContext context,
-                    Widget child,
-                    ImageChunkEvent? loadingProgress,
-                  ) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return const Center(
-                      child: CustomLoadingImageIndicator(),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      'assets/images/error.png',
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.cover,
-                    );
-                  },
+                child: ImageNetworkErrorHandling(
+                  imageSize: 60,
+                  loadingIndicatorSize: 20,
+                  imageUrl: imageSrc,
                 ),
               ),
             ),
