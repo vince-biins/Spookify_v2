@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:spookify_v2/gen/assets.gen.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
 
 class ImageNetworkErrorHandling extends StatelessWidget {
   final double imageSize;
   final double loadingIndicatorSize;
   final String imageUrl;
-  String errorImageUrl;
+  final String? errorImageUrl;
 
-  ImageNetworkErrorHandling({
+  const ImageNetworkErrorHandling({
     super.key,
     required this.imageSize,
     required this.loadingIndicatorSize,
     required this.imageUrl,
-    this.errorImageUrl = 'assets/images/error.png',
+    this.errorImageUrl,
   });
 
   @override
@@ -38,7 +39,7 @@ class ImageNetworkErrorHandling extends StatelessWidget {
       },
       errorBuilder: (context, error, stackTrace) {
         return Image.asset(
-          errorImageUrl,
+          errorImageUrl ?? Assets.images.error.path,
           width: imageSize,
           height: imageSize,
           fit: BoxFit.cover,

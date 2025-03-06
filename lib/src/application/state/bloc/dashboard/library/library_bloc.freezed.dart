@@ -208,10 +208,10 @@ class __$$NavigateToTrackListPageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? track = freezed,
+    Object? track = null,
   }) {
     return _then(_$NavigateToTrackListPageImpl(
-      freezed == track
+      null == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
               as TrackParam,
@@ -237,12 +237,11 @@ class _$NavigateToTrackListPageImpl implements NavigateToTrackListPage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NavigateToTrackListPageImpl &&
-            const DeepCollectionEquality().equals(other.track, track));
+            (identical(other.track, track) || other.track == track));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(track));
+  int get hashCode => Object.hash(runtimeType, track);
 
   /// Create a copy of LibraryEvent
   /// with the given fields replaced by the non-null parameter values.

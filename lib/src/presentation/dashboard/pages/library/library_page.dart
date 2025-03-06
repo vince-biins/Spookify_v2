@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spookify_v2/gen/assets.gen.dart';
 import 'package:spookify_v2/src/presentation/components/error_screen.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_indicator.dart';
 import 'package:spookify_v2/src/application/state/bloc/dashboard/library/library_bloc.dart';
@@ -20,11 +21,11 @@ class LibraryPage extends StatelessWidget {
           return [
             SliverAppBar(
               toolbarHeight: 50,
-              leading: const Padding(
-                padding: EdgeInsets.only(left: 18.0),
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 18.0),
                 child: CircleAvatar(
                   backgroundColor: Colors.blueAccent,
-                  child: Text('V'),
+                  child: Assets.images.spookifyIcon.image(),
                 ),
               ),
               title: const Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spookify_v2/gen/assets.gen.dart';
 import 'package:spookify_v2/src/domain/models/album.dart';
 import 'package:spookify_v2/src/domain/models/artist.dart';
 import 'package:spookify_v2/src/domain/models/category.dart';
@@ -39,10 +40,10 @@ class DashboardPage extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 16,
                     backgroundColor: Colors.blueAccent,
-                    child: Text('V'),
+                    child: Assets.images.spookifyIcon.image(),
                   ),
                   const SizedBox(
                     width: 10,
