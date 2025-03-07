@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:spookify_v2/src/application/config/environment.dart';
+import 'package:spookify_v2/src/application/config/env/env.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/remote/service/token_service.dart';
 import 'package:spookify_v2/src/domain/repositories/auth_repository.dart';
 
@@ -17,9 +17,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<bool> retrieveToken() async {
     try {
       final response = await service.getToken(
-        'client_credentials',
-        Environment.clientId,
-        Environment.clientSecret,
+        Env.grantType,
+        Env.clientId,
+        Env.clientSecret,
       );
 
       final accessToken = response.accessToken;

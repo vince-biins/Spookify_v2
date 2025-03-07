@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spookify_v2/src/application/config/env/env.dart';
 import 'package:spookify_v2/src/presentation/theme/spookify_theme.dart';
 import 'package:spookify_v2/src/presentation/routes/router.dart';
 import 'package:spookify_v2/utils/injectors/service_locator.dart';
