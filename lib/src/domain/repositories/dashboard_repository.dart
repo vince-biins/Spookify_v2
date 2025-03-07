@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/src/domain/failure.dart';
-import 'package:spookify_v2/src/domain/models/downloads.dart';
+import 'package:spookify_v2/src/domain/models/entity/downloads.dart';
 import 'package:spookify_v2/src/domain/models/models.dart';
 
 abstract class DashboardRepository {

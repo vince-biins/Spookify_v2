@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/src/domain/failure.dart';
-import 'package:spookify_v2/src/domain/models/album.dart';
-import 'package:spookify_v2/src/domain/models/artist.dart';
-import 'package:spookify_v2/src/domain/models/category.dart';
-import 'package:spookify_v2/src/domain/models/downloads.dart';
-import 'package:spookify_v2/src/domain/models/favorite.dart';
+import 'package:spookify_v2/src/domain/models/entity/album.dart';
+import 'package:spookify_v2/src/domain/models/entity/artist.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/downloads.dart';
+import 'package:spookify_v2/src/domain/models/entity/favorite.dart';
 import 'package:spookify_v2/src/domain/repositories/dashboard_repository.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/favorite_dao.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/save_category_dao.dart';
@@ -32,7 +32,7 @@ class DashboardRepositoryImplV2
       final response = await _service.getAlbums(ids);
 
       return Right(
-        response.albums.map((album) => Album.fromAlbumDto(album)).toList(),
+        response.albums.map((album) => album.toAlbumEntity()).toList(),
       );
     } catch (e) {
       return Left(handleApiError(e));
@@ -45,7 +45,7 @@ class DashboardRepositoryImplV2
       final response = await _service.getArtists(ids);
 
       return Right(
-        response.artists.map((artist) => Artist.fromArtistDto(artist)).toList(),
+        response.artists.map((artist) => artist.toArtistEntity()).toList(),
       );
     } catch (e) {
       return Left(handleApiError(e));
@@ -59,7 +59,7 @@ class DashboardRepositoryImplV2
 
       return Right(
         response.categories.items
-            .map((category) => Category.fromCategoryDto(category))
+            .map((category) => category.toCategoryEntity())
             .toList(),
       );
     } catch (e) {
@@ -73,8 +73,7 @@ class DashboardRepositoryImplV2
       final res = await _downloadedDao.getAllSavedCategories();
 
       return Right(
-        res?.map((item) => Downloads.fromSaveCategoryEntity(item)).toList() ??
-            [],
+        res?.map((item) => item.toDownloadEntity()).toList() ?? [],
       );
     } catch (e) {
       return Left(Failure(message: e.toString()));
@@ -87,10 +86,7 @@ class DashboardRepositoryImplV2
       final res = await _favoriteDao.findAllTracks();
 
       return Right(
-        res
-                ?.map((favorite) => Favorite.fromFavoriteEntity(favorite))
-                .toList() ??
-            [],
+        res?.map((favorite) => favorite.toFavoriteEntity()).toList() ?? [],
       );
     } catch (e) {
       return Left(Failure(message: e.toString()));

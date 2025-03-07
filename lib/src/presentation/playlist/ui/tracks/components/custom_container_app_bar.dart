@@ -50,7 +50,7 @@ class CustomContainerAppBar extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: [
               CustomSliverAppBar(
-                imageUrl: extra.imageUrl!,
+                imageUrl: extra.imageUrl!.imageUrl,
                 albumPositionFromTop: imagePositionFromTop,
                 padding: padding,
                 animateOpacityToZero: animateOpacityToZero,

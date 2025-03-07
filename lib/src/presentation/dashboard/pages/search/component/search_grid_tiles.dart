@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:spookify_v2/src/domain/models/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/category_search_tile.dart';
 
 class SearchGridTiles extends StatelessWidget {
@@ -41,7 +41,7 @@ class SearchGridTiles extends StatelessWidget {
           _randomColor = _generateRandomColor();
           return CategorySearchTile(
             title: categories[index].name,
-            imageUrl: categories[index].imageUrl ?? '',
+            imageUrl: categories[index].imageUrl?.imageUrl ?? '',
             color: _randomColor,
           );
         },

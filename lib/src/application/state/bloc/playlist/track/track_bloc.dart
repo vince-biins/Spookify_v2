@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
-import 'package:spookify_v2/src/domain/models/playlist.dart';
+import 'package:spookify_v2/src/domain/models/aggregate/playlist.dart';
 import 'package:spookify_v2/src/domain/repositories/playlist_repository.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/provider/provider.dart';
 import 'package:spookify_v2/src/domain/models/models.dart';
@@ -132,7 +132,9 @@ class TrackBloc extends Bloc<TrackEvent, TrackState>
   }
 
   FutureOr<void> _onNavigateToPlayerPage(
-      NavigateToPlayerPage event, Emitter<TrackState> emit) {
+    NavigateToPlayerPage event,
+    Emitter<TrackState> emit,
+  ) {
     if (state is _LoadedTrack) {
       final currentState = state as _LoadedTrack;
       emit(currentState.copyWith(event: event));

@@ -11,6 +11,7 @@ class PlayerState with _$PlayerState {
     required String currId,
     required String nextId,
     required bool hasNext,
+    required bool isFavorite,
   }) = _PlayerState;
   factory PlayerState.initialized() => const PlayerState(
         track: Track(
@@ -19,7 +20,7 @@ class PlayerState with _$PlayerState {
           artistName: '',
           trackNumber: 1,
           type: TrackType.favorite,
-          imageUrl: '',
+          imageUrl: null,
           trackName: '',
           isFavorite: false,
           durationMs: 0,
@@ -27,6 +28,7 @@ class PlayerState with _$PlayerState {
         isLoading: true,
         isPlaying: false,
         hasNext: true,
+        isFavorite: false,
         prevId: '',
         currId: '',
         nextId: '',

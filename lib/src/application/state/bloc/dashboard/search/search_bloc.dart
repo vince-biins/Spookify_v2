@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/src/application/usecase/usecase.dart';
-import 'package:spookify_v2/src/domain/models/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
 part 'search_event.dart';
 part 'search_state.dart';
 

@@ -24,6 +24,7 @@ mixin _$PlayerState {
   String get currId => throw _privateConstructorUsedError;
   String get nextId => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
+  bool get isFavorite => throw _privateConstructorUsedError;
 
   /// Create a copy of PlayerState
   /// with the given fields replaced by the non-null parameter values.
@@ -46,7 +47,8 @@ abstract class $PlayerStateCopyWith<$Res> {
       String prevId,
       String currId,
       String nextId,
-      bool hasNext});
+      bool hasNext,
+      bool isFavorite});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$PlayerStateCopyWithImpl<$Res, $Val extends PlayerState>
     Object? currId = null,
     Object? nextId = null,
     Object? hasNext = null,
+    Object? isFavorite = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -106,6 +109,10 @@ class _$PlayerStateCopyWithImpl<$Res, $Val extends PlayerState>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -126,7 +133,8 @@ abstract class _$$PlayerStateImplCopyWith<$Res>
       String prevId,
       String currId,
       String nextId,
-      bool hasNext});
+      bool hasNext,
+      bool isFavorite});
 }
 
 /// @nodoc
@@ -150,6 +158,7 @@ class __$$PlayerStateImplCopyWithImpl<$Res>
     Object? currId = null,
     Object? nextId = null,
     Object? hasNext = null,
+    Object? isFavorite = null,
   }) {
     return _then(_$PlayerStateImpl(
       isLoading: null == isLoading
@@ -184,6 +193,10 @@ class __$$PlayerStateImplCopyWithImpl<$Res>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -199,7 +212,8 @@ class _$PlayerStateImpl implements _PlayerState {
       required this.prevId,
       required this.currId,
       required this.nextId,
-      required this.hasNext});
+      required this.hasNext,
+      required this.isFavorite});
 
   @override
   final bool isLoading;
@@ -217,10 +231,12 @@ class _$PlayerStateImpl implements _PlayerState {
   final String nextId;
   @override
   final bool hasNext;
+  @override
+  final bool isFavorite;
 
   @override
   String toString() {
-    return 'PlayerState(isLoading: $isLoading, isPlaying: $isPlaying, track: $track, error: $error, prevId: $prevId, currId: $currId, nextId: $nextId, hasNext: $hasNext)';
+    return 'PlayerState(isLoading: $isLoading, isPlaying: $isPlaying, track: $track, error: $error, prevId: $prevId, currId: $currId, nextId: $nextId, hasNext: $hasNext, isFavorite: $isFavorite)';
   }
 
   @override
@@ -237,12 +253,14 @@ class _$PlayerStateImpl implements _PlayerState {
             (identical(other.prevId, prevId) || other.prevId == prevId) &&
             (identical(other.currId, currId) || other.currId == currId) &&
             (identical(other.nextId, nextId) || other.nextId == nextId) &&
-            (identical(other.hasNext, hasNext) || other.hasNext == hasNext));
+            (identical(other.hasNext, hasNext) || other.hasNext == hasNext) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, isPlaying, track,
-      error, prevId, currId, nextId, hasNext);
+      error, prevId, currId, nextId, hasNext, isFavorite);
 
   /// Create a copy of PlayerState
   /// with the given fields replaced by the non-null parameter values.
@@ -262,7 +280,8 @@ abstract class _PlayerState implements PlayerState {
       required final String prevId,
       required final String currId,
       required final String nextId,
-      required final bool hasNext}) = _$PlayerStateImpl;
+      required final bool hasNext,
+      required final bool isFavorite}) = _$PlayerStateImpl;
 
   @override
   bool get isLoading;
@@ -280,6 +299,8 @@ abstract class _PlayerState implements PlayerState {
   String get nextId;
   @override
   bool get hasNext;
+  @override
+  bool get isFavorite;
 
   /// Create a copy of PlayerState
   /// with the given fields replaced by the non-null parameter values.

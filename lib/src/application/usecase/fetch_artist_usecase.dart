@@ -3,7 +3,7 @@ import 'package:spookify_v2/src/application/config/misc.dart';
 import 'package:spookify_v2/src/domain/repositories/dashboard_repository.dart';
 
 import 'package:spookify_v2/src/domain/failure.dart';
-import 'package:spookify_v2/src/domain/models/artist.dart';
+import 'package:spookify_v2/src/domain/models/entity/artist.dart';
 
 class FetchArtistUsecase {
   final DashboardRepository _repository;

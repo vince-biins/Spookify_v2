@@ -1,9 +1,9 @@
-import 'package:spookify_v2/src/domain/models/album.dart';
-import 'package:spookify_v2/src/domain/models/artist.dart';
-import 'package:spookify_v2/src/domain/models/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/album.dart';
+import 'package:spookify_v2/src/domain/models/entity/artist.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/application/paramaters/dashboard_item.dart';
-import 'package:spookify_v2/src/domain/models/favorite.dart';
+import 'package:spookify_v2/src/domain/models/entity/favorite.dart';
 
 extension DashboardIemMapper<T> on List<T> {
   List<DashboardItem> toDashboardItem() {
@@ -26,7 +26,7 @@ extension DashboardIemMapper<T> on List<T> {
         Category() => DashboardItem(
             id: item.id,
             name: item.name,
-            imageUrl: item.imageUrl ?? '',
+            imageUrl: item.imageUrl,
             artist: '',
             type: TrackType.category,
           ),

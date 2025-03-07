@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/src/domain/models/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
 import 'package:spookify_v2/src/presentation/dashboard/pages/search/component/search_grid_tiles.dart';
 import 'package:spookify_v2/utils/constants/dashboard_strings.dart';
 

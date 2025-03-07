@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/src/domain/models/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/category_tile.dart';
 
 class DashboardGridSection extends StatelessWidget {
@@ -25,7 +25,7 @@ class DashboardGridSection extends StatelessWidget {
           children: List.generate(categories.length, (index) {
             return CategoryTile(
               width: tileWidth,
-              imageSrc: categories[index].imageUrl ?? '',
+              imageSrc: categories[index].imageUrl?.imageUrl ?? '',
               title: categories[index].name,
               onTap: () {},
             );

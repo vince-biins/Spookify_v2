@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
-import 'package:spookify_v2/src/domain/models/track.dart';
+import 'package:spookify_v2/src/domain/models/entity/track.dart';
 import 'package:spookify_v2/src/domain/repositories/playlist_repository.dart';
 
 part 'player_state.dart';
@@ -49,7 +49,7 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
         ),
       );
     }, (success) {
-      emit(state.copyWith(track: state.track.copyWith(isFavorite: success)));
+      emit(state.copyWith(isFavorite: success));
     });
   }
 
@@ -77,7 +77,14 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
       );
       addNewFailedRequest(() => initialize(args));
     }, (success) {
-      emit(state.copyWith(track: success, isLoading: false, error: ''));
+      emit(
+        state.copyWith(
+          track: success,
+          isLoading: false,
+          error: '',
+          isFavorite: success.isFavorite,
+        ),
+      );
     });
 
     _isInitializing = false;

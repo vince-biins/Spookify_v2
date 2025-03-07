@@ -1,15 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/local/entity/save_category_entity.dart';
-
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 
 @immutable
 class Downloads extends Equatable {
   final String trackId;
   final String title;
-  final String? imageUrl;
+  final ImageObject? imageUrl;
   final String? artistName;
   final TrackType type;
 
@@ -21,29 +19,15 @@ class Downloads extends Equatable {
     required this.type,
   });
 
-  factory Downloads.fromSaveCategoryEntity(SaveCategoryEntity saveCategory) {
-    return Downloads(
-      trackId: saveCategory.trackId,
-      title: saveCategory.title,
-      imageUrl: saveCategory.imageUrl,
-      artistName: saveCategory.artistName,
-      type: saveCategory.type,
-    );
-  }
-
   @override
   List<Object?> get props => [
         trackId,
-        title,
-        imageUrl,
-        artistName,
-        type,
       ];
 
   Downloads copyWith({
     String? trackId,
     String? title,
-    String? imageUrl,
+    ImageObject? imageUrl,
     String? artistName,
     TrackType? type,
   }) {

@@ -57,7 +57,7 @@ class TrackInfoSection extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Colors.red,
                         backgroundImage: NetworkImage(
-                          extra.imageUrl!,
+                          extra.imageUrl!.imageUrl,
                         ),
                       ),
                       const SizedBox(

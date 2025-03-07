@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spookify_v2/src/domain/models/models.dart';
 import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
+import 'package:spookify_v2/src/presentation/playlist/ui/tracks/components/custom_container_app_bar.dart';
 import 'package:spookify_v2/src/presentation/playlist/ui/tracks/components/search_app_bar.dart';
+import 'package:spookify_v2/src/presentation/playlist/ui/tracks/components/song_item_tile.dart';
+import 'package:spookify_v2/src/presentation/playlist/ui/tracks/components/sticky_play_button.dart';
+import 'package:spookify_v2/src/presentation/playlist/ui/tracks/components/track_info_section.dart';
 import 'package:spookify_v2/utils/constants/playlist_strings.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track.dart';
-
-import 'package:spookify_v2/src/presentation/playlist/widgets/widgets.dart';
 
 class TrackListContent extends StatelessWidget {
   final Color bgColor;
@@ -102,7 +104,7 @@ class TrackListContent extends StatelessWidget {
                               TrackEvent.updateFavoriteTrack(
                                 track: track[index],
                                 isFavorite: !track[index].isFavorite,
-                                tempImageUrl: extra.imageUrl ?? '',
+                                tempImageUrl: extra.imageUrl?.imageUrl ?? '',
                               ),
                             );
                       },

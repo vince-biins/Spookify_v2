@@ -3,7 +3,7 @@ import 'package:spookify_v2/src/presentation/components/image_network_error_hand
 
 import 'package:spookify_v2/src/presentation/theme/app_colors.dart';
 
-import 'package:spookify_v2/src/domain/models/track.dart';
+import 'package:spookify_v2/src/domain/models/entity/track.dart';
 
 class SongItemTile extends StatefulWidget {
   final Track track;
@@ -48,7 +48,7 @@ class _SongItemTileState extends State<SongItemTile> {
                     child: ImageNetworkErrorHandling(
                       imageSize: 50,
                       loadingIndicatorSize: 20,
-                      imageUrl: widget.track.imageUrl ?? '',
+                      imageUrl: widget.track.imageUrl?.imageUrl ?? '',
                     ),
                   )
                 : widget.track.trackNumber != null

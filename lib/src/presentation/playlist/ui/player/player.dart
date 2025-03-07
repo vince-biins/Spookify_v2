@@ -1,2 +1,2 @@
-export 'player_content.dart';
-export 'player_page.dart';
+export 'page/player_content.dart';
+export 'page/player_page.dart';

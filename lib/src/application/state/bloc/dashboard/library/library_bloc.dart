@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/utils/mixin/state_connectivity_mixin.dart';
-import 'package:spookify_v2/src/domain/models/downloads.dart';
+import 'package:spookify_v2/src/domain/models/entity/downloads.dart';
 import 'package:spookify_v2/src/domain/repositories/dashboard_repository.dart';
 part 'library_event.dart';
 part 'library_state.dart';

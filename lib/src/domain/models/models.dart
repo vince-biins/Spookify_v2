@@ -1,5 +1,5 @@
-export 'album.dart';
-export 'artist.dart';
-export 'category.dart';
-export 'favorite.dart';
-export 'track.dart';
+export 'entity/album.dart';
+export 'entity/artist.dart';
+export 'entity/category.dart';
+export 'entity/favorite.dart';
+export 'entity/track.dart';

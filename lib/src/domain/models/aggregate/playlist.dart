@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:spookify_v2/src/domain/models/models.dart' as models;
-import 'package:spookify_v2/src/domain/models/track.dart';
 
 @immutable
 class Playlist extends Equatable {

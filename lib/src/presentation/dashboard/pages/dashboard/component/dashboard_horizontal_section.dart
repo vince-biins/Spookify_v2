@@ -77,7 +77,7 @@ class DashboardHorizontalSection extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: SectionTile(
-                    imageUrl: item[index].imageUrl,
+                    imageUrl: item[index].imageUrl!.imageUrl,
                     title: item[index].name,
                     isRoundedImage: item[index].type == TrackType.artist,
                     onItemClicked: isClickable

@@ -7,7 +7,7 @@ import 'package:spookify_v2/src/presentation/components/error_screen.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_indicator.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track_bloc.dart';
-import 'package:spookify_v2/src/presentation/playlist/ui/tracks/track_list_content.dart';
+import 'package:spookify_v2/src/presentation/playlist/ui/tracks/page/track_list_content.dart';
 import 'package:spookify_v2/src/presentation/theme/app_colors.dart';
 import 'package:spookify_v2/utils/constants/destinations.dart';
 

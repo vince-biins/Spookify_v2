@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spookify_v2/src/domain/models/track.dart';
+import 'package:spookify_v2/src/domain/models/entity/track.dart';
 import 'package:spookify_v2/src/application/state/cubit/player/player_cubit.dart';
 import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 import 'package:spookify_v2/src/presentation/playlist/ui/player/component/track_player_indicator.dart';
@@ -43,7 +43,7 @@ class PlayerContent extends StatelessWidget {
               child: ImageNetworkErrorHandling(
                 imageSize: 60,
                 loadingIndicatorSize: 20,
-                imageUrl: _track.imageUrl!,
+                imageUrl: _track.imageUrl!.imageUrl,
               ),
             ),
           ),
@@ -78,10 +78,10 @@ class PlayerContent extends StatelessWidget {
           builder: (context, state) {
             return IconButton(
               onPressed: () => context.read<PlayerCubit>().toggleFavorite(
-                    isFavorite: !state.track.isFavorite,
+                    isFavorite: !state.isFavorite,
                     track: _track,
                   ),
-              icon: state.track.isFavorite
+              icon: state.isFavorite
                   ? const Icon(
                       Icons.favorite,
                       color: Colors.red,

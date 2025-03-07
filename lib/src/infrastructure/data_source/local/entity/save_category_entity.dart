@@ -1,5 +1,9 @@
 import 'package:floor/floor.dart';
+import 'package:spookify_v2/src/domain/models/entity/category.dart';
+import 'package:spookify_v2/src/domain/models/entity/downloads.dart';
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
+import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/icon_response.dart';
 import 'package:spookify_v2/utils/constants/constants.dart';
 
 @Entity(tableName: saveCategoryEntity)
@@ -20,4 +24,22 @@ class SaveCategoryEntity {
     required this.artistName,
     required this.type,
   });
+  factory SaveCategoryEntity.fromEntity(Category category) =>
+      SaveCategoryEntity(
+        title: category.name,
+        trackId: category.id,
+        imageUrl: category.imageUrl?.imageUrl,
+        artistName: category.artistName,
+        type: category.type,
+      );
+
+  Downloads toDownloadEntity() {
+    return Downloads(
+      trackId: trackId,
+      title: title,
+      imageUrl: ImageObject(imageUrl: imageUrl ?? ''),
+      artistName: artistName,
+      type: type,
+    );
+  }
 }

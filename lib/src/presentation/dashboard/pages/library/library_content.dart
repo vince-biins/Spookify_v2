@@ -4,7 +4,7 @@ import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/src/application/state/bloc/dashboard/library/library_bloc.dart';
 
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
-import 'package:spookify_v2/src/domain/models/downloads.dart';
+import 'package:spookify_v2/src/domain/models/entity/downloads.dart';
 import 'package:spookify_v2/src/presentation/dashboard/components/library_tile.dart';
 
 import 'package:spookify_v2/utils/helper/dominant_color_helper.dart';
@@ -50,11 +50,11 @@ class LibraryContent extends StatelessWidget {
                 type: category.type,
                 title: category.title,
                 description: category.type.name,
-                imageUrl: category.imageUrl,
+                imageUrl: category.imageUrl!.imageUrl,
                 onClickTile: (id) async {
                   Color dominantColor =
                       await DominantColorHelper.getDominantColor(
-                    category.imageUrl ?? '',
+                    category.imageUrl?.imageUrl ?? '',
                   );
 
                   final extra = TrackParam(
