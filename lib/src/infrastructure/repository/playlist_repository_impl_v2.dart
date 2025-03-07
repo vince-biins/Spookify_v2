@@ -1,13 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/src/domain/failure.dart';
+import 'package:spookify_v2/src/domain/models/aggregate/playlist.dart';
 import 'package:spookify_v2/src/domain/models/favorite.dart';
-import 'package:spookify_v2/src/domain/models/playlist.dart';
 import 'package:spookify_v2/src/domain/models/track.dart';
 import 'package:spookify_v2/src/domain/repositories/playlist_repository.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/favorite_dao.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/save_category_dao.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/track_dao.dart';
+import 'package:spookify_v2/src/infrastructure/data_source/local/entity/favorite_entity.dart';
+import 'package:spookify_v2/src/infrastructure/data_source/local/entity/save_category_entity.dart';
+import 'package:spookify_v2/src/infrastructure/data_source/local/entity/track_entity.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/remote/service/playlist_service.dart';
 import 'package:spookify_v2/utils/mixin/api_error_handler.dart';
 
@@ -41,19 +44,17 @@ class PlaylistRepositoryImplV2
         TrackType.artist => (await _service.getArtistTopTracks(id!))
             .tracks
             .map(
-              (artist) =>
-                  Track.fromArtistDto(artist: artist, favorite: favorite ?? []),
+              (artist) => artist.toTrackEntity(favorite: favorite ?? []),
             )
             .toList(),
         TrackType.album => (await _service.getCategoryTracks(id!))
             .items
             .map(
-              (album) =>
-                  Track.fromTrackDto(track: album, favorite: favorite ?? []),
+              (album) => album.toTrackEntity(favorite ?? []),
             )
             .toList(),
         TrackType.favorite => (await _favoriteDao.findAllTracks())
-                ?.map((item) => Track.fromTrackEntity(item))
+                ?.map((item) => item.toTrackEntity())
                 .toList() ??
             [],
         _ => throw Exception('Invalid track type'),
@@ -71,11 +72,16 @@ class PlaylistRepositoryImplV2
   ) async {
     try {
       final savedDaoResult = await _savedCategoryDao
-          .insertCategory(playlist.category.toSaveCategoryEntity());
+          .insertCategory(SaveCategoryEntity.fromEntity(playlist.category));
 
       final trackResult = await _trackDao.insertAllTracks(
         playlist.tracks
-            .map((track) => track.toTrackEntity(playlist.category.id))
+            .map(
+              (track) => TrackEntity.fromTrack(
+                categoryId: playlist.category.id,
+                track: track,
+              ),
+            )
             .toList(),
       );
 
@@ -87,10 +93,17 @@ class PlaylistRepositoryImplV2
 
   @override
   Future<Either<Failure, bool>> saveFavoriteTrack(
-      Track track, String tempImageUrl) async {
+    Track track,
+    String tempImageUrl,
+  ) async {
     try {
       final res = await _favoriteDao.insertTrackFavorite(
-          track.toFavorite(tempImageUrl).toFavoriteEntity(true));
+        FavoriteEntity.fromFavoriteEntity(
+          favorite:
+              Favorite.fromTrack(tempImageUrl: tempImageUrl, track: track),
+          isFavorite: true,
+        ),
+      );
 
       return Right(res > 0);
     } catch (e) {
@@ -113,9 +126,10 @@ class PlaylistRepositoryImplV2
   }
 
   @override
-  Future<Either<Failure, List<int>>> getPlaylist(
-      {required String id, required String playlistType}) {
-    // TODO: implement getPlaylist
+  Future<Either<Failure, List<int>>> getPlaylist({
+    required String id,
+    required String playlistType,
+  }) {
     throw UnimplementedError();
   }
 
@@ -126,10 +140,7 @@ class PlaylistRepositoryImplV2
       final response = await _service.getTrack(id);
 
       return Right(
-        Track.fromSingleTrackDto(
-          track: response,
-          isFavorite: localResponse?.isFavorite ?? false,
-        ),
+        response.toSingleTrackEntity(localResponse?.isFavorite ?? false),
       );
     } catch (e) {
       return Left(handleApiError(e));

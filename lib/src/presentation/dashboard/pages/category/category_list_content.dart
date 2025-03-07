@@ -53,13 +53,13 @@ class CategoryListContent extends StatelessWidget {
                     : args[index].artist;
                 return SectionTile(
                   imageSize: 180,
-                  imageUrl: args[index].imageUrl,
+                  imageUrl: args[index].imageUrl!.imageUrl,
                   title: title,
                   isRoundedImage: args[index].type == TrackType.artist,
                   onItemClicked: () async {
                     Color dominantColor =
                         await DominantColorHelper.getDominantColor(
-                      args[index].imageUrl,
+                      args[index].imageUrl!.imageUrl,
                     );
 
                     final extra = TrackParam(

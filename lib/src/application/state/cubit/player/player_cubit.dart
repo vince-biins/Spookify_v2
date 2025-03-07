@@ -49,7 +49,7 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
         ),
       );
     }, (success) {
-      emit(state.copyWith(track: state.track.copyWith(isFavorite: success)));
+      emit(state.copyWith(isFavorite: success));
     });
   }
 
@@ -77,7 +77,14 @@ class PlayerCubit extends Cubit<PlayerState> with StateConnectivityMixin {
       );
       addNewFailedRequest(() => initialize(args));
     }, (success) {
-      emit(state.copyWith(track: success, isLoading: false, error: ''));
+      emit(
+        state.copyWith(
+          track: success,
+          isLoading: false,
+          error: '',
+          isFavorite: success.isFavorite,
+        ),
+      );
     });
 
     _isInitializing = false;

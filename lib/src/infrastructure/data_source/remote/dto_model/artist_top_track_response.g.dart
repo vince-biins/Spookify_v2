@@ -28,10 +28,7 @@ ArtistTopTrackItem _$ArtistTopTrackItemFromJson(Map<String, dynamic> json) =>
         ($jsonValue) => (
           id: $jsonValue['id'] as String,
           images: ($jsonValue['images'] as List<dynamic>)
-              .map((e) => _$recordConvert(
-                    e,
-                    ($jsonValue) => (url: $jsonValue['url'] as String,),
-                  ))
+              .map((e) => IconResponse.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
       ),
@@ -44,11 +41,7 @@ Map<String, dynamic> _$ArtistTopTrackItemToJson(ArtistTopTrackItem instance) =>
       'id': instance.id,
       'album': <String, dynamic>{
         'id': instance.album.id,
-        'images': instance.album.images
-            .map((e) => <String, dynamic>{
-                  'url': e.url,
-                })
-            .toList(),
+        'images': instance.album.images,
       },
       'name': instance.name,
       'track_number': instance.trackNumber,

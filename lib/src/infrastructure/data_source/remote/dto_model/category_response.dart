@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:spookify_v2/src/domain/models/category.dart';
+import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/icon_response.dart';
 
 part 'category_response.g.dart';
@@ -55,4 +57,14 @@ class CategoryItem {
 
   @override
   String toString() => toJson().toString();
+
+  Category toCategoryEntity() {
+    return Category(
+      id: id,
+      name: name,
+      imageUrl: icons.firstOrNull?.toImageObject(),
+      artistName: null,
+      type: TrackType.category,
+    );
+  }
 }

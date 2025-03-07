@@ -26,7 +26,7 @@ extension DashboardIemMapper<T> on List<T> {
         Category() => DashboardItem(
             id: item.id,
             name: item.name,
-            imageUrl: item.imageUrl ?? '',
+            imageUrl: item.imageUrl,
             artist: '',
             type: TrackType.category,
           ),

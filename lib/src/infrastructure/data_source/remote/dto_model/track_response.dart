@@ -1,4 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:spookify_v2/src/domain/models/models.dart';
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
+import 'package:spookify_v2/src/domain/resources/track_type.dart';
+import 'package:spookify_v2/src/infrastructure/data_source/local/entity/entity.dart';
 
 part 'track_response.g.dart';
 
@@ -44,6 +48,44 @@ class TrackResponseItem {
 
   @override
   String toString() => toJson().toString();
+
+  Track toTrackEntity(
+    List<FavoriteEntity> favorite,
+  ) {
+    return Track(
+      trackId: id,
+      albumId: null,
+      artistName: artists.map((artist) => artist.name).join(', '),
+      trackNumber: trackNumber,
+      type: TrackType.album,
+      imageUrl: album?.images.firstOrNull?.toImageObject(),
+      trackName: name,
+      isFavorite: favorite.isNotEmpty
+          ? favorite
+                  .where((favorite) => favorite.trackId == id)
+                  .firstOrNull
+                  ?.isFavorite ??
+              false
+          : false,
+      durationMs: durationMs,
+    );
+  }
+
+  Track toSingleTrackEntity(
+    bool isFavorite,
+  ) {
+    return Track(
+      trackId: id,
+      albumId: null,
+      artistName: artists.map((artist) => artist.name).join(', '),
+      trackNumber: trackNumber,
+      type: TrackType.album,
+      imageUrl: album?.images.firstOrNull?.toImageObject(),
+      trackName: name,
+      isFavorite: isFavorite,
+      durationMs: durationMs,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -58,4 +100,8 @@ class TrackImageResponse {
   Map<String, dynamic> toJson() => _$TrackImageResponseToJson(this);
   @override
   String toString() => toJson().toString();
+
+  ImageObject toImageObject() {
+    return ImageObject(imageUrl: url);
+  }
 }

@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:spookify_v2/src/domain/models/artist.dart';
+import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/icon_response.dart';
 
 part 'artist_response.g.dart';
@@ -41,4 +43,15 @@ class ArtistItem {
 
   @override
   String toString() => toJson().toString();
+
+  Artist toArtistEntity() {
+    return Artist(
+      name: name,
+      id: id,
+      imageUrl: images?.firstOrNull?.toImageObject(),
+      followers: followers?.total ?? 0,
+      genre: genres ?? [],
+      type: TrackType.artist,
+    );
+  }
 }

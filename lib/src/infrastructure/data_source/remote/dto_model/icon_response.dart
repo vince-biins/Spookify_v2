@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 
 part 'icon_response.g.dart';
 
@@ -15,4 +16,12 @@ class IconResponse {
 
   @override
   String toString() => toJson().toString();
+
+  factory IconResponse.fromValueObject(ImageObject? image) {
+    return IconResponse(url: image?.imageUrl ?? '');
+  }
+
+  ImageObject toImageObject() {
+    return ImageObject(imageUrl: url);
+  }
 }

@@ -48,7 +48,7 @@ class _SongItemTileState extends State<SongItemTile> {
                     child: ImageNetworkErrorHandling(
                       imageSize: 50,
                       loadingIndicatorSize: 20,
-                      imageUrl: widget.track.imageUrl ?? '',
+                      imageUrl: widget.track.imageUrl?.imageUrl ?? '',
                     ),
                   )
                 : widget.track.trackNumber != null

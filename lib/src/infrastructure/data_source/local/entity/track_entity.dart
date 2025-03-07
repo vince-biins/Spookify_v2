@@ -1,4 +1,5 @@
 import 'package:floor/floor.dart';
+import 'package:spookify_v2/src/domain/models/models.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/utils/constants/constants.dart';
 
@@ -30,4 +31,22 @@ class TrackEntity {
     required this.isFavorite,
     required this.durationMs,
   });
+
+  factory TrackEntity.fromTrack({
+    required String categoryId,
+    required Track track,
+  }) {
+    return TrackEntity(
+      categoryId: categoryId,
+      trackId: track.trackId,
+      albumId: track.albumId,
+      artistName: track.artistName,
+      trackNumber: track.trackNumber,
+      type: track.type,
+      imageUrl: track.imageUrl?.imageUrl,
+      trackName: track.trackName,
+      isFavorite: track.isFavorite,
+      durationMs: track.durationMs,
+    );
+  }
 }

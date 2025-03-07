@@ -1,4 +1,7 @@
 import 'package:floor/floor.dart';
+import 'package:spookify_v2/src/domain/models/models.dart';
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
+import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:spookify_v2/utils/constants/constants.dart';
 
 @Entity(tableName: favoriteEntity)
@@ -19,6 +22,43 @@ class FavoriteEntity {
     required this.isFavorite,
     required this.artist,
   });
+
+  factory FavoriteEntity.fromFavoriteEntity({
+    required Favorite favorite,
+    required bool isFavorite,
+  }) {
+    return FavoriteEntity(
+      trackId: favorite.id,
+      title: favorite.name,
+      imageUrl: favorite.imageUrl.imageUrl,
+      isFavorite: isFavorite,
+      artist: favorite.artist,
+    );
+  }
+
+  Favorite toFavoriteEntity() {
+    return Favorite(
+      id: trackId,
+      name: title,
+      type: TrackType.favorite,
+      imageUrl: ImageObject(imageUrl: imageUrl),
+      artist: artist ?? '',
+    );
+  }
+
+  Track toTrackEntity() {
+    return Track(
+      trackId: trackId.toString(),
+      albumId: null,
+      artistName: artist,
+      trackNumber: null,
+      type: TrackType.favorite,
+      imageUrl: imageUrl.isNotEmpty ? ImageObject(imageUrl: imageUrl) : null,
+      trackName: title,
+      isFavorite: isFavorite,
+      durationMs: 0,
+    );
+  }
 
   @override
   String toString() =>

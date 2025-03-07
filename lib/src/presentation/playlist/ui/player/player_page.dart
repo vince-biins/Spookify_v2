@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
 import 'package:spookify_v2/src/presentation/components/error_screen.dart';
-import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
 import 'package:spookify_v2/src/presentation/components/custom_loading_indicator.dart';
 import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 import 'package:spookify_v2/utils/constants/playlist_strings.dart';
@@ -90,7 +89,7 @@ class PlayerPage extends StatelessWidget {
                       child: ImageNetworkErrorHandling(
                         imageSize: double.infinity,
                         loadingIndicatorSize: 20,
-                        imageUrl: state.track.imageUrl ?? '',
+                        imageUrl: state.track.imageUrl?.imageUrl ?? '',
                       ),
                     ),
                     Container(

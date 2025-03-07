@@ -43,7 +43,7 @@ class PlayerContent extends StatelessWidget {
               child: ImageNetworkErrorHandling(
                 imageSize: 60,
                 loadingIndicatorSize: 20,
-                imageUrl: _track.imageUrl!,
+                imageUrl: _track.imageUrl!.imageUrl,
               ),
             ),
           ),
@@ -78,10 +78,10 @@ class PlayerContent extends StatelessWidget {
           builder: (context, state) {
             return IconButton(
               onPressed: () => context.read<PlayerCubit>().toggleFavorite(
-                    isFavorite: !state.track.isFavorite,
+                    isFavorite: !state.isFavorite,
                     track: _track,
                   ),
-              icon: state.track.isFavorite
+              icon: state.isFavorite
                   ? const Icon(
                       Icons.favorite,
                       color: Colors.red,

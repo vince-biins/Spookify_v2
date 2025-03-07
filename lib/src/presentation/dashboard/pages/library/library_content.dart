@@ -50,11 +50,11 @@ class LibraryContent extends StatelessWidget {
                 type: category.type,
                 title: category.title,
                 description: category.type.name,
-                imageUrl: category.imageUrl,
+                imageUrl: category.imageUrl!.imageUrl,
                 onClickTile: (id) async {
                   Color dominantColor =
                       await DominantColorHelper.getDominantColor(
-                    category.imageUrl ?? '',
+                    category.imageUrl?.imageUrl ?? '',
                   );
 
                   final extra = TrackParam(

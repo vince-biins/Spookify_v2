@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:spookify_v2/src/domain/failure.dart';
 import 'package:spookify_v2/src/domain/models/models.dart';
-import 'package:spookify_v2/src/domain/models/playlist.dart';
+import 'package:spookify_v2/src/domain/models/aggregate/playlist.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 
 abstract class PlaylistRepository {

@@ -102,7 +102,7 @@ class TrackListContent extends StatelessWidget {
                               TrackEvent.updateFavoriteTrack(
                                 track: track[index],
                                 isFavorite: !track[index].isFavorite,
-                                tempImageUrl: extra.imageUrl ?? '',
+                                tempImageUrl: extra.imageUrl?.imageUrl ?? '',
                               ),
                             );
                       },

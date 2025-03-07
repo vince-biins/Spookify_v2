@@ -41,7 +41,7 @@ class SearchGridTiles extends StatelessWidget {
           _randomColor = _generateRandomColor();
           return CategorySearchTile(
             title: categories[index].name,
-            imageUrl: categories[index].imageUrl ?? '',
+            imageUrl: categories[index].imageUrl?.imageUrl ?? '',
             color: _randomColor,
           );
         },

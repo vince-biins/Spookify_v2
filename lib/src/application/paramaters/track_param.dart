@@ -1,9 +1,10 @@
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
 import 'package:flutter/material.dart';
 
 class TrackParam {
   final String? id;
-  final String? imageUrl;
+  final ImageObject? imageUrl;
   final String? artist;
   final String title;
   final TrackType type;

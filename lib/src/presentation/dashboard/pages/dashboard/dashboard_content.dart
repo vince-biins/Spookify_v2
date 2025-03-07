@@ -95,8 +95,9 @@ class _DashboardContent extends StatelessWidget {
     required List<DashboardItem> item,
     required int index,
   }) async {
-    Color dominantColor =
-        await DominantColorHelper.getDominantColor(item[index].imageUrl);
+    Color dominantColor = await DominantColorHelper.getDominantColor(
+      item[index].imageUrl!.imageUrl,
+    );
 
     final extra = TrackParam(
       id: item[index].id,

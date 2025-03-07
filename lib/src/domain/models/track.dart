@@ -1,11 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:spookify_v2/src/domain/models/favorite.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/artist_top_track_response.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/track_response.dart';
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/local/entity/favorite_entity.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/local/entity/track_entity.dart';
 
 @immutable
 class Track extends Equatable {
@@ -14,7 +10,7 @@ class Track extends Equatable {
   final String? artistName;
   final int? trackNumber;
   final TrackType type;
-  final String? imageUrl;
+  final ImageObject? imageUrl;
   final String trackName;
   final bool isFavorite;
   final int durationMs;
@@ -31,103 +27,103 @@ class Track extends Equatable {
     required this.durationMs,
   });
 
-  factory Track.fromTrackDto({
-    required TrackResponseItem track,
-    required List<FavoriteEntity> favorite,
-  }) {
-    return Track(
-      trackId: track.id,
-      albumId: null,
-      artistName: track.artists.map((artist) => artist.name).join(', '),
-      trackNumber: track.trackNumber,
-      type: TrackType.album,
-      imageUrl: track.album?.images.firstOrNull?.url,
-      trackName: track.name,
-      isFavorite: favorite.isNotEmpty
-          ? favorite
-                  .where((favorite) => favorite.trackId == track.id)
-                  .firstOrNull
-                  ?.isFavorite ??
-              false
-          : false,
-      durationMs: track.durationMs,
-    );
-  }
+  // factory Track.fromTrackDto({
+  //   required TrackResponseItem track,
+  //   required List<FavoriteEntity> favorite,
+  // }) {
+  //   return Track(
+  //     trackId: track.id,
+  //     albumId: null,
+  //     artistName: track.artists.map((artist) => artist.name).join(', '),
+  //     trackNumber: track.trackNumber,
+  //     type: TrackType.album,
+  //     imageUrl: track.album?.images.firstOrNull?.url,
+  //     trackName: track.name,
+  //     isFavorite: favorite.isNotEmpty
+  //         ? favorite
+  //                 .where((favorite) => favorite.trackId == track.id)
+  //                 .firstOrNull
+  //                 ?.isFavorite ??
+  //             false
+  //         : false,
+  //     durationMs: track.durationMs,
+  //   );
+  // }
 
-  factory Track.fromSingleTrackDto({
-    required TrackResponseItem track,
-    required bool isFavorite,
-  }) {
-    return Track(
-      trackId: track.id,
-      albumId: null,
-      artistName: track.artists.map((artist) => artist.name).join(', '),
-      trackNumber: track.trackNumber,
-      type: TrackType.album,
-      imageUrl: track.album?.images.firstOrNull?.url,
-      trackName: track.name,
-      isFavorite: isFavorite,
-      durationMs: track.durationMs,
-    );
-  }
+  // factory Track.fromSingleTrackDto({
+  //   required TrackResponseItem track,
+  //   required bool isFavorite,
+  // }) {
+  //   return Track(
+  //     trackId: track.id,
+  //     albumId: null,
+  //     artistName: track.artists.map((artist) => artist.name).join(', '),
+  //     trackNumber: track.trackNumber,
+  //     type: TrackType.album,
+  //     imageUrl: track.album?.images.firstOrNull?.url,
+  //     trackName: track.name,
+  //     isFavorite: isFavorite,
+  //     durationMs: track.durationMs,
+  //   );
+  // }
 
-  factory Track.fromTrackEntity(FavoriteEntity fav) {
-    return Track(
-      trackId: fav.trackId.toString(),
-      albumId: null,
-      artistName: fav.artist,
-      trackNumber: null,
-      type: TrackType.favorite,
-      imageUrl: fav.imageUrl.isNotEmpty ? fav.imageUrl : null,
-      trackName: fav.title,
-      isFavorite: fav.isFavorite,
-      durationMs: 0,
-    );
-  }
+  // factory Track.fromTrackEntity(FavoriteEntity fav) {
+  //   return Track(
+  //     trackId: fav.trackId.toString(),
+  //     albumId: null,
+  //     artistName: fav.artist,
+  //     trackNumber: null,
+  //     type: TrackType.favorite,
+  //     imageUrl: fav.imageUrl.isNotEmpty ? fav.imageUrl : null,
+  //     trackName: fav.title,
+  //     isFavorite: fav.isFavorite,
+  //     durationMs: 0,
+  //   );
+  // }
 
-  factory Track.fromArtistDto({
-    required ArtistTopTrackItem artist,
-    required List<FavoriteEntity> favorite,
-  }) {
-    return Track(
-      trackId: artist.id,
-      albumId: artist.album.id,
-      artistName: null,
-      trackNumber: artist.trackNumber,
-      type: TrackType.artist,
-      imageUrl: artist.album.images.first.url,
-      trackName: artist.name,
-      durationMs: 0,
-      isFavorite: favorite.isNotEmpty
-          ? favorite
-                  .where((favorite) => favorite.trackId == artist.id)
-                  .firstOrNull
-                  ?.isFavorite ??
-              false
-          : false,
-    );
-  }
+  // factory Track.fromArtistDto({
+  //   required ArtistTopTrackItem artist,
+  //   required List<FavoriteEntity> favorite,
+  // }) {
+  //   return Track(
+  //     trackId: artist.id,
+  //     albumId: artist.album.id,
+  //     artistName: null,
+  //     trackNumber: artist.trackNumber,
+  //     type: TrackType.artist,
+  //     imageUrl: artist.album.images.first.url,
+  //     trackName: artist.name,
+  //     durationMs: 0,
+  //     isFavorite: favorite.isNotEmpty
+  //         ? favorite
+  //                 .where((favorite) => favorite.trackId == artist.id)
+  //                 .firstOrNull
+  //                 ?.isFavorite ??
+  //             false
+  //         : false,
+  //   );
+  // }
 
-  TrackEntity toTrackEntity(String categoryId) => TrackEntity(
-        categoryId: categoryId,
-        trackId: trackId,
-        albumId: albumId,
-        artistName: artistName,
-        trackNumber: trackNumber,
-        type: type,
-        imageUrl: imageUrl,
-        trackName: trackName,
-        isFavorite: isFavorite,
-        durationMs: durationMs,
-      );
+  // TrackEntity toTrackEntity(String categoryId) => TrackEntity(
+  //       categoryId: categoryId,
+  //       trackId: trackId,
+  //       albumId: albumId,
+  //       artistName: artistName,
+  //       trackNumber: trackNumber,
+  //       type: type,
+  //       imageUrl: imageUrl,
+  //       trackName: trackName,
+  //       isFavorite: isFavorite,
+  //       durationMs: durationMs,
+  //     );
 
-  Favorite toFavorite(String tempImageUrl) => Favorite(
-        id: trackId,
-        name: trackName,
-        type: type,
-        imageUrl: imageUrl ?? tempImageUrl,
-        artist: artistName ?? '',
-      );
+  // Favorite toFavorite(String tempImageUrl) => Favorite(
+  //       id: trackId,
+  //       name: trackName,
+  //       type: type,
+  //       imageUrl: imageUrl ?? tempImageUrl,
+  //       artist: artistName ?? '',
+  //     );
 
   Track copyWith({
     String? trackId,
@@ -135,7 +131,7 @@ class Track extends Equatable {
     String? artistName,
     int? trackNumber,
     TrackType? type,
-    String? imageUrl,
+    ImageObject? imageUrl,
     String? trackName,
     bool? isFavorite,
     int? durationMs,
@@ -156,14 +152,6 @@ class Track extends Equatable {
   @override
   List<Object?> get props => [
         trackId,
-        albumId,
-        artistName,
-        trackName,
-        trackNumber,
-        type,
-        imageUrl,
-        isFavorite,
-        durationMs,
       ];
 
   @override

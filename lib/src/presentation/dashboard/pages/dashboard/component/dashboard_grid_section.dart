@@ -25,7 +25,7 @@ class DashboardGridSection extends StatelessWidget {
           children: List.generate(categories.length, (index) {
             return CategoryTile(
               width: tileWidth,
-              imageSrc: categories[index].imageUrl ?? '',
+              imageSrc: categories[index].imageUrl?.imageUrl ?? '',
               title: categories[index].name,
               onTap: () {},
             );

@@ -1,15 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/local/entity/save_category_entity.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/category_response.dart';
 
 @immutable
 class Category extends Equatable {
   final String id;
   final String name;
-  final String? imageUrl;
+  final ImageObject? imageUrl;
   final String? artistName;
   final TrackType type;
 
@@ -21,30 +19,9 @@ class Category extends Equatable {
     required this.type,
   });
 
-  factory Category.fromCategoryDto(CategoryItem category) {
-    return Category(
-      id: category.id,
-      name: category.name,
-      imageUrl: category.icons.firstOrNull?.url,
-      artistName: null,
-      type: TrackType.category,
-    );
-  }
-
-  SaveCategoryEntity toSaveCategoryEntity() => SaveCategoryEntity(
-        title: name,
-        trackId: id,
-        imageUrl: imageUrl,
-        artistName: artistName,
-        type: type,
-      );
   @override
   List<Object?> get props => [
         id,
-        name,
-        imageUrl,
-        artistName,
-        type,
       ];
 
   @override
@@ -53,7 +30,7 @@ class Category extends Equatable {
   Category copyWith({
     String? id,
     String? name,
-    String? imageUrl,
+    ImageObject? imageUrl,
     String? artistName,
     TrackType? type,
   }) {
