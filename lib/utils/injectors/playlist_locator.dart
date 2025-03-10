@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:spookify_v2/src/application/paramaters/track_bloc_provider.dart';
 import 'package:spookify_v2/src/domain/repositories/playlist_repository.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/favorite_dao.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/save_category_dao.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/local/dao/track_dao.dart';
 import 'package:spookify_v2/src/application/state/cubit/player/player_cubit.dart';
-import 'package:spookify_v2/src/application/state/bloc/playlist/provider/provider.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track.dart';
 import 'package:spookify_v2/src/infrastructure/data_source/remote/service/playlist_service.dart';
 import 'package:spookify_v2/src/infrastructure/repository/playlist_repository_impl_v2.dart';

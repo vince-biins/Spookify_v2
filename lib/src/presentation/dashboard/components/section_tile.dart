@@ -6,7 +6,7 @@ class SectionTile extends StatelessWidget {
   final String title;
   final String imageUrl;
   final bool isRoundedImage;
-  final Function() onItemClicked;
+  final VoidCallback? onItemClicked;
   final double imageSize;
 
   const SectionTile({

@@ -5,7 +5,7 @@ import 'package:spookify_v2/src/application/paramaters/track_param.dart';
 import 'package:spookify_v2/utils/constants/destinations.dart';
 
 import 'package:spookify_v2/src/application/paramaters/track_id_provider.dart';
-import 'package:spookify_v2/src/application/state/bloc/playlist/provider/track_bloc_provider.dart';
+import 'package:spookify_v2/src/application/paramaters/track_bloc_provider.dart';
 import 'package:spookify_v2/src/application/state/bloc/playlist/track/track_bloc.dart';
 import 'package:spookify_v2/src/presentation/playlist/ui/ui.dart';
 import 'package:spookify_v2/utils/injectors/service_locator.dart';

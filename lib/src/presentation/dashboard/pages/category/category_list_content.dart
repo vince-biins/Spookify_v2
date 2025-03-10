@@ -56,28 +56,30 @@ class CategoryListContent extends StatelessWidget {
                   imageUrl: args[index].imageUrl!.imageUrl,
                   title: title,
                   isRoundedImage: args[index].type == TrackType.artist,
-                  onItemClicked: () async {
-                    Color dominantColor =
-                        await DominantColorHelper.getDominantColor(
-                      args[index].imageUrl!.imageUrl,
-                    );
+                  onItemClicked: args[index].type != TrackType.category
+                      ? () async {
+                          Color dominantColor =
+                              await DominantColorHelper.getDominantColor(
+                            args[index].imageUrl!.imageUrl,
+                          );
 
-                    final extra = TrackParam(
-                      id: args[index].id,
-                      imageUrl: args[index].imageUrl,
-                      artist: args[index].artist,
-                      title: args[index].name,
-                      type: args[index].type,
-                      color: dominantColor,
-                    );
+                          final extra = TrackParam(
+                            id: args[index].id,
+                            imageUrl: args[index].imageUrl,
+                            artist: args[index].artist,
+                            title: args[index].name,
+                            type: args[index].type,
+                            color: dominantColor,
+                          );
 
-                    if (context.mounted) {
-                      GoRouter.of(context).push(
-                        TrackDestination.track.pathUrl,
-                        extra: extra,
-                      );
-                    }
-                  },
+                          if (context.mounted) {
+                            GoRouter.of(context).push(
+                              TrackDestination.track.pathUrl,
+                              extra: extra,
+                            );
+                          }
+                        }
+                      : null,
                 );
               }),
             ),
