@@ -3,7 +3,6 @@ import 'package:spookify_v2/src/domain/models/entity/category.dart';
 import 'package:spookify_v2/src/domain/models/entity/downloads.dart';
 import 'package:spookify_v2/src/domain/models/value_object/image_object.dart';
 import 'package:spookify_v2/src/domain/resources/track_type.dart';
-import 'package:spookify_v2/src/infrastructure/data_source/remote/dto_model/icon_response.dart';
 import 'package:spookify_v2/utils/constants/constants.dart';
 
 @Entity(tableName: saveCategoryEntity)

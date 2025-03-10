@@ -29,6 +29,15 @@ class Album extends Equatable {
   //     artist: album.artists.map((item) => Artist.fromArtistDto(item)).toList(),
   //   );
   // }
+  // factory Album.fromAlbumDto(AlbumItem album) {
+  //   return Album(
+  //     id: album.id,
+  //     name: album.name,
+  //     type: TrackType.album,
+  //     imageUrl: album.images.firstOrNull?.url ?? '',
+  //     artist: album.artists.map((item) => Artist.fromArtistDto(item)).toList(),
+  //   );
+  // }
   @override
   List<Object?> get props => [
         id,
