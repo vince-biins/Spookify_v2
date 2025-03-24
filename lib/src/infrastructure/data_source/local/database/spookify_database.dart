@@ -13,7 +13,9 @@ import 'package:spookify_v2/src/infrastructure/data_source/local/dao/favorite_da
 part 'spookify_database.g.dart';
 
 @Database(
-    version: 1, entities: [FavoriteEntity, SaveCategoryEntity, TrackEntity])
+  version: 1,
+  entities: [FavoriteEntity, SaveCategoryEntity, TrackEntity],
+)
 abstract class SpookifyDatabase extends FloorDatabase {
   FavoriteDao get favoriteDao;
   SavedCategoryDao get savedCategoryDao;

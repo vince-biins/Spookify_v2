@@ -9,64 +9,66 @@ enum ElevatedButtonType {
 class SpookifyTheme {
   // Dark Theme
   static final darkTheme = ThemeData(
-      useMaterial3: true,
-      fontFamily: 'CircularSpotify',
+    useMaterial3: true,
+    fontFamily: 'CircularSpotify',
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: AppColors.background,
+    colorScheme: const ColorScheme(
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+      surface: AppColors.surface,
+      error: AppColors.error,
+      onPrimary: AppColors.onPrimary,
+      onSecondary: AppColors.onSecondary,
+      onSurface: AppColors.onSurface,
+      onError: AppColors.onError,
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppColors.background,
-      colorScheme: const ColorScheme(
-        primary: AppColors.primary,
-        secondary: AppColors.secondary,
-        surface: AppColors.surface,
-        error: AppColors.error,
-        onPrimary: AppColors.onPrimary,
-        onSecondary: AppColors.onSecondary,
-        onSurface: AppColors.onSurface,
-        onError: AppColors.onError,
-        brightness: Brightness.dark,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.background,
+      foregroundColor: AppColors.onSurface,
+      elevation: 0,
+      surfaceTintColor: AppColors.background,
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      selectedItemColor: AppColors.primary,
+      unselectedItemColor: AppColors.onSurface,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: elevatedButtonStyle(
+        backgroundColor: AppColors.primary,
+        textColor: AppColors.onPrimary,
       ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.background,
-        foregroundColor: AppColors.onSurface,
-        elevation: 0,
-        surfaceTintColor: AppColors.background,
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: outlinedButtonStyle(AppColors.secondary, AppColors.secondary),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: textButtonStyle(AppColors.primary),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.secondary,
+      iconColor: AppColors.background,
+      prefixIconColor: AppColors.background,
+      suffixIconColor: AppColors.background,
+      hintStyle: const TextStyle(color: AppColors.background),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: const BorderSide(color: AppColors.onSurface),
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.transparent,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.onSurface,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: const BorderSide(color: AppColors.onSurface),
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: elevatedButtonStyle(
-            backgroundColor: AppColors.primary, textColor: AppColors.onPrimary),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: const BorderSide(color: AppColors.background),
       ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: outlinedButtonStyle(AppColors.secondary, AppColors.secondary),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: textButtonStyle(AppColors.primary),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: AppColors.secondary,
-        iconColor: AppColors.background,
-        prefixIconColor: AppColors.background,
-        suffixIconColor: AppColors.background,
-        hintStyle: const TextStyle(color: AppColors.background),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(color: AppColors.onSurface),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(color: AppColors.onSurface),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(color: AppColors.background),
-        ),
-      ));
+    ),
+  );
 
   // Light Theme
   static final lightTheme = ThemeData(
@@ -98,7 +100,9 @@ class SpookifyTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: elevatedButtonStyle(
-          backgroundColor: AppColors.primary, textColor: AppColors.onPrimary),
+        backgroundColor: AppColors.primary,
+        textColor: AppColors.onPrimary,
+      ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: outlinedButtonStyle(AppColors.primary, AppColors.primary),

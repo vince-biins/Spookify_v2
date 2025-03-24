@@ -7,5 +7,7 @@ class ConnectivityState with _$ConnectivityState {
     required ConnectivityStatus status,
   }) = _ConnectivityState;
   factory ConnectivityState.initial() => const ConnectivityState(
-      isLoading: true, status: ConnectivityStatus.connected);
+        isLoading: true,
+        status: ConnectivityStatus.connected,
+      );
 }

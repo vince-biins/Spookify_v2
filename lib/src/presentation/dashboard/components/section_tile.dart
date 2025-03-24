@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spookify_v2/src/presentation/components/custom_loading_image_indicator.dart';
 import 'package:spookify_v2/src/presentation/components/image_network_error_handling.dart';
 
 class SectionTile extends StatelessWidget {
