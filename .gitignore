@@ -63,6 +63,7 @@ Thumbs.db
 
 # Sensitive environment files
 .env
+env.g.dart
 secrets/
 
 # Platform-specific files (iOS/Android)
