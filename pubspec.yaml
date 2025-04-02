@@ -12,6 +12,8 @@ dependencies:
   dartz: ^0.10.1
   dio: ^5.7.0
   either_dart: ^1.0.0
+  envied: ^1.1.1
+  envied_generator: ^1.1.1
   equatable: ^2.0.7
   floor: ^1.5.0
  
@@ -44,6 +46,7 @@ dev_dependencies:
   floor_generator: ^1.5.0
   single_import_generator: ^1.0.0
   flutter_launcher_icons: ^0.14.3
+  flutter_gen_runner: ^5.10.0
   
 flutter_native_splash:
   android: true
@@ -51,7 +54,15 @@ flutter_native_splash:
   color: "#FFFFFF"
   image: "assets/images/spookify_icon.png"
   
+flavorDimensions:
+  - environment
+flavors:
+    dev:
+      flavorName: development
 
+    prod:
+      flavorName: production
+   
 flutter:
   uses-material-design: true
   assets:
