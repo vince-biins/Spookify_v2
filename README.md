@@ -23,13 +23,6 @@ Key features include:
 
 ---
 
-## 📦 APK Download
-
-- ✅ [Download ARM64 (64-bit) APK](https://github.com/vince-biins/spookify/releases/download/v1.0.0/spookify_app-arm64-v8a-release.apk) — For most modern Android devices
-- ⚠️ [Download ARMv7 (32-bit) APK](https://github.com/vince-biins/spookify/releases/download/v1.0.0/spookify_app-armeabi-v7a-release.apk) — For older devices (optional)
-
----
-
 ## 🛠️ Tech Stack
 
 - Flutter 3.x
@@ -41,7 +34,7 @@ Key features include:
 
 ## 📥 Installation
 
-1. Download the APK file from the links above.
+1. Download the APK file from the release-notes.
 2. Transfer to your Android device.
 3. Tap the APK file to install (ensure "Install from unknown sources" is enabled).
 
