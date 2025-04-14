@@ -25,8 +25,8 @@ Key features include:
 
 ## 📦 APK Download
 
-- ✅ [Download ARM64 (64-bit) APK](https://github.com/your-username/spookify/releases/download/v1.0.0/app-arm64-v8a-release.apk) — For most modern Android devices
-- ⚠️ [Download ARMv7 (32-bit) APK](https://github.com/your-username/spookify/releases/download/v1.0.0/app-armeabi-v7a-release.apk) — For older devices (optional)
+- ✅ [Download ARM64 (64-bit) APK](https://github.com/vince-biins/spookify/releases/download/v1.0.0/spookify_app-arm64-v8a-release.apk) — For most modern Android devices
+- ⚠️ [Download ARMv7 (32-bit) APK](https://github.com/vince-biins/spookify/releases/download/v1.0.0/spookify_app-armeabi-v7a-release.apk) — For older devices (optional)
 
 ---
 
