@@ -16,11 +16,7 @@ Key features include:
 ## 📱 Screenshots
 
 ### Dashboard  
-![Dashboard](https://raw.githubusercontent.com/your-username/spookify/main/assets/screenshots/dashboard.png)
-
-### Favorites  
-![Favorites](https://raw.githubusercontent.com/your-username/spookify/main/assets/screenshots/favorites.png)
-
+![Dashboard](https://github.com/user-attachments/assets/6ced6bcd-71e9-4c82-82dd-f4382f55b133)
 ---
 
 ## 🛠️ Tech Stack
